@@ -1,0 +1,262 @@
+#include "HHMLSys/HHMLSys_EventSaver.h"
+
+//
+// Save branches in new Tree
+//
+
+//IMPORTANT. Please make sure to add only necessary branches.
+
+//--------------------------------------------------------------
+void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
+
+  //
+  // Add new Branches
+  //
+  
+  //Common
+  outTree->Branch("Event"        , &ntup.eventNumber);
+  outTree->Branch("RunNumber"    , &ntup.runNumber);
+  outTree->Branch("RunYear"      , &ntup.RunYear);
+
+  //MC weights of each channel
+  outTree->Branch("scale"        , &m_scale); //Sum of weighted events
+  outTree->Branch("weight_2l"    , &weight_2l);
+  outTree->Branch("weight_3l"    , &weight_3l);
+  outTree->Branch("weight_4l"    , &weight_4l);
+  outTree->Branch("weight_4lbb"  , &weight_4lbb);
+  outTree->Branch("weight_2l1tau", &weight_2l1tau);
+  outTree->Branch("weight_1l2tau", &weight_1l2tau);
+  outTree->Branch("weight_2l2tau", &weight_2l2tau);
+
+  //Booleans of each singal regions
+  outTree->Branch("is2Lep"     , &is2Lep);
+  outTree->Branch("is3Lep"     , &is3Lep);
+  outTree->Branch("is4Lep"     , &is4Lep);
+  outTree->Branch("is4Lepbb"   , &is4Lepbb);
+  outTree->Branch("is2Lep1Tau" , &is2Lep1Tau);
+  outTree->Branch("is1Lep2Tau" , &is1Lep2Tau);
+  outTree->Branch("is2Lep2Tau" , &is2Lep2Tau);
+
+  //BDT outputs of each channel
+  outTree->Branch("BDTOutput_2l"    , &BDTOutput_2l);
+  outTree->Branch("BDTOutput_3l"    , &BDTOutput_3l);
+  outTree->Branch("BDTOutput_4l"    , &BDTOutput_4l);
+  outTree->Branch("BDTOutput_4lbb"  , &BDTOutput_4lbb);
+  outTree->Branch("BDTOutput_2l1tau", &BDTOutput_2l1tau);
+  outTree->Branch("BDTOutput_1l2tau", &BDTOutput_1l2tau);
+  outTree->Branch("BDTOutput_2l2tau", &BDTOutput_2l2tau);
+
+  //BDT input variables + some kinematic vars.
+  //1l+2tau channel
+  outTree->Branch("Mtau0tau1"      , &ntup.Mtau0tau1);
+  outTree->Branch("DRlep0Lj"       , &ntup.DRlep0Lj);
+  outTree->Branch("DRlep0SLj"      , &ntup.DRlep0SLj);
+  outTree->Branch("minDR_LJ_0"     , &ntup.minDR_LJ_0);
+  outTree->Branch("DRtau0tau1lep0" , &ntup.DRtau0tau1lep0);
+  outTree->Branch("SumPttau0tau1"  , &ntup.SumPttau0tau1);
+  outTree->Branch("Mlep0tau0"      , &ntup.Mlep0tau0);
+  outTree->Branch("Mlep0tau1"      , &ntup.Mlep0tau1);
+  outTree->Branch("MLep0Jet"       , &ntup.MLep0Jet);
+  //2l+2tau channel
+  outTree->Branch("DRtau0tau1lep1" , &ntup.DRtau0tau1lep1);
+  outTree->Branch("MaxEtalep01"    , &ntup.MaxEtalep01);
+  outTree->Branch("DEtalep01"      , &ntup.DEtalep01);
+  outTree->Branch("lep_flavor"     , &ntup.lep_flavor);
+  outTree->Branch("Mlep1tau0tau1"  , &ntup.Mlep1tau0tau1);
+
+  //GN1 branches
+  outTree->Branch("MET"          , &ntup.met_met);
+  outTree->Branch("lep_ID_0"     , &ntup.lep_ID_0);
+  outTree->Branch("lep_Pt_0"     , &ntup.lep_Pt_0);
+  outTree->Branch("lep_ID_1"     , &ntup.lep_ID_1);
+  outTree->Branch("lep_Pt_1"     , &ntup.lep_Pt_1);
+  outTree->Branch("lep_ID_2"     , &ntup.lep_ID_2);
+  outTree->Branch("lep_Pt_2"     , &ntup.lep_Pt_2);
+  outTree->Branch("lep_ID_3"     , &ntup.lep_ID_3);
+  outTree->Branch("lep_Pt_3"     , &ntup.lep_Pt_3);
+  outTree->Branch("tau_pt_0"     , &ntup.tau_pt_0);
+  outTree->Branch("tau_charge_0" , &ntup.tau_charge_0);
+  outTree->Branch("tau_numTrack_0", &ntup.tau_numTrack_0);
+  outTree->Branch("tau_pt_1"     , &ntup.tau_pt_1);
+  outTree->Branch("tau_charge_1" , &ntup.tau_charge_1);
+  outTree->Branch("tau_numTrack_1", &ntup.tau_numTrack_1);
+  outTree->Branch("onelep_type"  , &ntup.onelep_type);
+  outTree->Branch("dilep_type"   , &ntup.dilep_type);
+  outTree->Branch("trilep_type"  , &ntup.trilep_type);
+  outTree->Branch("quadlep_type" , &ntup.quadlep_type);
+  outTree->Branch("total_leptons", &ntup.total_leptons);
+  outTree->Branch("Mll01"        , &ntup.Mll01);
+  outTree->Branch("Ptll01"       , &ntup.Ptll01);
+  outTree->Branch("DRll01"       , &ntup.DRll01);
+  outTree->Branch("nJets_OR"     , &ntup.nJets_OR);
+  outTree->Branch("nJets_OR_DL1r_77", ntup.nJets_OR_DL1r_77);
+  outTree->Branch("HT"           , &ntup.HT);
+  outTree->Branch("HT_lep"       , &ntup.HT_lep);
+  outTree->Branch("HT_jets"      , &ntup.HT_jets);
+  outTree->Branch("lead_jetPt"   , &ntup.lead_jetPt);
+  outTree->Branch("sublead_jetPt", &ntup.sublead_jetPt);
+  //outTree->Branch("" , &);
+  
+  //Systematic branches. REMOVE SOME UNNECESSARY BRANCHES LATER
+  outTree->Branch("tauSFRNNMedium_TAU_SF_NOMINAL", &ntup.tauSFRNNMedium_TAU_SF_NOMINAL); 
+  outTree->Branch("tauSFRNNLoose_TAU_SF_NOMINAL", &ntup.tauSFRNNLoose_TAU_SF_NOMINAL); 
+  outTree->Branch("tauSFRNNMedium_EFF_ELEOLR_TOTAL_UP", &ntup.tauSFRNNMedium_EFF_ELEOLR_TOTAL_UP);
+  outTree->Branch("tauSFRNNLoose_EFF_ELEOLR_TOTAL_UP", &ntup.tauSFRNNLoose_EFF_ELEOLR_TOTAL_UP); 
+  outTree->Branch("tauSFRNNMedium_EFF_ELEOLR_TOTAL_DOWN", &ntup.tauSFRNNMedium_EFF_ELEOLR_TOTAL_DOWN);
+  outTree->Branch("tauSFRNNLoose_EFF_ELEOLR_TOTAL_DOWN", &ntup.tauSFRNNLoose_EFF_ELEOLR_TOTAL_DOWN);
+  outTree->Branch("tauSFRNNMedium_ELE_EFF_ELEOLR_STAT_UP", &ntup.tauSFRNNMedium_ELE_EFF_ELEOLR_STAT_UP);
+  outTree->Branch("tauSFRNNLoose_ELE_EFF_ELEOLR_STAT_UP", &ntup.tauSFRNNLoose_ELE_EFF_ELEOLR_STAT_UP);
+  outTree->Branch("tauSFRNNMedium_ELE_EFF_ELEOLR_STAT_DOWN", &ntup.tauSFRNNMedium_ELE_EFF_ELEOLR_STAT_DOWN);
+  outTree->Branch("tauSFRNNLoose_ELE_EFF_ELEOLR_STAT_DOWN", &ntup.tauSFRNNLoose_ELE_EFF_ELEOLR_STAT_DOWN);
+  outTree->Branch("tauSFRNNMedium_ELE_EFF_ELEOLR_SYST_UP", &ntup.tauSFRNNMedium_ELE_EFF_ELEOLR_SYST_UP);
+  outTree->Branch("tauSFRNNLoose_ELE_EFF_ELEOLR_SYST_UP", &ntup.tauSFRNNLoose_ELE_EFF_ELEOLR_SYST_UP);
+  outTree->Branch("tauSFRNNMedium_ELE_EFF_ELEOLR_SYST_DOWN", &ntup.tauSFRNNMedium_ELE_EFF_ELEOLR_SYST_DOWN);
+  outTree->Branch("tauSFRNNLoose_ELE_EFF_ELEOLR_SYST_DOWN", &ntup.tauSFRNNLoose_ELE_EFF_ELEOLR_SYST_DOWN);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_1PRONGSTATSYSTPT2025_UP", &ntup.tauSFRNNMedium_EFF_RNNID_1PRONGSTATSYSTPT2025_UP);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_1PRONGSTATSYSTPT2025_UP", &ntup.tauSFRNNLoose_EFF_RNNID_1PRONGSTATSYSTPT2025_UP);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_1PRONGSTATSYSTPT2025_DOWN", &ntup.tauSFRNNMedium_EFF_RNNID_1PRONGSTATSYSTPT2025_DOWN);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_1PRONGSTATSYSTPT2025_DOWN", &ntup.tauSFRNNLoose_EFF_RNNID_1PRONGSTATSYSTPT2025_DOWN);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_1PRONGSTATSYSTPT2530_UP", &ntup.tauSFRNNMedium_EFF_RNNID_1PRONGSTATSYSTPT2530_UP);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_1PRONGSTATSYSTPT2530_UP", &ntup.tauSFRNNLoose_EFF_RNNID_1PRONGSTATSYSTPT2530_UP);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_1PRONGSTATSYSTPT2530_DOWN", &ntup.tauSFRNNMedium_EFF_RNNID_1PRONGSTATSYSTPT2530_DOWN);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_1PRONGSTATSYSTPT2530_DOWN", &ntup.tauSFRNNLoose_EFF_RNNID_1PRONGSTATSYSTPT2530_DOWN);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_1PRONGSTATSYSTPT3040_UP", &ntup.tauSFRNNMedium_EFF_RNNID_1PRONGSTATSYSTPT3040_UP);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_1PRONGSTATSYSTPT3040_UP", &ntup.tauSFRNNLoose_EFF_RNNID_1PRONGSTATSYSTPT3040_UP);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_1PRONGSTATSYSTPT3040_DOWN", &ntup.tauSFRNNMedium_EFF_RNNID_1PRONGSTATSYSTPT3040_DOWN);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_1PRONGSTATSYSTPT3040_DOWN", &ntup.tauSFRNNLoose_EFF_RNNID_1PRONGSTATSYSTPT3040_DOWN);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_1PRONGSTATSYSTPTGE40_UP", &ntup.tauSFRNNMedium_EFF_RNNID_1PRONGSTATSYSTPTGE40_UP);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_1PRONGSTATSYSTPTGE40_UP", &ntup.tauSFRNNLoose_EFF_RNNID_1PRONGSTATSYSTPTGE40_UP);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_1PRONGSTATSYSTPTGE40_DOWN", &ntup.tauSFRNNMedium_EFF_RNNID_1PRONGSTATSYSTPTGE40_DOWN);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_1PRONGSTATSYSTPTGE40_DOWN", &ntup.tauSFRNNLoose_EFF_RNNID_1PRONGSTATSYSTPTGE40_DOWN);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_3PRONGSTATSYSTPT2025_UP", &ntup.tauSFRNNMedium_EFF_RNNID_3PRONGSTATSYSTPT2025_UP);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_3PRONGSTATSYSTPT2025_UP", &ntup.tauSFRNNLoose_EFF_RNNID_3PRONGSTATSYSTPT2025_UP);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_3PRONGSTATSYSTPT2025_DOWN", &ntup.tauSFRNNMedium_EFF_RNNID_3PRONGSTATSYSTPT2025_DOWN);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_3PRONGSTATSYSTPT2025_DOWN", &ntup.tauSFRNNLoose_EFF_RNNID_3PRONGSTATSYSTPT2025_DOWN);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_3PRONGSTATSYSTPT2530_UP", &ntup.tauSFRNNMedium_EFF_RNNID_3PRONGSTATSYSTPT2530_UP);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_3PRONGSTATSYSTPT2530_UP", &ntup.tauSFRNNLoose_EFF_RNNID_3PRONGSTATSYSTPT2530_UP);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_3PRONGSTATSYSTPT2530_DOWN", &ntup.tauSFRNNMedium_EFF_RNNID_3PRONGSTATSYSTPT2530_DOWN);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_3PRONGSTATSYSTPT2530_DOWN", &ntup.tauSFRNNLoose_EFF_RNNID_3PRONGSTATSYSTPT2530_DOWN);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_3PRONGSTATSYSTPT3040_UP", &ntup.tauSFRNNMedium_EFF_RNNID_3PRONGSTATSYSTPT3040_UP);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_3PRONGSTATSYSTPT3040_UP", &ntup.tauSFRNNLoose_EFF_RNNID_3PRONGSTATSYSTPT3040_UP);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_3PRONGSTATSYSTPT3040_DOWN", &ntup.tauSFRNNMedium_EFF_RNNID_3PRONGSTATSYSTPT3040_DOWN);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_3PRONGSTATSYSTPT3040_DOWN", &ntup.tauSFRNNLoose_EFF_RNNID_3PRONGSTATSYSTPT3040_DOWN);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_3PRONGSTATSYSTPTGE40_UP", &ntup.tauSFRNNMedium_EFF_RNNID_3PRONGSTATSYSTPTGE40_UP);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_3PRONGSTATSYSTPTGE40_UP", &ntup.tauSFRNNLoose_EFF_RNNID_3PRONGSTATSYSTPTGE40_UP);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_3PRONGSTATSYSTPTGE40_DOWN", &ntup.tauSFRNNMedium_EFF_RNNID_3PRONGSTATSYSTPTGE40_DOWN);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_3PRONGSTATSYSTPTGE40_DOWN", &ntup.tauSFRNNLoose_EFF_RNNID_3PRONGSTATSYSTPTGE40_DOWN);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_HIGHPT_UP", &ntup.tauSFRNNMedium_EFF_RNNID_HIGHPT_UP);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_HIGHPT_UP", &ntup.tauSFRNNLoose_EFF_RNNID_HIGHPT_UP);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_HIGHPT_DOWN", &ntup.tauSFRNNMedium_EFF_RNNID_HIGHPT_DOWN);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_HIGHPT_DOWN", &ntup.tauSFRNNLoose_EFF_RNNID_HIGHPT_DOWN);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_SYST_UP", &ntup.tauSFRNNMedium_EFF_RNNID_SYST_UP);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_SYST_UP", &ntup.tauSFRNNLoose_EFF_RNNID_SYST_UP);
+  outTree->Branch("tauSFRNNMedium_EFF_RNNID_SYST_DOWN", &ntup.tauSFRNNMedium_EFF_RNNID_SYST_DOWN);
+  outTree->Branch("tauSFRNNLoose_EFF_RNNID_SYST_DOWN", &ntup.tauSFRNNLoose_EFF_RNNID_SYST_DOWN);
+  outTree->Branch("tauSFRNNMedium_EFF_RECO_TOTAL_UP", &ntup.tauSFRNNMedium_EFF_RECO_TOTAL_UP);
+  outTree->Branch("tauSFRNNLoose_EFF_RECO_TOTAL_UP", &ntup.tauSFRNNLoose_EFF_RECO_TOTAL_UP);
+  outTree->Branch("tauSFRNNMedium_EFF_RECO_TOTAL_DOWN", &ntup.tauSFRNNMedium_EFF_RECO_TOTAL_DOWN);
+  outTree->Branch("tauSFRNNLoose_EFF_RECO_TOTAL_DOWN", &ntup.tauSFRNNLoose_EFF_RECO_TOTAL_DOWN);
+  if(setNom) {
+    outTree->Branch("weight_pileup_UP", &ntup.weight_pileup_UP);
+    outTree->Branch("weight_pileup_DOWN", &ntup.weight_pileup_DOWN);
+    outTree->Branch("jvtSF_customOR__1up", &ntup.jvtSF_customOR__1up);
+    outTree->Branch("jvtSF_customOR__1down", &ntup.jvtSF_customOR__1down);
+    outTree->Branch("lepSF_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_STAT_UP_AT", &ntup.lepSF_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_STAT_UP_AT);
+    outTree->Branch("lepSF_SF_El_ChargeMisID_TightLH_FCLoose_STAT_UP_AT", &ntup.lepSF_SF_El_ChargeMisID_TightLH_FCLoose_STAT_UP_AT);
+    outTree->Branch("lepSF_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_STAT_DOWN_AT", &ntup.lepSF_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_STAT_DOWN_AT);
+    outTree->Branch("lepSF_SF_El_ChargeMisID_TightLH_FCLoose_STAT_DOWN_AT", &ntup.lepSF_SF_El_ChargeMisID_TightLH_FCLoose_STAT_DOWN_AT);
+    outTree->Branch("lepSF_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_SYST_UP_AT", &ntup.lepSF_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_SYST_UP_AT);
+    outTree->Branch("lepSF_SF_El_ChargeMisID_TightLH_FCLoose_SYST_UP_AT", &ntup.lepSF_SF_El_ChargeMisID_TightLH_FCLoose_SYST_UP_AT);
+    outTree->Branch("lepSF_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_SYST_DOWN_AT", &ntup.lepSF_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_SYST_DOWN_AT);
+    outTree->Branch("lepSF_SF_El_ChargeMisID_TightLH_FCLoose_SYST_DOWN_AT", &ntup.lepSF_SF_El_ChargeMisID_TightLH_FCLoose_SYST_DOWN_AT);
+    outTree->Branch("lepSF_SF_El_Reco_UP_AT", &ntup.lepSF_SF_El_Reco_UP_AT);
+    outTree->Branch("lepSF_SF_El_Reco_DOWN_AT", &ntup.lepSF_SF_El_Reco_DOWN_AT);
+    outTree->Branch("lepSF_SF_El_ID_LooseAndBLayerLH_UP_AT", &ntup.lepSF_SF_El_ID_LooseAndBLayerLH_UP_AT);
+    outTree->Branch("lepSF_SF_El_ID_TightLH_UP_AT", &ntup.lepSF_SF_El_ID_TightLH_UP_AT);
+    outTree->Branch("lepSF_SF_El_ID_LooseAndBLayerLH_DOWN_AT", &ntup.lepSF_SF_El_ID_LooseAndBLayerLH_DOWN_AT);
+    outTree->Branch("lepSF_SF_El_ID_TightLH_DOWN_AT", &ntup.lepSF_SF_El_ID_TightLH_DOWN_AT);
+    outTree->Branch("lepSF_SF_El_Iso_FCLoose_UP_AT", &ntup.lepSF_SF_El_Iso_FCLoose_UP_AT);
+    outTree->Branch("lepSF_SF_El_Iso_FCLoose_DOWN_AT", &ntup.lepSF_SF_El_Iso_FCLoose_DOWN_AT);
+    outTree->Branch("lepSF_SF_El_PLVLoose_UP_AT", &ntup.lepSF_SF_El_PLVLoose_UP_AT);
+    outTree->Branch("lepSF_SF_El_PLVLoose_DOWN_AT", &ntup.lepSF_SF_El_PLVLoose_DOWN_AT);
+    outTree->Branch("lepSF_SF_El_PLVTight_UP_AT", &ntup.lepSF_SF_El_PLVTight_UP_AT);
+    outTree->Branch("lepSF_SF_El_PLVTight_DOWN_AT", &ntup.lepSF_SF_El_PLVTight_DOWN_AT);
+    outTree->Branch("lepSF_SF_Mu_TTVA_STAT_UP_AT", &ntup.lepSF_SF_Mu_TTVA_STAT_UP_AT);
+    outTree->Branch("lepSF_SF_Mu_TTVA_STAT_DOWN_AT", &ntup.lepSF_SF_Mu_TTVA_STAT_DOWN_AT);
+    outTree->Branch("lepSF_SF_Mu_TTVA_SYST_UP_AT", &ntup.lepSF_SF_Mu_TTVA_SYST_UP_AT);
+    outTree->Branch("lepSF_SF_Mu_TTVA_SYST_DOWN_AT", &ntup.lepSF_SF_Mu_TTVA_SYST_DOWN_AT);
+    outTree->Branch("lepSF_SF_Mu_ID_Loose_STAT_UP_AT", &ntup.lepSF_SF_Mu_ID_Loose_STAT_UP_AT);
+    outTree->Branch("lepSF_SF_Mu_ID_Medium_STAT_UP_AT", &ntup.lepSF_SF_Mu_ID_Medium_STAT_UP_AT);
+    outTree->Branch("lepSF_SF_Mu_ID_Loose_STAT_DOWN_AT", &ntup.lepSF_SF_Mu_ID_Loose_STAT_DOWN_AT);
+    outTree->Branch("lepSF_SF_Mu_ID_Medium_STAT_DOWN_AT", &ntup.lepSF_SF_Mu_ID_Medium_STAT_DOWN_AT);
+    outTree->Branch("lepSF_SF_Mu_ID_Loose_SYST_UP_AT", &ntup.lepSF_SF_Mu_ID_Loose_SYST_UP_AT);
+    outTree->Branch("lepSF_SF_Mu_ID_Medium_SYST_UP_AT", &ntup.lepSF_SF_Mu_ID_Medium_SYST_UP_AT);
+    outTree->Branch("lepSF_SF_Mu_ID_Loose_SYST_DOWN_AT", &ntup.lepSF_SF_Mu_ID_Loose_SYST_DOWN_AT);
+    outTree->Branch("lepSF_SF_Mu_ID_Medium_SYST_DOWN_AT", &ntup.lepSF_SF_Mu_ID_Medium_SYST_DOWN_AT);
+    outTree->Branch("lepSF_SF_Mu_ID_Loose_STAT_LOWPT_UP_AT", &ntup.lepSF_SF_Mu_ID_Loose_STAT_LOWPT_UP_AT);
+    outTree->Branch("lepSF_SF_Mu_ID_Medium_STAT_LOWPT_UP_AT", &ntup.lepSF_SF_Mu_ID_Medium_STAT_LOWPT_UP_AT);
+    outTree->Branch("lepSF_SF_Mu_ID_Loose_STAT_LOWPT_DOWN_AT", &ntup.lepSF_SF_Mu_ID_Loose_STAT_LOWPT_DOWN_AT);
+    outTree->Branch("lepSF_SF_Mu_ID_Medium_STAT_LOWPT_DOWN_AT", &ntup.lepSF_SF_Mu_ID_Medium_STAT_LOWPT_DOWN_AT);
+    outTree->Branch("lepSF_SF_Mu_ID_Loose_SYST_LOWPT_UP_AT", &ntup.lepSF_SF_Mu_ID_Loose_SYST_LOWPT_UP_AT);
+    outTree->Branch("lepSF_SF_Mu_ID_Medium_SYST_LOWPT_UP_AT", &ntup.lepSF_SF_Mu_ID_Medium_SYST_LOWPT_UP_AT);
+    outTree->Branch("lepSF_SF_Mu_ID_Loose_SYST_LOWPT_DOWN_AT", &ntup.lepSF_SF_Mu_ID_Loose_SYST_LOWPT_DOWN_AT);
+    outTree->Branch("lepSF_SF_Mu_ID_Medium_SYST_LOWPT_DOWN_AT", &ntup.lepSF_SF_Mu_ID_Medium_SYST_LOWPT_DOWN_AT);
+    outTree->Branch("lepSF_SF_Mu_Iso_FCLoose_SYST_UP_AT", &ntup.lepSF_SF_Mu_Iso_FCLoose_SYST_UP_AT);
+    outTree->Branch("lepSF_SF_Mu_Iso_FCLoose_SYST_DOWN_AT", &ntup.lepSF_SF_Mu_Iso_FCLoose_SYST_DOWN_AT);
+    outTree->Branch("lepSF_SF_Mu_Iso_FCLoose_STAT_UP_AT", &ntup.lepSF_SF_Mu_Iso_FCLoose_STAT_UP_AT);
+    outTree->Branch("lepSF_SF_Mu_Iso_FCLoose_STAT_DOWN_ATSF_Mu_PLVLoose_UP_AT", &ntup.lepSF_SF_Mu_Iso_FCLoose_STAT_DOWN_ATSF_Mu_PLVLoose_UP_AT);
+    outTree->Branch("lepSF_SF_Mu_PLVLoose_DOWN_AT", &ntup.lepSF_SF_Mu_PLVLoose_DOWN_AT);
+    outTree->Branch("lepSF_SF_Mu_PLVTight_UP_AT", &ntup.lepSF_SF_Mu_PLVTight_UP_AT);
+    outTree->Branch("lepSF_SF_Mu_PLVTight_DOWN_AT", &ntup.lepSF_SF_Mu_PLVTight_DOWN_AT);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_0__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_0__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_0__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_0__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_1__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_1__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_1__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_1__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_2__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_2__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_2__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_2__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_3__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_3__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_3__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_3__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_4__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_4__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_4__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_4__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_5__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_5__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_5__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_5__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_6__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_6__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_6__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_6__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_7__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_7__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_7__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_7__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_8__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_8__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_8__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_B_8__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_C_0__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_C_0__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_C_0__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_C_0__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_C_1__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_C_1__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_C_1__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_C_1__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_C_2__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_C_2__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_C_2__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_C_2__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_C_3__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_C_3__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_C_3__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_C_3__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_Light_0__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_Light_0__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_Light_0__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_Light_0__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_Light_1__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_Light_1__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_Light_1__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_Light_1__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_Light_2__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_Light_2__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_Light_2__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_Light_2__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_Light_3__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_Light_3__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_Eigen_Light_3__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_Eigen_Light_3__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_extrapolation__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_extrapolation__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_extrapolation__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_extrapolation__1up);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_extrapolation_from_charm__1down", &ntup.bTagSF_weight_DL1r_77_FT_EFF_extrapolation_from_charm__1down);
+    outTree->Branch("bTagSF_weight_DL1r_77_FT_EFF_extrapolation_from_charm__1up", &ntup.bTagSF_weight_DL1r_77_FT_EFF_extrapolation_from_charm__1up);
+    outTree->Branch("custTrigSF_TightElMediumMuID_FCLooseIso_SLTorDLT_EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR__1up", &ntup.custTrigSF_TightElMediumMuID_FCLooseIso_SLTorDLT_EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR__1up);
+    outTree->Branch("custTrigSF_TightElMediumMuID_FCLooseIso_SLTorDLT_EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR__1down", &ntup.custTrigSF_TightElMediumMuID_FCLooseIso_SLTorDLT_EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR__1down);
+    outTree->Branch("custTrigSF_TightElMediumMuID_FCLooseIso_SLTorDLT_MUON_EFF_TrigStatUncertainty__1up", &ntup.custTrigSF_TightElMediumMuID_FCLooseIso_SLTorDLT_MUON_EFF_TrigStatUncertainty__1up);
+    outTree->Branch("custTrigSF_TightElMediumMuID_FCLooseIso_SLTorDLT_MUON_EFF_TrigStatUncertainty__1down", &ntup.custTrigSF_TightElMediumMuID_FCLooseIso_SLTorDLT_MUON_EFF_TrigStatUncertainty__1down);
+    outTree->Branch("custTrigSF_TightElMediumMuID_FCLooseIso_SLTorDLT_MUON_EFF_TrigSystUncertainty__1up", &ntup.custTrigSF_TightElMediumMuID_FCLooseIso_SLTorDLT_MUON_EFF_TrigSystUncertainty__1up);
+    outTree->Branch("custTrigSF_TightElMediumMuID_FCLooseIso_SLTorDLT_MUON_EFF_TrigSystUncertainty__1down", &ntup.custTrigSF_TightElMediumMuID_FCLooseIso_SLTorDLT_MUON_EFF_TrigSystUncertainty__1down);
+    outTree->Branch("custTrigSF_TightElMediumMuID_FCLooseIso_DLT_EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR__1up", &ntup.custTrigSF_TightElMediumMuID_FCLooseIso_DLT_EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR__1up);
+    outTree->Branch("custTrigSF_TightElMediumMuID_FCLooseIso_DLT_EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR__1down", &ntup.custTrigSF_TightElMediumMuID_FCLooseIso_DLT_EL_EFF_Trigger_TOTAL_1NPCOR_PLUS_UNCOR__1down);
+    outTree->Branch("custTrigSF_TightElMediumMuID_FCLooseIso_DLT_MUON_EFF_TrigStatUncertainty__1up", &ntup.custTrigSF_TightElMediumMuID_FCLooseIso_DLT_MUON_EFF_TrigStatUncertainty__1up);
+    outTree->Branch("custTrigSF_TightElMediumMuID_FCLooseIso_DLT_MUON_EFF_TrigStatUncertainty__1down", &ntup.custTrigSF_TightElMediumMuID_FCLooseIso_DLT_MUON_EFF_TrigStatUncertainty__1down);
+    outTree->Branch("custTrigSF_TightElMediumMuID_FCLooseIso_DLT_MUON_EFF_TrigSystUncertainty__1up", &ntup.custTrigSF_TightElMediumMuID_FCLooseIso_DLT_MUON_EFF_TrigSystUncertainty__1up);
+    outTree->Branch("custTrigSF_TightElMediumMuID_FCLooseIso_DLT_MUON_EFF_TrigSystUncertainty__1down", &ntup.custTrigSF_TightElMediumMuID_FCLooseIso_DLT_MUON_EFF_TrigSystUncertainty__1down);
+  }
+}
