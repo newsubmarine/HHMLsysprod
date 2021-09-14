@@ -53,7 +53,7 @@ PATH/TO/INPUT/ROOT/FILE: The complete path to input systematic ntuple. Usually t
 PATH/TO/SAVE/OUTPUT/FILE: The complete path where you want to save the output root file.
 mc16a (d or e): Select the mc campaign corresponds to the input root file. Either mc16a or mc16d or mc16e.
 ```
-In case you want to run over few number of events. Use the option ```bash --me 1000 or any number```.
+In case you want to run over few number of events. Use the option ```--me 1000 or any number```.
 
 Here is the complete list of options
 ```bash
