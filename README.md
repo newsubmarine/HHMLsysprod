@@ -19,6 +19,7 @@ Cloning the repository
 Login to lxplus and start with a new directory.
 
 ```bash
+setupATLAS
 mkdir YourFancyDir
 cd YourFancyDir
 mkdir build run
@@ -29,6 +30,7 @@ Building the code using CMake
 ----------------------
 ```bash
 cd build
+asetup 21.2.182,AnalysisBase
 cmake ../hhmlsysprod
 make
 source x86_64-centos7-gcc8-opt/setup.sh
