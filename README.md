@@ -20,9 +20,12 @@ Login to lxplus and start with a new directory.
 
 ```bash
 <<<<<<< HEAD
+<<<<<<< HEAD
 setupATLAS
 =======
 >>>>>>> firstSetup
+=======
+>>>>>>> ce8f45036c179cfc933f53eb596acef7afd35f94
 mkdir YourFancyDir
 cd YourFancyDir
 mkdir build run
@@ -34,9 +37,12 @@ Building the code using CMake
 ```bash
 cd build
 <<<<<<< HEAD
+<<<<<<< HEAD
 asetup 21.2.182,AnalysisBase
 =======
 >>>>>>> firstSetup
+=======
+>>>>>>> ce8f45036c179cfc933f53eb596acef7afd35f94
 cmake ../hhmlsysprod
 make
 source x86_64-centos7-gcc8-opt/setup.sh
