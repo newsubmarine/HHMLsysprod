@@ -137,6 +137,9 @@ StatusCode HHMLSys_MVA::BookMVA_2l1tau(const string& xmlFile) {
   reader_2l1tau->AddVariable("p_sumPtleptauAll_Ptjet", &BDTG_RSumPtlep01tau0Jets);  
   reader_2l1tau->AddVariable("p_invMl2j1j2"          , &BDTG_Mlep2LjSLj);  
 
+  int EventNo2;
+  reader_2l1tau->AddSpectator("p_Event_No2", &EventNo2);
+
   reader_2l1tau->BookMVA("BDTG", xmlFile);
   
   return sc;
