@@ -100,6 +100,49 @@ StatusCode HHMLSys_MVA::BookMVA_2l2tau(const string& xmlEvenFile, const string& 
 }
 
 //-----------------------------------------------------------------------------------
+StatusCode HHMLSys_MVA::BookMVA_2l1tau(const string& xmlFile) {
+
+  StatusCode sc = StatusCode::SUCCESS;
+
+  if(xmlFile == "") {
+    ATH_MSG_FATAL("No weight xml file to read!");
+    return StatusCode::FAILURE;
+  }
+
+  if(xmlFile != "" and xmlFile.find(".xml") != std::string::npos) {
+    ATH_MSG_INFO("Reading weight xml file ");
+  }
+  else {
+    ATH_MSG_FATAL("Unable to read weight xml file!!");
+    return StatusCode::FAILURE;
+  }
+
+  if(sc.isFailure()) return StatusCode::FAILURE;
+  
+  TMVA::Tools::Instance();
+  
+  reader_2l1tau = new TMVA::Reader( "!Color:!Silent" );
+  
+  reader_2l1tau->AddVariable("tau_pt_0"              , &BDTG_tau_pt_0); 
+  reader_2l1tau->AddVariable("p_DR_l1_l2"            , &BDTG_DRlep0lep1); 
+  reader_2l1tau->AddVariable("p_Dphi_l1_j1"          , &BDTG_DPhilep0Lj); 
+  reader_2l1tau->AddVariable("p_DR_l1_j1"            , &BDTG_DRl0Lj); 
+  reader_2l1tau->AddVariable("p_DR_l2_j1"            , &BDTG_DRlep1Lj); 
+  reader_2l1tau->AddVariable("p_invMass_l1_j1"       , &BDTG_Mlep0Lj); 
+  reader_2l1tau->AddVariable("p_invMass_l2_j1"       , &BDTG_Mlep1Lj); 
+  reader_2l1tau->AddVariable("p_drCloserLepToTau"    , &BDTG_minDRLepTau0); 
+  reader_2l1tau->AddVariable("p_invMCloserLepToTau"  , &BDTG_MCloserLepTau0); 
+  reader_2l1tau->AddVariable("p_drCloserJetToLeadLep", &BDTG_minDRlep0Jet);
+  reader_2l1tau->AddVariable("p_drFarestJetToLeadLep", &BDTG_farDRlep0Jet);  
+  reader_2l1tau->AddVariable("p_sumPtleptauAll_Ptjet", &BDTG_RSumPtlep01tau0Jets);  
+  reader_2l1tau->AddVariable("p_invMl2j1j2"          , &BDTG_Mlep2LjSLj);  
+
+  reader_2l1tau->BookMVA("BDTG", xmlFile);
+  
+  return sc;
+}
+
+//-----------------------------------------------------------------------------------
 float HHMLSys_MVA::EvaluateMVA_1l2tau(const HHMLSys_Ntuple& ntup) {
 
   float BDTG_weight = -99;
@@ -160,6 +203,30 @@ float HHMLSys_MVA::EvaluateMVA_2l2tau(const HHMLSys_Ntuple& ntup) {
   else {
     BDTG_weight = reader_2l2tau->EvaluateMVA("BDTG method odd");
   }
+  
+  return BDTG_weight;
+}
+
+//-----------------------------------------------------------------------------------
+float HHMLSys_MVA::EvaluateMVA_2l1tau(const HHMLSys_Ntuple& ntup) {
+
+  float BDTG_weight = -99;
+
+  BDTG_tau_pt_0       = ntup.tau_pt_0;
+  BDTG_DRlep0lep1     = ntup.DRlep0lep1;
+  BDTG_DRl0Lj         = ntup.DRl0Lj;
+  BDTG_DRlep1Lj       = ntup.DRlep1Lj;
+  BDTG_DPhilep0Lj     = ntup.DPhilep0Lj;
+  BDTG_Mlep0Lj        = ntup.Mlep0Lj; 
+  BDTG_Mlep1Lj        = ntup.Mlep1Lj;
+  BDTG_Mlep2LjSLj     = ntup.Mlep2LjSLj;
+  BDTG_minDRlep0Jet   = ntup.minDRlep0Jet;
+  BDTG_farDRlep0Jet   = ntup.farDRlep0Jet;
+  BDTG_minDRLepTau0   = ntup.minDRLepTau0;
+  BDTG_MCloserLepTau0 = ntup.MCloserLepTau0;
+  BDTG_RSumPtlep01tau0Jets = ntup.RSumPtlep01tau0Jets;
+
+  BDTG_weight = reader_2l1tau->EvaluateMVA("BDTG");
   
   return BDTG_weight;
 }

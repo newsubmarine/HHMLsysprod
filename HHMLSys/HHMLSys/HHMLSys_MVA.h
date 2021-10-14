@@ -53,18 +53,22 @@ class HHMLSys_MVA: public asg::AsgMessaging
   
   StatusCode BookMVA_1l2tau(const std::string& xmlEvenFile, const std::string& xmlOddFile);
   StatusCode BookMVA_2l2tau(const std::string& xmlEvenFile, const std::string& xmlOddFile);
+  StatusCode BookMVA_2l1tau(const std::string& xmlFile);
   
   float EvaluateMVA_1l2tau(const HHMLSys_Ntuple& ntup);
   float EvaluateMVA_2l2tau(const HHMLSys_Ntuple& ntup);
+  float EvaluateMVA_2l1tau(const HHMLSys_Ntuple& ntup);
   
  private:
 
   TMVA::Reader *reader_1l2tau;
   TMVA::Reader *reader_2l2tau;
+  TMVA::Reader *reader_2l1tau;
   
   StatusCode CheckXMLFiles(const std::string& xmlEvenFile, const std::string& xmlOddFile);
 
   //Declaration of BDT input vars.
+  //1l+2tau & 2l+2tau channels
   Float_t BDTG_Mtau0tau1;
   Float_t BDTG_DRlep0Lj;
   Float_t BDTG_DRlep0SLj;
@@ -85,6 +89,19 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_tau_pt_1;
   Float_t BDTG_Mll01;
   Float_t BDTG_DRll01;
+  //2lSS+1tau
+  Float_t BDTG_DRlep0lep1;
+  Float_t BDTG_DRl0Lj;
+  Float_t BDTG_DRlep1Lj;
+  Float_t BDTG_DPhilep0Lj;
+  Float_t BDTG_Mlep0Lj;
+  Float_t BDTG_Mlep1Lj;
+  Float_t BDTG_Mlep2LjSLj;
+  Float_t BDTG_minDRlep0Jet;
+  Float_t BDTG_farDRlep0Jet;
+  Float_t BDTG_minDRLepTau0;
+  Float_t BDTG_MCloserLepTau0;
+  Float_t BDTG_RSumPtlep01tau0Jets;
 };
 
 #endif

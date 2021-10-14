@@ -110,8 +110,7 @@ class HHMLSys_Base: public asg::AsgMessaging {
   //2l+1tau
   bool m_do_2l1tauSR = false;
   bool m_do_2l1tauMVA = false;
-  std::string m_2l1tau_BDTGOddxmlFile  = "";
-  std::string m_2l1tau_BDTGEvenxmlFile = "";
+  std::string m_2l1tau_BDTGxmlFile = "";
 
   //1l+2tau
   bool m_do_1l2tauSR  = false;

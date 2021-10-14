@@ -64,8 +64,7 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   Config(m_do_2l1tauSR,  "do_2l1tauSR" , rEnv);
   Config(m_do_2l1tauMVA, "do_2l1tauMVA", rEnv);
 
-  Config(m_2l1tau_BDTGEvenxmlFile, "2l1tau_BDTGEvenxmlFile", rEnv);
-  Config(m_2l1tau_BDTGOddxmlFile , "2l1tau_BDTGOddxmlFile" , rEnv);
+  Config(m_2l1tau_BDTGxmlFile, "2l1tau_BDTGxmlFile", rEnv);
 
   //1l+2tau
   Config(m_do_1l2tauSR  , "do_1l2tauSR" , rEnv);
@@ -132,6 +131,7 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   //Book MVA's
   if(m_do_1l2tauMVA) sc = mva.BookMVA_1l2tau(m_1l2tau_BDTGEvenxmlFile, m_1l2tau_BDTGOddxmlFile);
   if(m_do_2l2tauMVA) sc = mva.BookMVA_2l2tau(m_2l2tau_BDTGEvenxmlFile, m_2l2tau_BDTGOddxmlFile);
+  if(m_do_2l1tauMVA) sc = mva.BookMVA_2l1tau(m_2l1tau_BDTGxmlFile);
 
   //
   //Create the output root file
