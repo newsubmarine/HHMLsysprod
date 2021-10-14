@@ -104,7 +104,10 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   //
   // Helper Functions
   //
-  
+
+  float DeltaPhi(float Phi1, float Phi2);
+  float DeltaR(float DEta, float DPhi);
+
   //Tight single lepton selection cuts
   bool Tight1LepCuts();
   

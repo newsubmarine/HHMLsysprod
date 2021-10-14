@@ -115,11 +115,11 @@ void HHMLSys_EventSaver::SR2l1TauSelection() {
   if( !Tight2LepCFCuts() ) return;
   if( !LepTrigMatch("SLTorDLT") ) return;
   if( !isSSPair() ) return;
-  if( !DiLepPtCuts(15, 15) ) return;
+  if( !DiLepPtCuts(20, 20) ) return;
   if( !(ntup.nTaus_OR_Pt25_RNN == 1) ) return;
-  if( !OneTauCuts("Base") ) return;
+  if( !OneTauCuts("Med") ) return;
   if( !isTauOSToLep() ) return;
-  //if( !OneTauPtCut(30) ) return;
+  if( !OneTauPtCut(30) ) return;
   //if( !ZVeto("2lep") ) return; 
   if( !JetCut(2) ) return;
   if( !BJetVeto() ) return;
@@ -129,7 +129,7 @@ void HHMLSys_EventSaver::SR2l1TauSelection() {
   weight_2l1tau = getMCweight("2l1tau");
 
   //Get 2l+1tau BDT
-  if(m_do_2l1tauMVA) BDTOutput_2l1tau = 1;
+  if(m_do_2l1tauMVA) BDTOutput_2l1tau = mva.EvaluateMVA_2l1tau(ntup);
 }
 
 //1l+2tau channel
@@ -144,12 +144,10 @@ void HHMLSys_EventSaver::SR1l2TauSelection() {
 
   if( ntup.onelep_type == 0 ) return;
   if( !(ntup.GlobalTrigDecision > 0) ) return;
-  //if( !OneLepPtCut() ) return;
   if( !Tight1LepCuts() ) return;
   if( !LepTrigMatch("SLT") ) return;
   if( !(ntup.nTaus_OR_Pt25_RNN == 2) ) return; 
   if( !DiTauCuts("Med") ) return;
-  //if( !DiTauPtCuts(45, 35) ) return;
   if( !OSTauPair() ) return;  
   if( !JetCut(2) ) return;
   if( !BJetVeto() ) return;
@@ -179,10 +177,8 @@ void HHMLSys_EventSaver::SR2l2TauSelection() {
   if( !isOSPair() ) return;
   if( !LepTrigMatch("SLTorDLT") ) return;
   if( !(ntup.nTaus_OR_Pt25_RNN == 2) ) return;
-  //if( !DiTauCuts(("Base")) ) return;
   if( !DiTauCuts(("Med")) ) return;
-  if( !OSTauPair() ) return;  
-  //if( !(DiTauPtCuts(50, 25)) ) return;
+  if( !OSTauPair() ) return;
   if( !ZVeto("2lep") ) return;
   if( !JetCut(1) ) return;
   if( !BJetVeto() ) return;

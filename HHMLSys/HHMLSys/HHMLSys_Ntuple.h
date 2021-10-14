@@ -61,7 +61,20 @@ class HHMLSys_Ntuple {
   Int_t   lep_flavor;
   Float_t Mtw;
 
-  
+  //2lSS+1tau channel
+  Float_t DRlep0lep1;
+  Float_t DRl0Lj;
+  Float_t DRlep1Lj;
+  Float_t DPhilep0Lj;
+  Float_t Mlep0Lj;
+  Float_t Mlep1Lj;
+  Float_t Mlep2LjSLj;
+  Float_t minDRlep0Jet;
+  Float_t farDRlep0Jet;
+  Float_t minDRLepTau0;
+  Float_t MCloserLepTau0;
+  Float_t RSumPtlep01tau0Jets;
+
   //
   //Declaration of leaf types
   //
