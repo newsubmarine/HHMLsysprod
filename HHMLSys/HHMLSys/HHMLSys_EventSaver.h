@@ -113,7 +113,6 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   
   //Tight di-lepton selection cuts
   bool Tight2LepCuts(const std::string& channel);
-  bool Tight2LepCFCuts(); //Including QMisID cut
   
   //Tight tri-lepton selection cuts
   bool Tight3LepCuts();
@@ -197,10 +196,13 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   //Tau OS to lep
   bool isTauOSToLep();
   
-  //Z mass veto Mll01/Mlll012 - 91.2 > 10 GeV
-  bool ZVeto(const std::string& lep);
+  //Z mass veto
+  bool ZVeto(const std::string& channel);
   
   //Mll01 for same-flavor leptons, takes value in GeV
+  bool Mll01SFCut(const float mllcut);
+
+  //Mll01 cut, takes value in GeV
   bool Mll01Cut(const float mllcut);
 
   //MET cut, takes value in GeV

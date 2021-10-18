@@ -16,10 +16,14 @@ void HHMLSys_EventSaver::SR2lSelection() {
 
   if( !ntup.dilep_type ) return;
   if( !(ntup.GlobalTrigDecision > 0) ) return;
-  //if( !Tight2LepCFCuts() ) return;
+  if( !Tight2LepCuts("2l") ) return;
+  if( !LepTrigMatch("SLTorDLT_Tight") ) return;
+  if( !DiLepPtCuts(20, 20) ) return;
   if( !isSSPair() ) return;
-  if( !DiLepPtCuts(15, 15) ) return;
   if( !(ntup.nTaus_OR_Pt25_RNN == 0) ) return;
+  if( !METCut(10) ) return;
+  if( !Mll01Cut(15) ) return;
+  if( !ZVeto("2l") ) return;
   if( !JetCut(2) ) return;
   if( !BJetVeto() ) return;
   
@@ -89,8 +93,23 @@ void HHMLSys_EventSaver::SR4lbbSelection() {
 
   if( !ntup.quadlep_type ) return;
   if( !(ntup.GlobalTrigDecision > 0) ) return;
-  if( !JetCut(1) ) return;
-  if( !BJetCut(2) ) return;
+  if( !(ntup.lep_isTrigMatch_0 or ntup.lep_isTrigMatch_1 or ntup.lep_isTrigMatch_2 or ntup.lep_isTrigMatch_3 or ntup.lep_isTrigMatchDLT_0 or ntup.lep_isTrigMatchDLT_1 or ntup.lep_isTrigMatchDLT_2 or ntup.lep_isTrigMatchDLT_3) ) return;
+  if( ntup.lep_plvWP_Loose_2 == 0 and ntup.lep_plvWP_Loose_3 == 0) return;
+  if( ntup.DR4leps < 0.1 ) return;
+  if( ntup.TLV_4l_lep2.M()/Gev < 4 ) return;
+  if( ntup.lepID[0] == ntup.lepID[1] ) return;
+  if( ntup.lepID[1] = 3 - ntup.lepID[0] ) {
+    ntup.lepID[2] = std::abs(2 - ntup.lepID[0]);
+    ntup.lepID[3] = 3 - ntup.lepID[2];
+  }
+  else {
+    ntup.lepID[2] = 3 - ntup.lepID[0];
+    ntup.lepID[3] = 3 - ntup.lepID[1];
+  }
+  if( ntup.ID_leps4[ntup.lepID[2]] != -ntup.ID_leps4[ntup.lepID[3]] ) return;
+  if( !JetCut(2) ) return;
+  if( !BJetCut(1) ) return;
+  if( ntup.Mllll0123/GeV < 115 or ntup.Mllll0123/GeV > 135 ) return;
   
   is4Lepbb = true;
 
@@ -112,10 +131,10 @@ void HHMLSys_EventSaver::SR2l1TauSelection() {
 
   if( !ntup.dilep_type ) return;
   if( !(ntup.GlobalTrigDecision > 0) ) return;
-  if( !Tight2LepCFCuts() ) return;
-  if( !LepTrigMatch("SLTorDLT") ) return;
-  if( !isSSPair() ) return;
+  if( !Tight2LepCuts("2l1tau") ) return;
+  if( !LepTrigMatch("SLTorDLT_Loose") ) return;
   if( !DiLepPtCuts(20, 20) ) return;
+  if( !isSSPair() ) return;
   if( !(ntup.nTaus_OR_Pt25_RNN == 1) ) return;
   if( !OneTauCuts("Med") ) return;
   if( !isTauOSToLep() ) return;
@@ -175,11 +194,11 @@ void HHMLSys_EventSaver::SR2l2TauSelection() {
   if( !(ntup.GlobalTrigDecision > 0) ) return;
   if( !Tight2LepCuts("2l2tau") ) return;
   if( !isOSPair() ) return;
-  if( !LepTrigMatch("SLTorDLT") ) return;
+  if( !LepTrigMatch("SLTorDLT_Loose") ) return;
   if( !(ntup.nTaus_OR_Pt25_RNN == 2) ) return;
   if( !DiTauCuts(("Med")) ) return;
   if( !OSTauPair() ) return;
-  if( !ZVeto("2lep") ) return;
+  if( !ZVeto("2l2tau") ) return;
   if( !JetCut(1) ) return;
   if( !BJetVeto() ) return;
   if( ntup.DRtau0tau1 > 2 ) return;

@@ -54,14 +54,47 @@ void HHMLSys_EventSaver::AddVars() {
   ntup.DPhilep0Lj   = -99.;
   ntup.Mlep0Lj      = -999.;
   ntup.Mlep1Lj      = -999.;
-  ntup.Mlep2LjSLj   = -999.;
+  ntup.Mlep01LjSLj  = -999.;
   ntup.minDRlep0Jet = 20.;
   ntup.farDRlep0Jet = -20.;
   ntup.minDRLepTau0 = 99.;
   ntup.MCloserLepTau0 = -999.;
   ntup.RSumPtlep01tau0Jets = -999.;
 
+  //3l
+  ntup.FlavorCat    = -2;
+  ntup.Mlep0lep1    = -999.;
+  ntup.Mlep0lep2    = -999.;
+  ntup.Mlep1lep2    = -999.;
+  ntup.Mlep012      = -999.;
+  ntup.Mlep2LjSLj   = -999.;
+  ntup.Mlep012LjSLj = -999.;
+  ntup.DRlep0lep1   = 99.;
+  ntup.DRlep1lep2   = 99.;
+  ntup.DRlep2CloseJ = 99.;
+
+  //4l
+  ntup.DR4leps = 99.;
+  ntup.Pt20_4leps = 0;
+  ntup.Pt15_4leps = 0;
+  ntup.Pt10_4leps = 0;
+  ntup.lepID = {0};
+  ntup.ID_leps4.clear();
+  ntup.TLV_4l_lep2 = TLorentzVector();
+
+  //TLV's
+  TLorentzVector taus[2];
+  TLorentzVector leps[2];
+  TLorentzVector jets[2];
+  TLorentzVector jet;
+
+  TLorentzVector TLV_Jets[2];
+  TLorentzVector TLV_Leps[3];
+  TLorentzVector TLV_tau;
+
+  //
   //Lepton flavor
+  //
   ntup.lep_flavor = -1;
   if(ntup.dilep_type) {
     if(isMuonPair())      ntup.lep_flavor = 1;
@@ -73,15 +106,28 @@ void HHMLSys_EventSaver::AddVars() {
     else ATH_MSG_FATAL("AddVars - lep0, lep1 neither elec nor muon pair");
   }
 
-  TLorentzVector taus[2];
-  TLorentzVector leps[2];
-  TLorentzVector jets[2];
-  TLorentzVector jet;
+  if(ntup.trilep_type) {
+    float lep_ID[3] = {0};
 
-  TLorentzVector TLV_Jets[2];
-  TLorentzVector TLV_Leps[2];
-  TLorentzVector TLV_tau;
-    
+    lep_ID[0] = ntup.lep_ID_0;
+    lep_ID[1] = ntup.lep_ID_1;
+    lep_ID[2] = ntup.lep_ID_2;
+
+    int nElectron = 0, nMuon = 0;
+    for(auto id: lep_ID) {
+      if(abs(id) == 11) nElectron++;
+      if(abs(id) == 13) nMuon++;
+    }
+    if (nElectron == 3) FlavorCat = 1; // eee
+    if (nElectron == 2 && abs(lep_ID[0]) == 11 && abs(lep_ID[1]) == 11) FlavorCat = 2; // eem
+    if (nElectron == 2 && abs(lep_ID[0]) == 11 && abs(lep_ID[1]) == 13) FlavorCat = 3; // eme
+    if (nElectron == 1 && abs(lep_ID[0]) == 11) FlavorCat = 4; // emm
+    if (nElectron == 2 && abs(lep_ID[0]) == 13) FlavorCat = 5; // mee
+    if (nElectron == 1 && abs(lep_ID[0]) == 13 && abs(lep_ID[1]) == 11) FlavorCat = 6; // mem
+    if (nElectron == 1 && abs(lep_ID[0]) == 13 && abs(lep_ID[1]) == 13) FlavorCat = 7; // mme
+    if (nElectron == 0) FlavorCat = 8; // mmm
+  }
+
   //
   //taus
   //
@@ -98,7 +144,8 @@ void HHMLSys_EventSaver::AddVars() {
   
   TLV_Leps[0].SetPtEtaPhiE( ntup.lep_Pt_0/1000., ntup.lep_Eta_0, ntup.lep_Phi_0, ntup.lep_E_0/1000. );
   TLV_Leps[1].SetPtEtaPhiE( ntup.lep_Pt_1/1000., ntup.lep_Eta_1, ntup.lep_Phi_1, ntup.lep_E_1/1000. );
-  
+  TLV_Leps[2].SetPtEtaPhiE( ntup.lep_Pt_2/1000., ntup.lep_Eta_2, ntup.lep_Phi_2, ntup.lep_E_2/1000. );
+
   //
   //Eta info.
   //
@@ -154,6 +201,10 @@ void HHMLSys_EventSaver::AddVars() {
   Float_t DRlep0tau0 = DeltaR(DEtalep0tau0, DPhilep0tau0);
   Float_t DRlep1tau0 = DeltaR(DEtalep1tau0, DPhilep1tau0);
 
+  ntup.DRlep0lep1   = TLV_Leps[0].DeltaR(TLV_Leps[1]); //3l
+  ntup.DRlep1lep2   = TLV_Leps[1].DeltaR(TLV_Leps[2]); //3l
+  ntup.DRlep2CloseJ = (TLV_Leps[2].DeltaR(TLV_Jets[0]) <= TLV_Leps[2].DeltaR(TLV_Jets[1])) ? TLV_Leps[2].DeltaR(TLV_Jets[0]) : TLV_Leps[2].DeltaR(TLV_Jets[1]); //3l
+
   //
   //Invariant mass
   //
@@ -168,7 +219,14 @@ void HHMLSys_EventSaver::AddVars() {
   Float_t Mlep0tau0 = (TLV_Leps[0] + TLV_tau).M();
   Float_t Mlep1tau0 = (TLV_Leps[1] + TLV_tau).M();
 
-  ntup.Mlep2LjSLj = (TLV_Leps[1] + TLV_Jets[0] + TLV_Jets[1]).M(); //2ltau
+  ntup.Mlep01LjSLj = (TLV_Leps[1] + TLV_Jets[0] + TLV_Jets[1]).M(); //2ltau
+
+  ntup.Mlep0lep1    = (TLV_Leps[0] + TLV_Leps[1]).M(); //3l
+  ntup.Mlep0lep2    = (TLV_Leps[0] + TLV_Leps[2]).M(); //3l
+  ntup.Mlep1lep2    = (TLV_Leps[1] + TLV_Leps[2]).M(); //3l
+  ntup.Mlep012      = (TLV_Leps[0] + TLV_Leps[1] + TLV_Leps[2]).M(); //3l
+  ntup.Mlep2LjSLj   = (TLV_Leps[2] + TLV_Jets[0] + TLV_Jets[1]); //3l
+  ntup.Mlep012LjSLj = std::min(ntup.Mlep0lep1 + ntup.Mlep2LjSLj, ntup.Mlep0lep2 + (TLV_Leps[1] + TLV_Jets[0] + TLV_Jets[1]).M()); //3l
 
   //
   //Transverse mass of the W boson
@@ -196,7 +254,6 @@ void HHMLSys_EventSaver::AddVars() {
 
   int index_l0j(-1); //index for close jet
   jet = TLorentzVector();
-
 
   for(unsigned int i = 0; i < ntup.jet_phi->size(); i++) {
 
@@ -258,4 +315,60 @@ void HHMLSys_EventSaver::AddVars() {
   //
   ntup.SumPttau0tau1 = (taus[0] + taus[1]).Pt();
   ntup.RSumPtlep01tau0Jets = (ntup.lep_Pt_0 + ntup.lep_Pt_1 + ntup.tau_pt_0) / SumJetPt; //2ltau
+
+  //
+  //4l channel stuff
+  //
+
+  std::vector<TLorentzVector> leps4;
+  TLorentzVector TLV_4leps[4];
+
+  if( ntup.quadlep_type ) {
+
+    TLV_4Leps[0].SetPtEtaPhiE( ntup.lep_Pt_0, ntup.lep_Eta_0, ntup.lep_Phi_0, 0 );
+    TLV_4Leps[1].SetPtEtaPhiE( ntup.lep_Pt_1, ntup.lep_Eta_1, ntup.lep_Phi_1, 0 );
+    TLV_4Leps[2].SetPtEtaPhiE( ntup.lep_Pt_2, ntup.lep_Eta_2, ntup.lep_Phi_2, 0 );
+    TLV_4Leps[3].SetPtEtaPhiE( ntup.lep_Pt_3, ntup.lep_Eta_3, ntup.lep_Phi_3, 0 );
+  
+    for(l = 0; l < 4; l++) {
+      leps4.push_back(TLV_4Leps[l]);
+      if(l == 0) ntup.ID_leps4.push_back(lep_ID_0);
+      if(l == 1) ntup.ID_leps4.push_back(lep_ID_1);
+      if(l == 2) ntup.ID_leps4.push_back(lep_ID_2);
+      if(l == 3) ntup.ID_leps4.push_back(lep_ID_3);
+    }
+    //DR info.
+    for(j = 1; j < leps4.size(); j++) {
+      for(k = 0; k < j; k++) {
+        if(ntup.DR4leps < 0.1) break;
+        ntup.DR4leps = std::sqrt( (leps4[j].Eta() - leps4[k].Eta()) * (leps4[j].Eta() - leps4[k].Eta()) + (leps4[j].Phi() - leps4[k].Phi()) * (leps4[j].Phi() - leps4[k].Phi()) ); //4l
+      }
+    }
+    //Pt info. 
+    for(l = 0; j < leps4.size(); j++) {
+      if( leps4[l].Pt()/GeV > 20 ) ntup.Pt20_4leps++;
+      if( leps4[l].Pt()/GeV > 15 ) ntup.Pt15_4leps++;
+      if( leps4[l].Pt()/GeV > 10 ) ntup.Pt10_4leps++;
+    }
+    //lepton pair selection
+    Float_t delta_m = 999999;
+    Float ZMass = 91187.6;
+    ntup.TLV_4l_lep2.SetPtEtaPhiM(0,0,0,ZMass);
+
+    for(j = 1; j < leps4.size() and ntup.TLV_4l_lep2.M() > 4000; j++) {
+      for(k = 0; k < j && ntup.TLV_4l_lep2.M() > 4000; k++) {
+
+        if(ntup.ID_leps4[j] == -ntup.ID_leps4[k] and ntup.ID_leps4[j] != 0 ) {
+          
+          TLV_4l_lep2 = leps4[j] + leps4[k];
+        
+          if(delta_m > std::fabs(ZMass - ntup.TLV_4l_lep2.M())) {
+            ntup.lepID[0] = j;
+            ntup.lepID[1] = k;                     
+            delta_m = std::fabs(ZMass - ntup.TLV_4l_lep2.M());
+          }
+        }
+      }
+    }
+  }
 }

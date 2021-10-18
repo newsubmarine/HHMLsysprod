@@ -152,7 +152,7 @@ double HHMLSys_EventSaver::getMCweight(const string& channel) {
   event_weight = ntup.weight_mc * ntup.weight_pileup * ntup.jvtSF_customOR * ntup.bTagSF_weight_DL1r_77 * ntup.mc_rawXSection * ntup.mc_kFactor * lumi;
 
   if(channel =="2l") {
-    event_weight *= ntup.lepSFObjLoose * ntup.custTrigSF_LooseID_FCLooseIso_SLTorDLT;
+    event_weight *= ntup.lep_SF_El_Reco_AT_0 * ntup.lep_SF_El_Reco_AT_1 * ntup.lep_SF_El_ID_TightLH_AT_0 * ntup.lep_SF_El_ID_TightLH_AT_1 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_0 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_1 * ntup.lep_SF_Mu_TTVA_AT_0 * ntup.lep_SF_Mu_TTVA_AT_1 * ntup.lep_SF_Mu_ID_Medium_AT_0 * ntup.lep_SF_Mu_ID_Medium_AT_1 * ntup.custTrigSF_TightElMediumMuID_FCLooseIso_SLTorDLT * (abs(ntup.lep_ID_0) == 11 ? ntup.lep_SF_El_PLVTight_0: ntup.lep_SF_Mu_PLVTight_0) * (abs(ntup.lep_ID_1) == 11 ? ntup.lep_SF_El_PLVTight_1: ntup.lep_SF_Mu_PLVTight_1);
   }
   else if(channel == "3l") {
     event_weight *= ntup.lepSFObjLoose;
@@ -161,7 +161,7 @@ double HHMLSys_EventSaver::getMCweight(const string& channel) {
     event_weight *= ntup.lepSFObjLoose;
   }
   else if(channel == "4lbb") {
-    event_weight *= ntup.lepSFObjLoose;
+    event_weight *= ntup.lepSFObjLoose * ntup.custTrigSF_LooseID_FCLooseIso_SLTorDLT;
   }
   else if(channel == "2l1tau") {
     event_weight *= ntup.lepSFObjLoose * ntup.custTrigSF_LooseID_FCLooseIso_SLTorDLT * ntup.tauSFRNNLoose_TAU_SF_NOMINAL;

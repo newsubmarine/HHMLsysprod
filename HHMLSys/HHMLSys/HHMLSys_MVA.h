@@ -44,13 +44,21 @@ class HHMLSys_MVA: public asg::AsgMessaging
 
   HHMLSys_MVA(const std::string& name = "HHMLSys_MVA");
   ~HHMLSys_MVA() {
+    delete reader_3l;
     delete reader_1l2tau;
     delete reader_2l2tau;
+    delete reader_2l1tau;
   }
 
   //HHMLSys_nTuple class
   HHMLSys_Ntuple ntup;
   
+  //Non-tau channels
+  StatusCode BookMVA_3l(const std::string& xmlFile);
+
+  float EvaluateMVA_3l(const HHMLSys_Ntuple& ntup);
+
+  //Tau channels
   StatusCode BookMVA_1l2tau(const std::string& xmlEvenFile, const std::string& xmlOddFile);
   StatusCode BookMVA_2l2tau(const std::string& xmlEvenFile, const std::string& xmlOddFile);
   StatusCode BookMVA_2l1tau(const std::string& xmlFile);
@@ -60,6 +68,8 @@ class HHMLSys_MVA: public asg::AsgMessaging
   float EvaluateMVA_2l1tau(const HHMLSys_Ntuple& ntup);
   
  private:
+
+  TMVA::Reader *reader_3l;
 
   TMVA::Reader *reader_1l2tau;
   TMVA::Reader *reader_2l2tau;
@@ -96,12 +106,35 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_DPhilep0Lj;
   Float_t BDTG_Mlep0Lj;
   Float_t BDTG_Mlep1Lj;
-  Float_t BDTG_Mlep2LjSLj;
+  Float_t BDTG_Mlep01LjSLj;
   Float_t BDTG_minDRlep0Jet;
   Float_t BDTG_farDRlep0Jet;
   Float_t BDTG_minDRLepTau0;
   Float_t BDTG_MCloserLepTau0;
   Float_t BDTG_RSumPtlep01tau0Jets;
+  //3l
+  Int_t   BDTG_FlavorCat;
+  Float_t BDTG_Mlep0lep1;
+  Float_t BDTG_Mlep0lep2;
+  Float_t BDTG_Mlep1lep2;
+  Float_t BDTG_Mlep012;
+  Float_t BDTG_Mlep2LjSLj;
+  Float_t BDTG_Mlep012LjSLj;
+  Float_t BDTG_DRlep0lep1;
+  Float_t BDTG_DRlep1lep2;
+  Float_t BDTG_DRlep2CloseJ;
+  Int_t   BDTG_nJets;
+  Float_t BDTG_leadJetPt;
+  Float_t BDTG_leadJetE;
+  Float_t BDTG_lep_Pt_0;
+  Float_t BDTG_lep_Pt_1;
+  Float_t BDTG_lep_Pt_2;
+  Float_t BDTG_lep_E_0;
+  Float_t BDTG_lep_E_1;
+  Float_t BDTG_lep_E_2;
+  Float_t BDTG_HT;
+  Float_t BDTG_HT_lep;
+  Float_t BDTG_Best_Z_Mll;
 };
 
 #endif

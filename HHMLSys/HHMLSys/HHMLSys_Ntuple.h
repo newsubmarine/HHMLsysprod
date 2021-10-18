@@ -68,12 +68,33 @@ class HHMLSys_Ntuple {
   Float_t DPhilep0Lj;
   Float_t Mlep0Lj;
   Float_t Mlep1Lj;
-  Float_t Mlep2LjSLj;
+  Float_t Mlep01LjSLj;
   Float_t minDRlep0Jet;
   Float_t farDRlep0Jet;
   Float_t minDRLepTau0;
   Float_t MCloserLepTau0;
   Float_t RSumPtlep01tau0Jets;
+
+  //3l channel
+  Int_t   FlavorCat;
+  Float_t Mlep0lep1;
+  Float_t Mlep0lep2;
+  Float_t Mlep1lep2;
+  Float_t Mlep012;
+  Float_t Mlep2LjSLj;
+  Float_t Mlep012LjSLj;
+  Float_t DRlep0lep1;
+  Float_t DRlep1lep2;
+  Float_t DRlep2CloseJ;
+
+  //4l channel
+  Float_t DRDR4leps;
+  Int_t Pt20_4leps;
+  Int_t Pt15_4leps;
+  Int_t Pt10_4leps;
+  std::vector<int> ID_leps4;
+  Int_t lepID[4]
+  TLorentzVector TLV_4l_lep2;
 
   //
   //Declaration of leaf types

@@ -34,39 +34,39 @@ bool HHMLSys_EventSaver::Tight2LepCuts(const std::string& channel) {
 
   if( !ntup.dilep_type ) return false;
  
-  if( channel == "2l2tau" ) { 
-    if( ((abs(ntup.lep_ID_0) == 13 and ntup.lep_isMedium_0 > 0  and ntup.lep_isolationFCLoose_0 > 0 and abs(ntup.lep_Z0SinTheta_0) < 0.5 and abs(ntup.lep_sigd0PV_0) < 3 and abs(ntup.lep_Eta_0) < 2.5) or
-	 (abs(ntup.lep_ID_0) == 11 and ntup.lep_isLooseLH_0 > 0 and ntup.lep_isolationFCLoose_0 > 0 and abs(ntup.lep_Z0SinTheta_0) < 0.5 and abs(ntup.lep_sigd0PV_0) < 5 and abs(ntup.lep_EtaBE2_0) < 2.5 and
-	  (abs(ntup.lep_EtaBE2_0) < 1.37 or abs(ntup.lep_EtaBE2_0) > 1.52)))
-	and
-	((abs(ntup.lep_ID_1) == 13 and ntup.lep_isMedium_1 > 0  and ntup.lep_isolationFCLoose_1 > 0 and abs(ntup.lep_Z0SinTheta_1) < 0.5 and abs(ntup.lep_sigd0PV_1) < 3 and abs(ntup.lep_Eta_1) < 2.5) or
-	 (abs(ntup.lep_ID_1) == 11 and ntup.lep_isLooseLH_1 > 0 and ntup.lep_isolationFCLoose_1 > 0 and abs(ntup.lep_Z0SinTheta_1) < 0.5 and abs(ntup.lep_sigd0PV_1) < 5 and abs(ntup.lep_EtaBE2_1) < 2.5 and
-	  (abs(ntup.lep_EtaBE2_1) < 1.37 or abs(ntup.lep_EtaBE2_1) > 1.52)))
-	) return true; 
-  }
-  else if( channel == "2l" ) { 
+  if( channel == "2l" ) {
     //Cuts for 2lSS+0tau
+    if( ((abs(ntup.lep_ID_0) == 13 and ntup.lep_isMedium_0 > 0  and ntup.lep_plvWP_Tight_0 > 0 and ntup.lep_isolationFCLoose_0 > 0 and abs(ntup.lep_Z0SinTheta_0) < 0.5 and abs(ntup.lep_sigd0PV_0) < 3 and abs(ntup.lep_Eta_0) < 2.5) or
+         (abs(ntup.lep_ID_0) == 11 and ntup.lep_isTightLH_0 > 0 and ntup.lep_plvWP_Tight_0 > 0 and ntup.lep_isolationFCLoose_0 > 0 and abs(ntup.lep_Z0SinTheta_0) < 0.5 and abs(ntup.lep_sigd0PV_0) < 5 and abs(ntup.lep_Eta_0) < 2.5 and
+	       (abs(ntup.lep_Eta_0) < 1.37 or abs(ntup.lep_Eta_0) > 1.52) and ntup.lep_chargeIDBDTResult_0 > -0.337671 and ntup.lep_ambiguityType_0 == 0))
+         and
+        ((abs(ntup.lep_ID_1) == 13 and ntup.lep_isMedium_1 > 0  and ntup.lep_plvWP_Tight_1 > 0 and ntup.lep_isolationFCLoose_1 > 0 and abs(ntup.lep_Z0SinTheta_1) < 0.5 and abs(ntup.lep_sigd0PV_1) < 3 and abs(ntup.lep_Eta_1) < 2.5) or
+         (abs(ntup.lep_ID_1) == 11 and ntup.lep_isTightLH_1 > 0 and ntup.lep_plvWP_Tight_1 > 0 and ntup.lep_isolationFCLoose_1 > 0 and abs(ntup.lep_Z0SinTheta_1) < 0.5 and abs(ntup.lep_sigd0PV_1) < 5 and abs(ntup.lep_Eta_1) < 2.5 and
+	       (abs(ntup.lep_Eta_1) < 1.37 or abs(ntup.lep_Eta_1) > 1.52) and ntup.lep_chargeIDBDTResult_1 > -0.337671 and ntup.lep_ambiguityType_1 == 0))
+      ) return true;
   }
   else if( channel == "2l1tau" ) { 
     //Cuts for 2lSS+1tau
+    if( ((abs(ntup.lep_ID_0) == 13 and ntup.lep_isMedium_0 > 0  and ntup.lep_isolationFCLoose_0 > 0 and abs(ntup.lep_Z0SinTheta_0) < 0.5 and abs(ntup.lep_sigd0PV_0) < 3 and abs(ntup.lep_Eta_0) < 2.5) or
+         (abs(ntup.lep_ID_0) == 11 and ntup.lep_isLooseLH_0 > 0 and ntup.lep_isolationFCLoose_0 > 0 and abs(ntup.lep_Z0SinTheta_0) < 0.5 and abs(ntup.lep_sigd0PV_0) < 5 and abs(ntup.lep_EtaBE2_0) < 2.5 and
+	       (abs(ntup.lep_EtaBE2_0) < 1.37 or abs(ntup.lep_EtaBE2_0) > 1.52) and ntup.lep_chargeIDBDTLoose_0 > 0))
+        and
+        ((abs(ntup.lep_ID_1) == 13 and ntup.lep_isMedium_1 > 0  and ntup.lep_isolationFCLoose_1 > 0 and abs(ntup.lep_Z0SinTheta_1) < 0.5 and abs(ntup.lep_sigd0PV_1) < 3 and abs(ntup.lep_Eta_1) < 2.5) or
+         (abs(ntup.lep_ID_1) == 11 and ntup.lep_isLooseLH_1 > 0 and ntup.lep_isolationFCLoose_1 > 0 and abs(ntup.lep_Z0SinTheta_1) < 0.5 and abs(ntup.lep_sigd0PV_1) < 5 and abs(ntup.lep_EtaBE2_1) < 2.5 and
+	       (abs(ntup.lep_EtaBE2_1) < 1.37 or abs(ntup.lep_EtaBE2_1) > 1.52) and ntup.lep_chargeIDBDTLoose_1 > 0))
+      ) return true;
   }
-
-  return false;
-}
-
-//-----------------------------------------------------------------------------------------------
-bool HHMLSys_EventSaver::Tight2LepCFCuts() {
-
-  if( !ntup.dilep_type ) return false;
-
-  if( ((abs(ntup.lep_ID_0) == 13 and ntup.lep_isMedium_0 > 0  and ntup.lep_isolationFCLoose_0 > 0 and abs(ntup.lep_Z0SinTheta_0) < 0.5 and abs(ntup.lep_sigd0PV_0) < 3 and abs(ntup.lep_Eta_0) < 2.5) or
-       (abs(ntup.lep_ID_0) == 11 and ntup.lep_isLooseLH_0 > 0 and ntup.lep_isolationFCLoose_0 > 0 and abs(ntup.lep_Z0SinTheta_0) < 0.5 and abs(ntup.lep_sigd0PV_0) < 5 and abs(ntup.lep_EtaBE2_0) < 2.5 and
-	(abs(ntup.lep_EtaBE2_0) < 1.37 or abs(ntup.lep_EtaBE2_0) > 1.52) and ntup.lep_chargeIDBDTLoose_0 > 0))
-      and
-      ((abs(ntup.lep_ID_1) == 13 and ntup.lep_isMedium_1 > 0  and ntup.lep_isolationFCLoose_1 > 0 and abs(ntup.lep_Z0SinTheta_1) < 0.5 and abs(ntup.lep_sigd0PV_1) < 3 and abs(ntup.lep_Eta_1) < 2.5) or
-       (abs(ntup.lep_ID_1) == 11 and ntup.lep_isLooseLH_1 > 0 and ntup.lep_isolationFCLoose_1 > 0 and abs(ntup.lep_Z0SinTheta_1) < 0.5 and abs(ntup.lep_sigd0PV_1) < 5 and abs(ntup.lep_EtaBE2_1) < 2.5 and
-	(abs(ntup.lep_EtaBE2_1) < 1.37 or abs(ntup.lep_EtaBE2_1) > 1.52) and ntup.lep_chargeIDBDTLoose_1 > 0))
-      ) return true; 
+  else if( channel == "2l2tau" ) {
+    //Cuts for 2l+2tau
+    if( ((abs(ntup.lep_ID_0) == 13 and ntup.lep_isMedium_0 > 0  and ntup.lep_isolationFCLoose_0 > 0 and abs(ntup.lep_Z0SinTheta_0) < 0.5 and abs(ntup.lep_sigd0PV_0) < 3 and abs(ntup.lep_Eta_0) < 2.5) or
+	      (abs(ntup.lep_ID_0) == 11 and ntup.lep_isLooseLH_0 > 0 and ntup.lep_isolationFCLoose_0 > 0 and abs(ntup.lep_Z0SinTheta_0) < 0.5 and abs(ntup.lep_sigd0PV_0) < 5 and abs(ntup.lep_EtaBE2_0) < 2.5 and
+	      (abs(ntup.lep_EtaBE2_0) < 1.37 or abs(ntup.lep_EtaBE2_0) > 1.52)))
+	      and
+	      ((abs(ntup.lep_ID_1) == 13 and ntup.lep_isMedium_1 > 0  and ntup.lep_isolationFCLoose_1 > 0 and abs(ntup.lep_Z0SinTheta_1) < 0.5 and abs(ntup.lep_sigd0PV_1) < 3 and abs(ntup.lep_Eta_1) < 2.5) or
+	      (abs(ntup.lep_ID_1) == 11 and ntup.lep_isLooseLH_1 > 0 and ntup.lep_isolationFCLoose_1 > 0 and abs(ntup.lep_Z0SinTheta_1) < 0.5 and abs(ntup.lep_sigd0PV_1) < 5 and abs(ntup.lep_EtaBE2_1) < 2.5 and
+	      (abs(ntup.lep_EtaBE2_1) < 1.37 or abs(ntup.lep_EtaBE2_1) > 1.52)))
+	   ) return true; 
+  }
 
   return false;
 }
@@ -118,8 +118,11 @@ bool HHMLSys_EventSaver::LepTrigMatch(const std::string& matching) {
   if( matching == "SLT" ) {
     if( ntup.custTrigMatch_LooseID_FCLooseIso_SLT > 0 ) return true;
   }
-  else if( matching == "SLTorDLT") {
+  else if(matching == "SLTorDLT_Loose") {
     if( ntup.custTrigMatch_LooseID_FCLooseIso_SLTorDLT > 0 ) return true;
+  }
+  else if( matching == "SLTorDLT_Tight" ) {
+    if( ntup.custTrigMatch_TightElMediumMuID_FCLooseIso_SLTorDLT > 0 ) return;
   }
   else {
     if( ntup.GlobalTrigMatch_AT_default_postOR > 0 ) return true;
@@ -422,17 +425,20 @@ bool HHMLSys_EventSaver::isTauOSToLep() {
 }
 
 //-----------------------------------------------------------------------------------------------
-bool HHMLSys_EventSaver::ZVeto(const std::string& lep) {
+bool HHMLSys_EventSaver::ZVeto(const std::string& channel) {
  
-  if(lep == "2lep")  {
+  if(channel == "2l2tau")  {
     if( abs(ntup.Mll01 - 91.2e3) > 10e3 ) return true;
+  }
+  else if(channel == "2l") {
+    if( ((ntup.dilep_type == 3 and abs(ntup.Mll01 - 91200) >= 10e3) or ntup.dilep_type == 2 or ntup.dilep_type == 1) ) return true;
   }
   
   return false;
 }
 
 //-----------------------------------------------------------------------------------------------
-bool HHMLSys_EventSaver::Mll01Cut(const float mllcut) {
+bool HHMLSys_EventSaver::Mll01SFCut(const float mllcut) {
   
   if( (abs(ntup.lep_ID_0) != abs(ntup.lep_ID_1)) or ntup.Mll01/GeV > mllcut ) return true;
   
@@ -443,6 +449,14 @@ bool HHMLSys_EventSaver::Mll01Cut(const float mllcut) {
 bool HHMLSys_EventSaver::METCut(const float met) {
 
   if( ntup.met_met/GeV > met ) return true;
+  
+  return false;
+}
+
+//-----------------------------------------------------------------------------------------------
+bool HHMLSys_EventSaver::Mll01Cut(const float mll) {
+
+  if( ntup.Mll01/GeV > mll ) return true;
   
   return false;
 }
