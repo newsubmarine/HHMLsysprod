@@ -36,28 +36,22 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   Config(m_do_2lSR  , "do_2lSR" , rEnv);
   Config(m_do_2lMVA , "do_2lMVA", rEnv);
 
-  Config(m_2l_BDTGEvenxmlFile, "2l_BDTGEvenxmlFile", rEnv);
-  Config(m_2l_BDTGOddxmlFile , "2l_BDTGOddxmlFile" , rEnv);
+  Config(m_2l_BDTxmlFile, "2l_BDTxmlFile", rEnv);
 
   //3l
   Config(m_do_3lSR  , "do_3lSR" , rEnv);
   Config(m_do_3lMVA , "do_3lMVA", rEnv);
 
-  Config(m_3l_BDTGxmlFile, "3l_BDTGxmlFile", rEnv);
+  Config(m_3l_BDTxmlFile, "3l_BDTxmlFile", rEnv);
 
   //4l
   Config(m_do_4lSR  , "do_4lSR" , rEnv);
-  Config(m_do_4lMVA , "do_4lMVA", rEnv);
-
-  Config(m_4l_BDTGEvenxmlFile, "4l_BDTGEvenxmlFile", rEnv);
-  Config(m_4l_BDTGOddxmlFile , "4l_BDTGOddxmlFile" , rEnv);
   
   //4lbb
   Config(m_do_4lbbSR  , "do_4lbbSR" , rEnv);
   Config(m_do_4lbbMVA , "do_4lbbMVA", rEnv);
 
-  Config(m_4lbb_BDTGEvenxmlFile, "4lbb_BDTGEvenxmlFile", rEnv);
-  Config(m_4lbb_BDTGOddxmlFile , "4lbb_BDTGOddxmlFile" , rEnv);
+  Config(m_4lbb_BDTxmlFile, "4lbb_BDTxmlFile", rEnv);
 
   //2l+1tau
   Config(m_do_2l1tauSR,  "do_2l1tauSR" , rEnv);
@@ -128,7 +122,7 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   //
 
   //Book MVA's
-  if(m_do_3lMVA)     sc = mva.BookMVA_3l(m_3l_BDTGxmlFile);
+  if(m_do_3lMVA)     sc = mva.BookMVA_3l(m_3l_BDTxmlFile);
   if(m_do_2l1tauMVA) sc = mva.BookMVA_2l1tau(m_2l1tau_BDTGxmlFile);
   if(m_do_1l2tauMVA) sc = mva.BookMVA_1l2tau(m_1l2tau_BDTGEvenxmlFile, m_1l2tau_BDTGOddxmlFile);
   if(m_do_2l2tauMVA) sc = mva.BookMVA_2l2tau(m_2l2tau_BDTGEvenxmlFile, m_2l2tau_BDTGOddxmlFile);

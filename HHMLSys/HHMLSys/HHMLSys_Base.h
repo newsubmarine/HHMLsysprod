@@ -86,25 +86,20 @@ class HHMLSys_Base: public asg::AsgMessaging {
   //2l
   bool m_do_2lSR  = false;
   bool m_do_2lMVA = false;
-  std::string m_2l_BDTGOddxmlFile  = "";
-  std::string m_2l_BDTGEvenxmlFile = "";
+  std::string m_2l_BDTxmlFile  = "";
 
   //3l
   bool m_do_3lSR  = false;
   bool m_do_3lMVA = false;
-  std::string m_3l_BDTGxmlFile  = "";
+  std::string m_3l_BDTxmlFile  = "";
 
   //4l
   bool m_do_4lSR  = false;
-  bool m_do_4lMVA = false;
-  std::string m_4l_BDTGOddxmlFile  = "";
-  std::string m_4l_BDTGEvenxmlFile = "";
 
   //4l+bb
   bool m_do_4lbbSR  = false;
   bool m_do_4lbbMVA = false;
-  std::string m_4lbb_BDTGOddxmlFile  = "";
-  std::string m_4lbb_BDTGEvenxmlFile = "";
+  std::string m_4lbb_BDTxmlFile  = "";
 
   //2l+1tau
   bool m_do_2l1tauSR = false;
