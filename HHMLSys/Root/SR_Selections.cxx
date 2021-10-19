@@ -96,9 +96,9 @@ void HHMLSys_EventSaver::SR4lbbSelection() {
   if( !(ntup.lep_isTrigMatch_0 or ntup.lep_isTrigMatch_1 or ntup.lep_isTrigMatch_2 or ntup.lep_isTrigMatch_3 or ntup.lep_isTrigMatchDLT_0 or ntup.lep_isTrigMatchDLT_1 or ntup.lep_isTrigMatchDLT_2 or ntup.lep_isTrigMatchDLT_3) ) return;
   if( ntup.lep_plvWP_Loose_2 == 0 and ntup.lep_plvWP_Loose_3 == 0) return;
   if( ntup.DR4leps < 0.1 ) return;
-  if( ntup.TLV_4l_lep2.M()/Gev < 4 ) return;
+  if( ntup.TLV_4l_lep2.M()/GeV < 4 ) return;
   if( ntup.lepID[0] == ntup.lepID[1] ) return;
-  if( ntup.lepID[1] = 3 - ntup.lepID[0] ) {
+  if( (ntup.lepID[1] == 3 - ntup.lepID[0]) ) {
     ntup.lepID[2] = std::abs(2 - ntup.lepID[0]);
     ntup.lepID[3] = 3 - ntup.lepID[2];
   }
@@ -106,7 +106,7 @@ void HHMLSys_EventSaver::SR4lbbSelection() {
     ntup.lepID[2] = 3 - ntup.lepID[0];
     ntup.lepID[3] = 3 - ntup.lepID[1];
   }
-  if( ntup.ID_leps4[ntup.lepID[2]] != -ntup.ID_leps4[ntup.lepID[3]] ) return;
+  if( (ntup.ID_leps4[ntup.lepID[2]] != -ntup.ID_leps4[ntup.lepID[3]]) ) return;
   if( !JetCut(2) ) return;
   if( !BJetCut(1) ) return;
   if( ntup.Mllll0123/GeV < 115 or ntup.Mllll0123/GeV > 135 ) return;

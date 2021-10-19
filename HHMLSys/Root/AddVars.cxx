@@ -69,7 +69,7 @@ void HHMLSys_EventSaver::AddVars() {
   ntup.Mlep012      = -999.;
   ntup.Mlep2LjSLj   = -999.;
   ntup.Mlep012LjSLj = -999.;
-  ntup.DRlep0lep1   = 99.;
+  ntup.DRl0l1       = 99.;
   ntup.DRlep1lep2   = 99.;
   ntup.DRlep2CloseJ = 99.;
 
@@ -78,7 +78,7 @@ void HHMLSys_EventSaver::AddVars() {
   ntup.Pt20_4leps = 0;
   ntup.Pt15_4leps = 0;
   ntup.Pt10_4leps = 0;
-  ntup.lepID = {0};
+  fill_n(ntup.lepID, sizeof(ntup.lepID), 0);
   ntup.ID_leps4.clear();
   ntup.TLV_4l_lep2 = TLorentzVector();
 
@@ -118,14 +118,14 @@ void HHMLSys_EventSaver::AddVars() {
       if(abs(id) == 11) nElectron++;
       if(abs(id) == 13) nMuon++;
     }
-    if (nElectron == 3) FlavorCat = 1; // eee
-    if (nElectron == 2 && abs(lep_ID[0]) == 11 && abs(lep_ID[1]) == 11) FlavorCat = 2; // eem
-    if (nElectron == 2 && abs(lep_ID[0]) == 11 && abs(lep_ID[1]) == 13) FlavorCat = 3; // eme
-    if (nElectron == 1 && abs(lep_ID[0]) == 11) FlavorCat = 4; // emm
-    if (nElectron == 2 && abs(lep_ID[0]) == 13) FlavorCat = 5; // mee
-    if (nElectron == 1 && abs(lep_ID[0]) == 13 && abs(lep_ID[1]) == 11) FlavorCat = 6; // mem
-    if (nElectron == 1 && abs(lep_ID[0]) == 13 && abs(lep_ID[1]) == 13) FlavorCat = 7; // mme
-    if (nElectron == 0) FlavorCat = 8; // mmm
+    if (nElectron == 3) ntup.FlavorCat = 1; // eee
+    if (nElectron == 2 and abs(lep_ID[0]) == 11 and abs(lep_ID[1]) == 11) ntup.FlavorCat = 2; // eem
+    if (nElectron == 2 and abs(lep_ID[0]) == 11 and abs(lep_ID[1]) == 13) ntup.FlavorCat = 3; // eme
+    if (nElectron == 1 and abs(lep_ID[0]) == 11) ntup.FlavorCat = 4; // emm
+    if (nElectron == 2 and abs(lep_ID[0]) == 13) ntup.FlavorCat = 5; // mee
+    if (nElectron == 1 and abs(lep_ID[0]) == 13 and abs(lep_ID[1]) == 11) ntup.FlavorCat = 6; // mem
+    if (nElectron == 1 and abs(lep_ID[0]) == 13 and abs(lep_ID[1]) == 13) ntup.FlavorCat = 7; // mme
+    if (nElectron == 0) ntup.FlavorCat = 8; // mmm
   }
 
   //
@@ -151,7 +151,7 @@ void HHMLSys_EventSaver::AddVars() {
   //
 
   //Max & Delta eta lep0 & lep1
-  ntup.MaxEtalep01 = std::fmax(std::fabs(ntup.lep_Eta_0), std::fabs(ntup.lep_Eta_1));
+  ntup.MaxEtalep01 = fmax(fabs(ntup.lep_Eta_0), fabs(ntup.lep_Eta_1));
   ntup.DEtalep01   = (ntup.lep_Eta_0 - ntup.lep_Eta_1);
   
   Float_t DEtalep0Lj = (ntup.lep_Eta_0 - ntup.lead_jetEta);
@@ -201,7 +201,7 @@ void HHMLSys_EventSaver::AddVars() {
   Float_t DRlep0tau0 = DeltaR(DEtalep0tau0, DPhilep0tau0);
   Float_t DRlep1tau0 = DeltaR(DEtalep1tau0, DPhilep1tau0);
 
-  ntup.DRlep0lep1   = TLV_Leps[0].DeltaR(TLV_Leps[1]); //3l
+  ntup.DRl0l1       = TLV_Leps[0].DeltaR(TLV_Leps[1]); //3l
   ntup.DRlep1lep2   = TLV_Leps[1].DeltaR(TLV_Leps[2]); //3l
   ntup.DRlep2CloseJ = (TLV_Leps[2].DeltaR(TLV_Jets[0]) <= TLV_Leps[2].DeltaR(TLV_Jets[1])) ? TLV_Leps[2].DeltaR(TLV_Jets[0]) : TLV_Leps[2].DeltaR(TLV_Jets[1]); //3l
 
@@ -225,8 +225,8 @@ void HHMLSys_EventSaver::AddVars() {
   ntup.Mlep0lep2    = (TLV_Leps[0] + TLV_Leps[2]).M(); //3l
   ntup.Mlep1lep2    = (TLV_Leps[1] + TLV_Leps[2]).M(); //3l
   ntup.Mlep012      = (TLV_Leps[0] + TLV_Leps[1] + TLV_Leps[2]).M(); //3l
-  ntup.Mlep2LjSLj   = (TLV_Leps[2] + TLV_Jets[0] + TLV_Jets[1]); //3l
-  ntup.Mlep012LjSLj = std::min(ntup.Mlep0lep1 + ntup.Mlep2LjSLj, ntup.Mlep0lep2 + (TLV_Leps[1] + TLV_Jets[0] + TLV_Jets[1]).M()); //3l
+  ntup.Mlep2LjSLj   = (TLV_Leps[2] + TLV_Jets[0] + TLV_Jets[1]).M(); //3l
+  ntup.Mlep012LjSLj = min( double(ntup.Mlep0lep1 + ntup.Mlep2LjSLj), (ntup.Mlep0lep2 + (TLV_Leps[1] + TLV_Jets[0] + TLV_Jets[1]).M()) ); //3l
 
   //
   //Transverse mass of the W boson
@@ -320,8 +320,8 @@ void HHMLSys_EventSaver::AddVars() {
   //4l channel stuff
   //
 
-  std::vector<TLorentzVector> leps4;
-  TLorentzVector TLV_4leps[4];
+  vector<TLorentzVector> leps4;
+  TLorentzVector TLV_4Leps[4];
 
   if( ntup.quadlep_type ) {
 
@@ -330,42 +330,42 @@ void HHMLSys_EventSaver::AddVars() {
     TLV_4Leps[2].SetPtEtaPhiE( ntup.lep_Pt_2, ntup.lep_Eta_2, ntup.lep_Phi_2, 0 );
     TLV_4Leps[3].SetPtEtaPhiE( ntup.lep_Pt_3, ntup.lep_Eta_3, ntup.lep_Phi_3, 0 );
   
-    for(l = 0; l < 4; l++) {
+    for(int l = 0; l < 4; l++) {
       leps4.push_back(TLV_4Leps[l]);
-      if(l == 0) ntup.ID_leps4.push_back(lep_ID_0);
-      if(l == 1) ntup.ID_leps4.push_back(lep_ID_1);
-      if(l == 2) ntup.ID_leps4.push_back(lep_ID_2);
-      if(l == 3) ntup.ID_leps4.push_back(lep_ID_3);
+      if(l == 0) ntup.ID_leps4.push_back(ntup.lep_ID_0);
+      if(l == 1) ntup.ID_leps4.push_back(ntup.lep_ID_1);
+      if(l == 2) ntup.ID_leps4.push_back(ntup.lep_ID_2);
+      if(l == 3) ntup.ID_leps4.push_back(ntup.lep_ID_3);
     }
     //DR info.
-    for(j = 1; j < leps4.size(); j++) {
-      for(k = 0; k < j; k++) {
+    for(int j = 1; j < int(leps4.size()); j++) {
+      for(int k = 0; k < j; k++) {
         if(ntup.DR4leps < 0.1) break;
-        ntup.DR4leps = std::sqrt( (leps4[j].Eta() - leps4[k].Eta()) * (leps4[j].Eta() - leps4[k].Eta()) + (leps4[j].Phi() - leps4[k].Phi()) * (leps4[j].Phi() - leps4[k].Phi()) ); //4l
+        ntup.DR4leps = sqrt( (leps4[j].Eta() - leps4[k].Eta()) * (leps4[j].Eta() - leps4[k].Eta()) + (leps4[j].Phi() - leps4[k].Phi()) * (leps4[j].Phi() - leps4[k].Phi()) ); //4l
       }
     }
     //Pt info. 
-    for(l = 0; j < leps4.size(); j++) {
+    for(int l = 0; l < int(leps4.size()); l++) {
       if( leps4[l].Pt()/GeV > 20 ) ntup.Pt20_4leps++;
       if( leps4[l].Pt()/GeV > 15 ) ntup.Pt15_4leps++;
       if( leps4[l].Pt()/GeV > 10 ) ntup.Pt10_4leps++;
     }
     //lepton pair selection
     Float_t delta_m = 999999;
-    Float ZMass = 91187.6;
+    Float_t ZMass = 91187.6;
     ntup.TLV_4l_lep2.SetPtEtaPhiM(0,0,0,ZMass);
 
-    for(j = 1; j < leps4.size() and ntup.TLV_4l_lep2.M() > 4000; j++) {
-      for(k = 0; k < j && ntup.TLV_4l_lep2.M() > 4000; k++) {
+    for(int j = 1; j < int(leps4.size()) and ntup.TLV_4l_lep2.M() > 4000; j++) {
+      for(int k = 0; k < j && ntup.TLV_4l_lep2.M() > 4000; k++) {
 
         if(ntup.ID_leps4[j] == -ntup.ID_leps4[k] and ntup.ID_leps4[j] != 0 ) {
           
-          TLV_4l_lep2 = leps4[j] + leps4[k];
+          ntup.TLV_4l_lep2 = leps4[j] + leps4[k];
         
-          if(delta_m > std::fabs(ZMass - ntup.TLV_4l_lep2.M())) {
+          if(delta_m > fabs(ZMass - ntup.TLV_4l_lep2.M())) {
             ntup.lepID[0] = j;
             ntup.lepID[1] = k;                     
-            delta_m = std::fabs(ZMass - ntup.TLV_4l_lep2.M());
+            delta_m = fabs(ZMass - ntup.TLV_4l_lep2.M());
           }
         }
       }

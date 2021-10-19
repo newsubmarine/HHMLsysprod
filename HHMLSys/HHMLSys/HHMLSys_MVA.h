@@ -120,7 +120,7 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_Mlep012;
   Float_t BDTG_Mlep2LjSLj;
   Float_t BDTG_Mlep012LjSLj;
-  Float_t BDTG_DRlep0lep1;
+  Float_t BDTG_DRl0l1;
   Float_t BDTG_DRlep1lep2;
   Float_t BDTG_DRlep2CloseJ;
   Int_t   BDTG_nJets;
@@ -132,7 +132,6 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_lep_E_0;
   Float_t BDTG_lep_E_1;
   Float_t BDTG_lep_E_2;
-  Float_t BDTG_HT;
   Float_t BDTG_HT_lep;
   Float_t BDTG_Best_Z_Mll;
 };

@@ -191,7 +191,7 @@ StatusCode HHMLSys_MVA::BookMVA_3l(const string& xmlFile) {
   reader_3l->AddVariable("lep_E_2"  , &BDTG_lep_E_2);
   reader_3l->AddVariable("HT"       , &BDTG_HT);
   reader_3l->AddVariable("HT_lep"   , &BDTG_HT_lep);
-  reader_3l->AddVariable("best_Z_Mll" , &BDTG_best_Z_Mll);
+  reader_3l->AddVariable("best_Z_Mll" , &BDTG_Best_Z_Mll);
 
   int EventNo;
   reader_3l->AddSpectator("EventNum", &EventNo);
@@ -302,21 +302,21 @@ float HHMLSys_MVA::EvaluateMVA_3l(const HHMLSys_Ntuple& ntup) {
   BDTG_Mlep012      = ntup.Mlep012;
   BDTG_Mlep2LjSLj   = ntup.Mlep2LjSLj;
   BDTG_Mlep012LjSLj = ntup.Mlep012LjSLj;
-  BDTG_DRlep0lep1   = ntup.DRlep0lep1;
+  BDTG_DRl0l1       = ntup.DRl0l1;
   BDTG_DRlep1lep2   = ntup.DRlep1lep2;
   BDTG_DRlep2CloseJ = ntup.DRlep2CloseJ;
   BDTG_nJets        = ntup.nJets_OR;
-  BDTG_leadJetPt    = ntup.lead_jetPt/GeV;
-  BDTG_leadJetE     = ntup.lead_jetE/GeV;
+  BDTG_leadJetPt    = ntup.lead_jetPt/1000.;
+  BDTG_leadJetE     = ntup.lead_jetE/1000.;
   BDTG_lep_Pt_0     = ntup.lep_Pt_0;
   BDTG_lep_Pt_1     = ntup.lep_Pt_1;
   BDTG_lep_Pt_2     = ntup.lep_Pt_2;
   BDTG_lep_E_0      = ntup.lep_E_0;
   BDTG_lep_E_1      = ntup.lep_E_0;
   BDTG_lep_E_2      = ntup.lep_E_0;
-  BDTG_HT           = ntup.HT/GeV;
-  BDTG_HT_lep       = ntup.HT_lep/GeV;
-  BDTG_Best_Z_Mll   = ntup.Best_Z_Mll/GeV;
+  BDTG_HT           = ntup.HT/1000;
+  BDTG_HT_lep       = ntup.HT_lep/1000.;
+  BDTG_Best_Z_Mll   = ntup.best_Z_Mll/1000.;
 
   BDTG_weight = reader_3l->EvaluateMVA("BDTG");
   

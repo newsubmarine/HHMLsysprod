@@ -122,7 +122,7 @@ bool HHMLSys_EventSaver::LepTrigMatch(const std::string& matching) {
     if( ntup.custTrigMatch_LooseID_FCLooseIso_SLTorDLT > 0 ) return true;
   }
   else if( matching == "SLTorDLT_Tight" ) {
-    if( ntup.custTrigMatch_TightElMediumMuID_FCLooseIso_SLTorDLT > 0 ) return;
+    if( ntup.custTrigMatch_TightElMediumMuID_FCLooseIso_SLTorDLT > 0 ) return true;
   }
   else {
     if( ntup.GlobalTrigMatch_AT_default_postOR > 0 ) return true;

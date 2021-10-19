@@ -23,6 +23,7 @@
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
+#include "TLorentzVector.h"
 
 class HHMLSys_Ntuple {
   
@@ -83,17 +84,17 @@ class HHMLSys_Ntuple {
   Float_t Mlep012;
   Float_t Mlep2LjSLj;
   Float_t Mlep012LjSLj;
-  Float_t DRlep0lep1;
+  Float_t DRl0l1;
   Float_t DRlep1lep2;
   Float_t DRlep2CloseJ;
 
   //4l channel
-  Float_t DRDR4leps;
+  Float_t DR4leps;
   Int_t Pt20_4leps;
   Int_t Pt15_4leps;
   Int_t Pt10_4leps;
   std::vector<int> ID_leps4;
-  Int_t lepID[4]
+  int lepID[4];
   TLorentzVector TLV_4l_lep2;
 
   //
