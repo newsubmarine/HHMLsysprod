@@ -14,7 +14,8 @@
 
 #include "HHMLSys/HHMLSys_Base.h"
 
-const float GeV=1000.;
+const float GeV = 1000.;
+const float ZMass = 91187.6;
 
 class HHMLSys_EventSaver: public HHMLSys_Base {
 

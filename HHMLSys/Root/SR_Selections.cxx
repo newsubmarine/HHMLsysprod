@@ -46,16 +46,23 @@ void HHMLSys_EventSaver::SR3lSelection() {
   BDTOutput_3l = -99;
 
   if( !ntup.trilep_type ) return;
+  if( abs(ntup.total_charge) != 1 ) return;
   if( !(ntup.GlobalTrigDecision > 0) ) return;
+  if( !LepTrigMatch("SLTorDLT_Loose") ) return;
+  if( !(ntup.nTaus_OR_Pt25_RNN == 0) ) return;
+  if( !Tight3LepCuts() ) return;
+  if( !TriLepPtCuts(10, 15, 15) ) return;
   if( !JetCut(1) ) return;
   if( !BJetVeto() ) return;
+  if( !ZVeto("3l") ) return;
+  if( !ntup.SFOFZVeto ) return;
   
   is3Lep = true;
 
   weight_3l = getMCweight("3l");
 
   //Get 3l BDT
-  if(m_do_3lMVA) BDTOutput_3l = 1;
+  if(m_do_3lMVA) BDTOutput_3l = mva.EvaluateMVA_3l(ntup);
 }
 
 //4l channel
@@ -94,7 +101,7 @@ void HHMLSys_EventSaver::SR4lbbSelection() {
   if( !ntup.quadlep_type ) return;
   if( !(ntup.GlobalTrigDecision > 0) ) return;
   if( !(ntup.lep_isTrigMatch_0 or ntup.lep_isTrigMatch_1 or ntup.lep_isTrigMatch_2 or ntup.lep_isTrigMatch_3 or ntup.lep_isTrigMatchDLT_0 or ntup.lep_isTrigMatchDLT_1 or ntup.lep_isTrigMatchDLT_2 or ntup.lep_isTrigMatchDLT_3) ) return;
-  if( ntup.lep_plvWP_Loose_2 == 0 and ntup.lep_plvWP_Loose_3 == 0) return;
+  if( !Tight4LepbbCuts() ) return;
   if( ntup.DR4leps < 0.1 ) return;
   if( ntup.TLV_4l_lep2.M()/GeV < 4 ) return;
   if( ntup.lepID[0] == ntup.lepID[1] ) return;

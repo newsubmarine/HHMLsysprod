@@ -87,7 +87,8 @@ class HHMLSys_Ntuple {
   Float_t DRl0l1;
   Float_t DRlep1lep2;
   Float_t DRlep2CloseJ;
-
+  bool    SFOFZVeto;
+  
   //4l channel
   Float_t DR4leps;
   Int_t Pt20_4leps;

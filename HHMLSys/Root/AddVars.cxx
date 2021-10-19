@@ -72,6 +72,7 @@ void HHMLSys_EventSaver::AddVars() {
   ntup.DRl0l1       = 99.;
   ntup.DRlep1lep2   = 99.;
   ntup.DRlep2CloseJ = 99.;
+  ntup.SFOFZVeto = false;
 
   //4l
   ntup.DR4leps = 99.;
@@ -126,6 +127,13 @@ void HHMLSys_EventSaver::AddVars() {
     if (nElectron == 1 and abs(lep_ID[0]) == 13 and abs(lep_ID[1]) == 11) ntup.FlavorCat = 6; // mem
     if (nElectron == 1 and abs(lep_ID[0]) == 13 and abs(lep_ID[1]) == 13) ntup.FlavorCat = 7; // mme
     if (nElectron == 0) ntup.FlavorCat = 8; // mmm
+
+    Float_t ZMass_l01 = fabs(ntup.Mll01/GeV - ZMass/GeV);
+    Float_t ZMass_l02 = fabs(ntup.Mll02/GeV - ZMass/GeV);
+    
+    if( ntup.FlavorCat == 2 or ntup.FlavorCat == 7 ) ntup.SFOFZVeto = (ZMass_l01 >= 10);
+    if( ntup.FlavorCat == 3 or ntup.FlavorCat == 6 ) ntup.SFOFZVeto = (ZMass_l02 >= 10);
+    if( ntup.FlavorCat == 1 or ntup.FlavorCat == 8 ) ntup.SFOFZVeto = ((ZMass_l01 >= 10) and (ZMass_l02 >= 10));
   }
 
   //
@@ -352,7 +360,7 @@ void HHMLSys_EventSaver::AddVars() {
     }
     //lepton pair selection
     Float_t delta_m = 999999;
-    Float_t ZMass = 91187.6;
+
     ntup.TLV_4l_lep2.SetPtEtaPhiM(0,0,0,ZMass);
 
     for(int j = 1; j < int(leps4.size()) and ntup.TLV_4l_lep2.M() > 4000; j++) {
