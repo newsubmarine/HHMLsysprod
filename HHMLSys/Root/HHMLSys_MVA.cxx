@@ -191,7 +191,7 @@ StatusCode HHMLSys_MVA::BookMVA_3l(const string& xmlFile) {
   reader_3l->AddVariable("lep_E_2"  , &BDTG_lep_E_2);
 
   int EventNo;
-  reader_3l->AddSpectator("EventNum", &EventNo);
+  reader_3l->AddSpectator("EvtNum", &EventNo);
 
   reader_3l->BookMVA("BDT_hh3l", xmlFile);
   
