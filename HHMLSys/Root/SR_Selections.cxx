@@ -83,9 +83,6 @@ void HHMLSys_EventSaver::SR4lSelection() {
   is4Lep = true;
 
   weight_4l = getMCweight("4l");
-
-  //Get 4l BDT
-  if(m_do_4lMVA) BDTOutput_4l = 1;
 }
 
 //4lbb channel
