@@ -120,32 +120,17 @@ def createJobScript(files, outDir, jobKey):
         return None
 
     #Job options
-    jobOpts1 = '--sp %s --conf %s --mcRun %s '%(files, options.configFile, options.mcRun)
-    jobOpts2 = '--sp input/%s --conf %s --mcRun %s '%(files.split('/')[-1], options.configFile, options.mcRun)
+    jobOpts = '--sp %s --conf %s --mcRun %s '%(files, options.configFile, options.mcRun)
 
     stext = '#!/bin/sh\n\n'
 
     #Setup env.
     stext += 'export ATLAS_LOCAL_ROOT_BASE=/cvmfs/atlas.cern.ch/repo/ATLASLocalRootBase \n'
-    stext += 'alias setupATLAS=''source ${ATLAS_LOCAL_ROOT_BASE}/user/atlasLocalSetup.sh'' \n'
-    stext += 'setupATLAS \n\n'
+    stext += 'source ${ATLAS_LOCAL_ROOT_BASE}/user/atlasLocalSetup.sh \n'
     
-    #Make dir. and copy input file
-    stext += 'mkdir input/ \n'
-    stext += 'echo copying the input file....\n'
-    stext += 'xrdcp -np -f %s input/ \n\n'%files
-
     #Check if file is copied or not. If not read the file directly. (wip: copy only the large files?)
-    stext += 'ls -lah input%s.root \n'%files
-    stext += 'lsFail=$? \n'
-    stext += 'if [ $lsFail -ne 0 ]\n'
-    stext += 'then\n'
-    stext += '    echo input/%s.root file not found'%(files.split('/')[-1]) + '\n'
-    stext += '    echo read %s.root file directly'%files + '\n'
-    stext += '    %s\n\n' %(' '.join(['runHHMLSys', jobOpts1]))
-    stext += 'else\n'
-    stext += '    echo found input/%s.root file'%(files.split('/')[-1]) + '\n'
-    stext += '    %s\n\n' %(' '.join(['runHHMLSys', jobOpts2]))
+    stext += 'echo Reading %s.root file directly'%files + '\n'
+    stext += ' %s\n\n' %(' '.join(['runHHMLSys', jobOpts]))
     
     #Check if job succeeded or failed. Then, copy the output root file to output directory and delete the input file.
     stext += 'job_return_code=$?\n\n'
@@ -177,14 +162,12 @@ def createJobScript(files, outDir, jobKey):
     stext += '                touch %s.fail\n' %jobResult
     stext += '            else\n'
     stext += '                touch %s.pass\n' %jobResult
-    stext += '                echo deleting the input root file....\n'
-    stext += '                rm -r input/ \n'
     stext += '                echo Done!!!!\n'
     stext += '            fi \n'
     stext += '        else\n'
     stext += '            touch %s.pass\n' %jobResult
-    stext += '            echo deleting the input and output root files....\n'
-    stext += '            rm -r input/ %s.root '%jobKey + ' \n'
+    stext += '            echo deleting the output root file....\n'
+    stext += '            rm -r %s.root '%jobKey + ' \n'
     stext += '            echo All Done!!!!\n'
     stext += '        fi \n'
     stext += '    fi \n'
