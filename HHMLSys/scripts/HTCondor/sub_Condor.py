@@ -134,7 +134,7 @@ def createJobScript(files, outDir, jobKey):
     stext += 'cd /publicfs/atlas/atlasnew/higgs/HHML/Slim_sys_prod/build/ \n'
     stext += 'asetup 21.2.182,AnalysisBase \n'
     stext += 'source x86_64-*/setup.sh \n'
-    stext += 'cd pwd \n\n'
+    stext += 'cd $pwd \n\n'
 
     #Check if file is copied or not. If not read the file directly. (wip: copy only the large files?)
     stext += 'echo Reading %s.root file directly'%files + '\n'
