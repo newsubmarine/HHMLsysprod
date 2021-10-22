@@ -185,6 +185,9 @@ def createJobScript(files, outDir, jobKey):
     sfile.write(stext)
     sfile.close() 
 
+    #Make the script executbale
+    os.chmod('%s/%s' %(options.afs_path, jobScript), 0775)
+ 
     return jobScript 
     
 #======================================================================================================
