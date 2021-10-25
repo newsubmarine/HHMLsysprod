@@ -85,8 +85,8 @@ class HHMLSys_MVA: public asg::AsgMessaging
   //2lss channel
   Float_t  BDTG_dilep_type;  
   //Float_t  BDTG_nJets;       
-  Float_t  BDTG_lep_EtaBE2_0;
-  Float_t  BDTG_lep_EtaBE2_1;
+  Float_t  BDTG_lep_Eta_0;
+  Float_t  BDTG_lep_Eta_1;
   //Float_t  BDTG_leadJetPt; 
   //Float_t  BDTG_MET;
   //Float_t  BDTG_Mll01;   
