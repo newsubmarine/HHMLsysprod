@@ -3,6 +3,16 @@
 using namespace std;
 const Double_t PI = TMath::Pi();
 
+
+//Sort function
+//sort pair based on second value
+/*
+struct pairSortFun: public binary_function<pair<int,float> &,pair<int,float> &,bool>{
+    bool operator()(const pair<int,float>&elemx,const pair<int,float>&elemy){
+        return ((elemx.second) < (elemy.second));
+    }
+};
+*/
 //
 // Add new variables
 //
@@ -29,6 +39,24 @@ float HHMLSys_EventSaver::DeltaR(float DEta, float DPhi){
 //---------------------------------------------------------------------------------------
 void HHMLSys_EventSaver::AddVars() {
 
+  //2lss channel
+  //ntup.Ml1j         =-999.;
+  //ntup.Ml0j         =-999.;
+  ntup.MLep1Jet     =-999.;
+  ntup.Ml0jj        =-999.;
+  ntup.Ml1jj        =-999.;
+  ntup.Mjj4         =-999.;
+  ntup.Mj0j1        =-999.;
+  ntup.Mall         =-999.;
+  ntup.Mt           =-999.;
+  ntup.MaxEtalep01  =-999.;
+  ntup.MLepMet      =-999.;
+  //ntup.DRll01       =-999.;
+  //ntup.HT           =-999.;
+  //ntup.HT_lep       =-999.;
+  ntup.RMS          =99.;
+
+  
   //1l+2tau & 2l+2tau
   ntup.Mtau0tau1      = -999.;
   ntup.Mlep0tau0      = -999.;
@@ -88,11 +116,16 @@ void HHMLSys_EventSaver::AddVars() {
   TLorentzVector leps[2];
   TLorentzVector jets[2];
   TLorentzVector jet;
+  TLorentzVector jet1;
 
   TLorentzVector TLV_Jets[2];
   TLorentzVector TLV_Leps[3];
   TLorentzVector TLV_tau;
 
+  TLorentzVector MET;
+  MET.SetPtEtaPhiM(ntup.met_met, 0, ntup.met_phi, 0);
+  
+  vector<float> phi_leptons; vector<float> phi_jets; vector<float>phi_all;
   //
   //Lepton flavor
   //
@@ -255,35 +288,55 @@ void HHMLSys_EventSaver::AddVars() {
   //
   Float_t DR_l0j      = 99.;
   Float_t DR_l1j      = 99.;
+  Float_t DR_l0j_1    = 99.;
+  Float_t DR_l1j_1    = 99.;
   Float_t DEtalep0Jet = -99.;
   Float_t DPhilep0Jet = -99.;
   Float_t DR_lep0Jet  = 99.;
   Float_t SumJetPt    = 0;
 
-  int index_l0j(-1); //index for close jet
-  jet = TLorentzVector();
-
+  int index_l0j(-1),index_l1j(-1); //index for close jet
+  int index_l0j1(-1),index_l1j1(-1); //index for second close jet
+  
+  jet = TLorentzVector(); 
+  TLorentzVector jet4;
+  TLorentzVector sumjet;
+  vector<TLorentzVector> jets_temp;
   for(unsigned int i = 0; i < ntup.jet_phi->size(); i++) {
 
-    SumJetPt += ntup.jet_pt->at(i);
-
     jet.SetPtEtaPhiE(ntup.jet_pt->at(i), ntup.jet_eta->at(i), ntup.jet_phi->at(i), ntup.jet_e->at(i));
-
+    jets_temp.push_back(jet);
+    phi_jets.push_back(ntup.jet_phi->at(i));
+    phi_all.push_back(ntup.jet_phi->at(i));
+    if(i <= 3 ) jet4 += jet;
+    sumjet += jet;
     DR_l0j = leps[0].DeltaR(jet);
     DR_l1j = leps[1].DeltaR(jet);
+
     
-    if(DR_l0j == 99 or DR_l1j == 99) cout << "AddVars - DeltaR between leptons is wrong!!" << endl;
-
     if(DR_l0j < ntup.minDR_LJ_0) {
-      ntup.minDR_LJ_0 = DR_l0j;
-      index_l0j = i;
-    }
-    if(DR_l1j < ntup.minDR_LJ_1) {
-      ntup.minDR_LJ_1 = DR_l1j;
-    }
+        DR_l0j_1 = ntup.minDR_LJ_0;
+        ntup.minDR_LJ_0 = DR_l0j;//2lss
 
+        index_l0j1 = index_l0j;
+        index_l0j = i;
+    }
+    else if( DR_l0j < DR_l0j_1 && DR_l0j !=ntup.minDR_LJ_0){
+        DR_l0j_1 = DR_l0j ;
+        index_l0j1 = i;
+    }
+    if(DR_l1j < ntup.minDR_LJ_0) { 
+        DR_l1j_1 = DR_l1j;
+        ntup.minDR_LJ_1 = DR_l1j;//2lss
+        index_l1j1 = index_l1j;
+        index_l1j = i;
+    }
+    else if(DR_l1j < DR_l1j_1 && DR_l1j_1 !=ntup.minDR_LJ_1){
+        DR_l1j_1 = DR_l1j;
+        index_l1j1 = i;
+    }
     if(ntup.jet_isbtagged_DL1r_77->at(i) == 0) {
-      DEtalep0Jet = abs(ntup.lep_Eta_0 - ntup.jet_eta->at(i));
+
       DPhilep0Jet = DeltaPhi(ntup.lep_Phi_0, ntup.jet_phi->at(i));
 
       DR_lep0Jet = DeltaR(DEtalep0Jet, DPhilep0Jet);
@@ -296,15 +349,50 @@ void HHMLSys_EventSaver::AddVars() {
       }
     }
   }
-  
+
   ntup.DR_min_LepJet = ntup.minDR_LJ_0;
   if(ntup.minDR_LJ_1 < ntup.DR_min_LepJet) ntup.DR_min_LepJet = ntup.minDR_LJ_1;
-    
+  
+  //2lss stuffs
+ 
+  ntup.Mjj4   = jet4.M();
+  if(nJets >=2) ntup.Mj0j1  = (jets_temp.at(0) + jets_temp.at(1)).M();
+  ntup.Mall   = (leps[0] + leps[1] + sumjet + MET).M();
+  ntup.Mt     = (leps[0] + leps[1] + sumjet + MET).Mt();
+  ntup.MLepMet= (leps[0] + leps[1] + MET).M();
+  for(unsigned int i = 0; i < 2; i++){
+      phi_leptons.push_back(leps[i].Phi());
+      phi_all.push_back(leps[i].Phi());
+  }
+  phi_leptons.push_back(ntup.met_phi);
+  phi_all.push_back(ntup.met_phi);
+  ntup.RMS=getRMS(phi_jets)*getRMS(phi_leptons)/getRMS(phi_all);
+  
   //Closest jet and leading lepton
   jet = TLorentzVector();
+  jet1= TLorentzVector();
   if(index_l0j != -1) {
-    jet.SetPtEtaPhiE(ntup.jet_pt->at(index_l0j), ntup.jet_eta->at(index_l0j), ntup.jet_phi->at(index_l0j), ntup.jet_e->at(index_l0j));
-    ntup.MLep0Jet = (leps[0] + jet).M();
+      jet.SetPtEtaPhiE(ntup.jet_pt->at(index_l0j), ntup.jet_eta->at(index_l0j), ntup.jet_phi->at(index_l0j), ntup.jet_e->at(index_l0j));
+      ntup.MLep0Jet = (leps[0] + jet).M();//2lss
+      if(index_l0j1!= -1){
+
+          jet1.SetPtEtaPhiE(ntup.jet_pt->at(index_l0j1), ntup.jet_eta->at(index_l0j1), ntup.jet_phi->at(index_l0j1), ntup.jet_e->at(index_l0j1));
+          ntup.Ml0jj = (leps[0] + jet + jet1).M();//2lss
+      }
+
+  }
+  //Closest jet and sub-leading lepton
+  jet = TLorentzVector();
+  jet1= TLorentzVector();
+  if(index_l1j != -1) {
+      jet.SetPtEtaPhiE(ntup.jet_pt->at(index_l1j), ntup.jet_eta->at(index_l1j), ntup.jet_phi->at(index_l1j), ntup.jet_e->at(index_l1j));
+      ntup.MLep1Jet = (leps[0] + jet).M();//2lss
+      if(index_l1j1!= -1){
+
+          jet1.SetPtEtaPhiE(ntup.jet_pt->at(index_l1j1), ntup.jet_eta->at(index_l1j1), ntup.jet_phi->at(index_l1j1), ntup.jet_e->at(index_l1j1));
+          ntup.Ml1jj = (leps[0] + jet + jet1).M();//2lss
+      }
+
   }
 
   //Closest lepton and tau

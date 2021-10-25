@@ -42,6 +42,19 @@ class HHMLSys_Ntuple {
   //BDT input vars.
   //
 
+  //2lss channels
+  //Float_t   Ml1j;
+  //Float_t   Ml0j;
+  Float_t   MLep1Jet;
+  Float_t   Ml0jj;
+  Float_t   Ml1jj;
+  Float_t   Mjj4;
+  Float_t   Mj0j1;
+  Float_t   Mall;
+  Float_t   Mt;
+  Float_t   MLepMet;
+  Float_t   RMS;
+  
   //1l+2tau & 2l+2tau channels
   Float_t Mlep0tau0;
   Float_t Mlep0tau1;

@@ -4,6 +4,21 @@
 // Helper Functions
 //
 
+
+
+//-----------------------------------------------------------------------------------------------
+float HHMLSys_EventSaver::getRMS(const std::vector<float>& values){
+    float sum_squares = 0 ;
+      unsigned int entries=values.size();
+      for(unsigned int i=0;i<entries;i++){
+          sum_squares+=(values.at(i))*(values.at(i));
+      }
+      return sqrt(sum_squares/(float)entries);
+  }
+
+
+
+
 //-----------------------------------------------------------------------------------------------
 bool HHMLSys_EventSaver::Tight1LepCuts() {
   

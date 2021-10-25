@@ -40,6 +40,8 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
 
   double getMCweight(const std::string& channel);
 
+
+  float getRMS(const std::vector<float>& values);
   //
   //Set out TTree and it's branches
   //
