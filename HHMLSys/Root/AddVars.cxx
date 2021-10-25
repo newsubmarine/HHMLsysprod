@@ -386,11 +386,11 @@ void HHMLSys_EventSaver::AddVars() {
   jet1= TLorentzVector();
   if(index_l1j != -1) {
       jet.SetPtEtaPhiE(ntup.jet_pt->at(index_l1j), ntup.jet_eta->at(index_l1j), ntup.jet_phi->at(index_l1j), ntup.jet_e->at(index_l1j));
-      ntup.MLep1Jet = (leps[0] + jet).M();//2lss
+      ntup.MLep1Jet = (leps[1] + jet).M();//2lss
       if(index_l1j1!= -1){
 
           jet1.SetPtEtaPhiE(ntup.jet_pt->at(index_l1j1), ntup.jet_eta->at(index_l1j1), ntup.jet_phi->at(index_l1j1), ntup.jet_e->at(index_l1j1));
-          ntup.Ml1jj = (leps[0] + jet + jet1).M();//2lss
+          ntup.Ml1jj = (leps[1] + jet + jet1).M();//2lss
       }
 
   }
