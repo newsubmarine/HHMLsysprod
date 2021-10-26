@@ -35,7 +35,7 @@ float HHMLSys_EventSaver::getRMS(const std::vector<float>& values) {
   for(unsigned int i=0; i < entries; i++) {
     sum_squares += (values.at(i)) * (values.at(i));
   }
-  return sqrt(sum_squares / (float(entries));
+  return sqrt(sum_squares / (float(entries)));
 }
 
 //---------------------------------------------------------------------------------------
@@ -449,8 +449,8 @@ void HHMLSys_EventSaver::AddVars() {
         }
       }
     }
-    ntup.MLep34_4l = ( ntup.ID_leps4[ntup.lepID[2]] + ntup.ID_leps4[ntup.lepID[3]] ).M();
-    ntup.TLV_4l = ntup.ID_leps4[ntup.lepID[0]] + ntup.ID_leps4[ntup.lepID[1]] + ntup.ID_leps4[ntup.lepID[2]] + ntup.ID_leps4[ntup.lepID[3]]
+    ntup.MLep34_4l = (leps4[ntup.lepID[2]] + leps4[ntup.lepID[3]]).M();
+    ntup.TLV_4l = leps4[ntup.lepID[0]] + leps4[ntup.lepID[1]] + leps4[ntup.lepID[2]] + leps4[ntup.lepID[3]];
     ntup.M4_4l  = ntup.TLV_4l.M()/GeV;
     ntup.MLjSLj_4l  = (jets[0] + jets[1]).M()/GeV;
     ntup.PtLjSLj_4l = (jets[0] + jets[1]).Pt()/GeV;

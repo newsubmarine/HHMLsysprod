@@ -95,12 +95,12 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("lep_flavor"     , &ntup.lep_flavor);
   outTree->Branch("MCloserLepTau0" , &ntup.MCloserLepTau0);
   outTree->Branch("RSumPtlep01tau0Jets", &ntup.RSumPtlep01tau0Jets);
-  outTree->Branch("MLep12_4l"      , &ntup.MLep12_4l;
-  outTree->Branch("MLep34_4l"      , &ntup.MLep34_4l;
-  outTree->Branch("M4_4l"          , &ntup.M4_4l;
-  outTree->Branch("MLjSLj_4l"      , &ntup.MLjSLj_4l;
-  outTree->Branch("PtLjSLj_4l"     , &ntup.PtLjSLj_4l;
-  outTree->Branch("DPhiJetMET"     , &ntup.DPhiJetMET;
+  outTree->Branch("MLep12_4l"      , &ntup.MLep12_4l);
+  outTree->Branch("MLep34_4l"      , &ntup.MLep34_4l);
+  outTree->Branch("M4_4l"          , &ntup.M4_4l);
+  outTree->Branch("MLjSLj_4l"      , &ntup.MLjSLj_4l);
+  outTree->Branch("PtLjSLj_4l"     , &ntup.PtLjSLj_4l);
+  outTree->Branch("DPhiJetMET"     , &ntup.DPhiJetMET);
   
   //GN1 branches
   outTree->Branch("MET"           , &ntup.met_met);

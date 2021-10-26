@@ -19,7 +19,7 @@ StatusCode HHMLSys_MVA::CheckXMLFile(const string& xmlFile) {
   }
 
   if(xmlFile != "" and xmlFile.find(".xml") != std::string::npos) {
-    ATH_MSG_INFO("Reading weight xml file ");
+    ATH_MSG_INFO("Reading weight xml file " << xmlFile);
   }
   else {
     ATH_MSG_FATAL("Unable to read weight xml file!!");
@@ -197,7 +197,7 @@ StatusCode HHMLSys_MVA::BookMVA_2l(const string& xmlFile1, const string& xmlFile
   reader_2l_VV->AddVariable("Mlj_1"                   , &BDTG_MLep1Jet);
   reader_2l_VV->AddVariable("Mt_0"                    , &BDTG_MLep0MET);
   reader_2l_VV->AddVariable("Mt_1"                    , &BDTG_MLep1MET);
-  reader_2l_VV->AddVariable("Mt_all"                  , &BDTG_MAll);
+  reader_2l_VV->AddVariable("M_all"                   , &BDTG_MAll);
 
   //ttbar
   reader_2l_tt->AddVariable("abs(lep_Eta_0)"          , &BDTG_lep_Eta_0);
@@ -215,7 +215,7 @@ StatusCode HHMLSys_MVA::BookMVA_2l(const string& xmlFile1, const string& xmlFile
   reader_2l_tt->AddVariable("Mlj_1"                   , &BDTG_MLep1Jet);
   reader_2l_tt->AddVariable("Mt_0"                    , &BDTG_MLep0MET);
   reader_2l_tt->AddVariable("Mt_1"                    , &BDTG_MLep1MET);
-  reader_2l_tt->AddVariable("Mt_all"                  , &BDTG_MAll);
+  reader_2l_tt->AddVariable("M_all"                   , &BDTG_MAll);
   reader_2l_tt->AddVariable("nJets_OR_DL1r_85"        , &BDTG_nJets_OR_DL1r_85);
 
   //V+jets
@@ -229,13 +229,12 @@ StatusCode HHMLSys_MVA::BookMVA_2l(const string& xmlFile1, const string& xmlFile
   reader_2l_Vjets->AddVariable("dilep_type"              , &BDTG_dilep_type);
   reader_2l_Vjets->AddVariable("met_met"                 , &BDTG_MET);
   reader_2l_Vjets->AddVariable("nJets_OR"                , &BDTG_nJets);
-  reader_2l_Vjets->AddVariable("total_charge"            , &BDTG_total_charge);
   reader_2l_Vjets->AddVariable("abs(lep_Eta_0-lep_Eta_1)", &BDTG_AbsDEtalep01);
   reader_2l_Vjets->AddVariable("Mlj_0"                   , &BDTG_MLep0Jet);
   reader_2l_Vjets->AddVariable("Mlj_1"                   , &BDTG_MLep1Jet);
   reader_2l_Vjets->AddVariable("Mt_0"                    , &BDTG_MLep0MET);
   reader_2l_Vjets->AddVariable("Mt_1"                    , &BDTG_MLep1MET);
-  reader_2l_Vjets->AddVariable("Mt_all"                  , &BDTG_MAll);
+  reader_2l_Vjets->AddVariable("M_all"                   , &BDTG_MAll);
 
   reader_2l_2->AddVariable("dilep_type"    , &BDTG_dilep_type);
   reader_2l_2->AddVariable("lep_Eta_0"     , &BDTG_lep_Eta_0);
@@ -257,9 +256,6 @@ StatusCode HHMLSys_MVA::BookMVA_2l(const string& xmlFile1, const string& xmlFile
   reader_2l_VV   ->BookMVA("BDTG_VV"   , xmlFile_VV); 
   reader_2l_tt   ->BookMVA("BDTG_tt"   , xmlFile_tt);
   reader_2l_Vjets->BookMVA("BDTG_Vjets", xmlFile_Vjets); 
-
-  int EventNo;
-  reader_2l_2->AddSpectator("p_Event_No", &EventNo);
 
   reader_2l_2->BookMVA("BDT_hh2lss", xmlFile2);
   
@@ -459,8 +455,8 @@ float HHMLSys_MVA::EvaluateMVA_2l1tau(const HHMLSys_Ntuple& ntup) {
 //-----------------------------------------------------------------------------------
 void HHMLSys_MVA::EvaluateMVA_2l(const HHMLSys_Ntuple& ntup, float& BDTG_weight_2l_1, float& BDTG_weight_2l_2, float& BDTG_weight_2l_VV, float& BDTG_weight_2l_tt, float& BDTG_weight_2l_Vjets ) 
 {
-  BDTG_lep_Eta_0        = ntup.lep_Eta_0;
-  BDTG_lep_Eta_1        = ntup.lep_Eta_1;
+  BDTG_lep_Eta_0        = abs(ntup.lep_Eta_0);
+  BDTG_lep_Eta_1        = abs(ntup.lep_Eta_1);
   BDTG_Mll01            = ntup.Mll01;
   BDTG_DRll01           = ntup.DRll01;
   BDTG_HT_lep           = ntup.HT_lep;
@@ -469,22 +465,22 @@ void HHMLSys_MVA::EvaluateMVA_2l(const HHMLSys_Ntuple& ntup, float& BDTG_weight_
   BDTG_dilep_type       = float(ntup.dilep_type);
   BDTG_MET              = ntup.met_met;
   BDTG_nJets            = float(ntup.nJets_OR);
-  BDTG_total_charge     = float(total_charge);
+  BDTG_total_charge     = float(ntup.total_charge);
   BDTG_AbsDEtalep01     = ntup.AbsDEtalep01;
   BDTG_MLep0Jet         = ntup.MLep0Jet;
   BDTG_MLep1Jet         = ntup.MLep1Jet;
   BDTG_MLep0MET         = ntup.MLep0MET;
   BDTG_MLep1MET         = ntup.MLep1MET; 
   BDTG_MAll             = ntup.MAll;
-  BDTG_nJets_OR_DL1r_85 = float(nJets_OR_DL1r_85);
+  BDTG_nJets_OR_DL1r_85 = float(ntup.nJets_OR_DL1r_85);
   BDTG_minDR_LJ_0       = ntup.minDR_LJ_0;
   BDTG_minDR_LJ_1       = ntup.minDR_LJ_1;
   BDTG_MaxEtalep01      = ntup.MaxEtalep01;
   BDTG_RMS              = ntup.RMS;
   
   BDTG_weight_2l_VV    = reader_2l_VV->EvaluateMVA("BDTG_VV");
-  BDTG_weight_2l_tt    = reader_2l_VV->EvaluateMVA("BDTG_tt");
-  BDTG_weight_2l_Vjets = reader_2l_VV->EvaluateMVA("BDTG_Vjet");
+  BDTG_weight_2l_tt    = reader_2l_tt->EvaluateMVA("BDTG_tt");
+  BDTG_weight_2l_Vjets = reader_2l_Vjets->EvaluateMVA("BDTG_Vjets");
 
   BDTG_tt    = BDTG_weight_2l_tt;
   BDTG_VV    = BDTG_weight_2l_VV;
@@ -492,8 +488,10 @@ void HHMLSys_MVA::EvaluateMVA_2l(const HHMLSys_Ntuple& ntup, float& BDTG_weight_
 
   BDTG_weight_2l_1 = reader_2l_1->EvaluateMVA("BDTG_All");
 
-  BDTG_MLep0Jet = ntup.MLep0Jet/1000.;
-  BDTG_MLep1Jet = ntup.MLep1Jet/1000.;
+  BDTG_lep_Eta_0 = ntup.lep_Eta_0;
+  BDTG_lep_Eta_1 = ntup.lep_Eta_1;
+  BDTG_MLep0Jet  = ntup.MLep0Jet/1000.;
+  BDTG_MLep1Jet  = ntup.MLep1Jet/1000.;
   
   BDTG_weight_2l_2 = reader_2l_2->EvaluateMVA("BDT_hh2lss");
 }

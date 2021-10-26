@@ -59,7 +59,7 @@ class HHMLSys_MVA: public asg::AsgMessaging
   HHMLSys_Ntuple ntup;
   
   //Non-tau channels
-  StatusCode BookMVA_2l(const std::string& xmlFile);
+  StatusCode BookMVA_2l(const std::string& xmlFile1, const std::string& xmlFile2, const std::string& xmlFile_VV, const std::string& xmlFile_tt, const std::string& xmlFile_Vjets);
   StatusCode BookMVA_3l(const std::string& xmlFile);
   StatusCode BookMVA_4lbb(const std::string& xmlFile);
 
@@ -89,6 +89,7 @@ class HHMLSys_MVA: public asg::AsgMessaging
   TMVA::Reader *reader_2l2tau;
   TMVA::Reader *reader_2l1tau;
   
+  StatusCode CheckXMLFile(const std::string& xmlFile);
   StatusCode CheckXMLFiles(const std::string& xmlEvenFile, const std::string& xmlOddFile);
 
   //Declaration of BDT input vars.
@@ -131,8 +132,9 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_tt;
   Float_t BDTG_Vjets;
   Float_t BDTG_MAll;
+  Float_t BDTG_RMS;
   Float_t BDTG_MLep1Jet;
-  Float_t BDTG_AbsEtalep01;
+  Float_t BDTG_AbsDEtalep01;
   Float_t BDTG_DR_min_LepJet;
   Float_t BDTG_HT_lep;
   Float_t BDTG_MLep0MET;
@@ -144,7 +146,6 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_lep_Eta_0;
   Float_t BDTG_lep_Eta_1;
   Float_t BDTG_minDR_LJ_1;
-  Float_t BDTG_MAll;
   //3l
   Float_t BDTG_FlavorCat;
   Float_t BDTG_Mlep0lep1;
@@ -166,19 +167,19 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_lep_E_1;
   Float_t BDTG_lep_E_2;
   //4l
-  BDTG_lep_Pt_3;
+  Float_t BDTG_lep_Pt_3;
   Float_t BDTG_sublead_JetPt;
-  BDTG_EtCone20Pt_0;
-  BDTG_EtCone20Pt_1;
-  BDTG_EtCone20Pt_2;
-  BDTG_EtCone20Pt_3;
-  BDTG_MLep12_4l;
-  BDTG_MLep34_4l;
-  BDTG_M4_4l;
-  BDTG_MLjSLj_4l;
-  BDTG_PtLjSLj_4l;
-  BDTG_DPhiJetMET;
-  BDTG_nJets_OR_DL1r_77;
+  Float_t BDTG_EtCone20Pt_0;
+  Float_t BDTG_EtCone20Pt_1;
+  Float_t BDTG_EtCone20Pt_2;
+  Float_t BDTG_EtCone20Pt_3;
+  Float_t BDTG_MLep12_4l;
+  Float_t BDTG_MLep34_4l;
+  Float_t BDTG_M4_4l;
+  Float_t BDTG_MLjSLj_4l;
+  Float_t BDTG_PtLjSLj_4l;
+  Float_t BDTG_DPhiJetMET;
+  Float_t BDTG_nJets_OR_DL1r_77;
 };
 
 #endif

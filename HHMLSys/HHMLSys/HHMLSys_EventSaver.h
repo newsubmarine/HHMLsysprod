@@ -111,6 +111,7 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
 
   float DeltaPhi(float Phi1, float Phi2);
   float DeltaR(float DEta, float DPhi);
+  float getRMS(const std::vector<float>& values);
 
   //Tight single lepton selection cuts
   bool Tight1LepCuts();
