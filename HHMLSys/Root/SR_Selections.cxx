@@ -32,7 +32,7 @@ void HHMLSys_EventSaver::SR2lSelection() {
   weight_2l = getMCweight("2l");
 
   //Get 2l BDT
-  if(m_do_2lMVA) BDTOutput_2l = 1;
+  if(m_do_2lMVA) BDTOutput_2l = mva.EvaluateMVA_2lss(ntup);;
 }
 
 //3l channel
