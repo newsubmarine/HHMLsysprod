@@ -9,6 +9,27 @@ HHMLSys_MVA::HHMLSys_MVA(const std::string& name) :
 }
 
 //-----------------------------------------------------------------------------------
+StatusCode HHMLSys_MVA::CheckXMLFile(const string& xmlFile) {
+
+  StatusCode sc = StatusCode::SUCCESS;
+  
+  if(xmlFile == "") {
+    ATH_MSG_FATAL("No weight xml file to read!");
+    return StatusCode::FAILURE;
+  }
+
+  if(xmlFile != "" and xmlFile.find(".xml") != std::string::npos) {
+    ATH_MSG_INFO("Reading weight xml file ");
+  }
+  else {
+    ATH_MSG_FATAL("Unable to read weight xml file!!");
+    return StatusCode::FAILURE;
+  }
+
+  return sc;
+}
+
+//-----------------------------------------------------------------------------------
 StatusCode HHMLSys_MVA::CheckXMLFiles(const string& xmlEvenFile, const string& xmlOddFile) {
 
   StatusCode sc = StatusCode::SUCCESS;
@@ -104,19 +125,8 @@ StatusCode HHMLSys_MVA::BookMVA_2l1tau(const string& xmlFile) {
 
   StatusCode sc = StatusCode::SUCCESS;
 
-  if(xmlFile == "") {
-    ATH_MSG_FATAL("No weight xml file to read!");
-    return StatusCode::FAILURE;
-  }
-
-  if(xmlFile != "" and xmlFile.find(".xml") != std::string::npos) {
-    ATH_MSG_INFO("Reading weight xml file ");
-  }
-  else {
-    ATH_MSG_FATAL("Unable to read weight xml file!!");
-    return StatusCode::FAILURE;
-  }
-
+  sc = CheckXMLFile(xmlFile);
+  
   if(sc.isFailure()) return StatusCode::FAILURE;
   
   TMVA::Tools::Instance();
@@ -141,6 +151,117 @@ StatusCode HHMLSys_MVA::BookMVA_2l1tau(const string& xmlFile) {
   reader_2l1tau->AddSpectator("p_Event_No2", &EventNo2);
 
   reader_2l1tau->BookMVA("BDTG", xmlFile);
+  
+  return sc;
+}
+
+//-----------------------------------------------------------------------------------
+StatusCode HHMLSys_MVA::BookMVA_2l(const string& xmlFile1, const string& xmlFile2, const string& xmlFile_VV, const string& xmlFile_tt, const string& xmlFile_Vjets) {
+
+  StatusCode sc = StatusCode::SUCCESS;
+
+  //Oceane's BDT training uses xmlFile1, and xmlFiles for each background Diboson, ttbar, and V+Jets
+  //Shuiting's BDT training uses one cross-validation xmlFile2
+
+  //Check all the xml files are valid
+  sc = (CheckXMLFile(xmlFile1) and CheckXMLFile(xmlFile2) and CheckXMLFile(xmlFile_VV) and CheckXMLFile(xmlFile_tt) and CheckXMLFile(xmlFile_Vjets));
+
+  if(sc.isFailure()) return StatusCode::FAILURE;
+  
+  TMVA::Tools::Instance();
+  
+  reader_2l_1     = new TMVA::Reader( "!Color:!Silent" );
+  reader_2l_2     = new TMVA::Reader( "!Color:!Silent" );
+  reader_2l_VV    = new TMVA::Reader( "!Color:!Silent" );
+  reader_2l_tt    = new TMVA::Reader( "!Color:!Silent" );
+  reader_2l_Vjets = new TMVA::Reader( "!Color:!Silent" );
+  
+  reader_2l_1->AddVariable("BDTG_tt_NewVar"   , &BDTG_tt);
+  reader_2l_1->AddVariable("BDTG_VV_NewVar"   , &BDTG_VV);
+  reader_2l_1->AddVariable("BDTG_Vjets_NewVar", &BDTG_Vjets);
+
+  //VV
+  reader_2l_VV->AddVariable("abs(lep_Eta_0)"          , &BDTG_lep_Eta_0);
+  reader_2l_VV->AddVariable("abs(lep_Eta_1)"          , &BDTG_lep_Eta_1);
+  reader_2l_VV->AddVariable("Mll01"                   , &BDTG_Mll01);
+  reader_2l_VV->AddVariable("DRll01"                  , &BDTG_DRll01);
+  reader_2l_VV->AddVariable("HT_lep"                  , &BDTG_HT_lep);
+  reader_2l_VV->AddVariable("DeltaR_min_lep_jet"      , &BDTG_DR_min_LepJet);
+  reader_2l_VV->AddVariable("HT"                      , &BDTG_HT);
+  reader_2l_VV->AddVariable("dilep_type"              , &BDTG_dilep_type);
+  reader_2l_VV->AddVariable("met_met"                 , &BDTG_MET);
+  reader_2l_VV->AddVariable("nJets_OR"                , &BDTG_nJets);
+  reader_2l_VV->AddVariable("total_charge"            , &BDTG_total_charge);
+  reader_2l_VV->AddVariable("abs(lep_Eta_0-lep_Eta_1)", &BDTG_AbsDEtalep01);
+  reader_2l_VV->AddVariable("Mlj_0"                   , &BDTG_MLep0Jet);
+  reader_2l_VV->AddVariable("Mlj_1"                   , &BDTG_MLep1Jet);
+  reader_2l_VV->AddVariable("Mt_0"                    , &BDTG_MLep0MET);
+  reader_2l_VV->AddVariable("Mt_1"                    , &BDTG_MLep1MET);
+  reader_2l_VV->AddVariable("Mt_all"                  , &BDTG_MAll);
+
+  //ttbar
+  reader_2l_tt->AddVariable("abs(lep_Eta_0)"          , &BDTG_lep_Eta_0);
+  reader_2l_tt->AddVariable("abs(lep_Eta_1)"          , &BDTG_lep_Eta_1);
+  reader_2l_tt->AddVariable("Mll01"                   , &BDTG_Mll01);
+  reader_2l_tt->AddVariable("DRll01"                  , &BDTG_DRll01);
+  reader_2l_tt->AddVariable("HT_lep"                  , &BDTG_HT_lep);
+  reader_2l_tt->AddVariable("DeltaR_min_lep_jet"      , &BDTG_DR_min_LepJet);
+  reader_2l_tt->AddVariable("HT"                      , &BDTG_HT);
+  reader_2l_tt->AddVariable("dilep_type"              , &BDTG_dilep_type);
+  reader_2l_tt->AddVariable("met_met"                 , &BDTG_MET);
+  reader_2l_tt->AddVariable("nJets_OR"                , &BDTG_nJets);
+  reader_2l_tt->AddVariable("abs(lep_Eta_0-lep_Eta_1)", &BDTG_AbsDEtalep01);
+  reader_2l_tt->AddVariable("Mlj_0"                   , &BDTG_MLep0Jet);
+  reader_2l_tt->AddVariable("Mlj_1"                   , &BDTG_MLep1Jet);
+  reader_2l_tt->AddVariable("Mt_0"                    , &BDTG_MLep0MET);
+  reader_2l_tt->AddVariable("Mt_1"                    , &BDTG_MLep1MET);
+  reader_2l_tt->AddVariable("Mt_all"                  , &BDTG_MAll);
+  reader_2l_tt->AddVariable("nJets_OR_DL1r_85"        , &BDTG_nJets_OR_DL1r_85);
+
+  //V+jets
+  reader_2l_Vjets->AddVariable("abs(lep_Eta_0)"          , &BDTG_lep_Eta_0);
+  reader_2l_Vjets->AddVariable("abs(lep_Eta_1)"          , &BDTG_lep_Eta_1);
+  reader_2l_Vjets->AddVariable("Mll01"                   , &BDTG_Mll01);
+  reader_2l_Vjets->AddVariable("DRll01"                  , &BDTG_DRll01);
+  reader_2l_Vjets->AddVariable("HT_lep"                  , &BDTG_HT_lep);
+  reader_2l_Vjets->AddVariable("DeltaR_min_lep_jet"      , &BDTG_DR_min_LepJet);
+  reader_2l_Vjets->AddVariable("HT"                      , &BDTG_HT);
+  reader_2l_Vjets->AddVariable("dilep_type"              , &BDTG_dilep_type);
+  reader_2l_Vjets->AddVariable("met_met"                 , &BDTG_MET);
+  reader_2l_Vjets->AddVariable("nJets_OR"                , &BDTG_nJets);
+  reader_2l_Vjets->AddVariable("total_charge"            , &BDTG_total_charge);
+  reader_2l_Vjets->AddVariable("abs(lep_Eta_0-lep_Eta_1)", &BDTG_AbsDEtalep01);
+  reader_2l_Vjets->AddVariable("Mlj_0"                   , &BDTG_MLep0Jet);
+  reader_2l_Vjets->AddVariable("Mlj_1"                   , &BDTG_MLep1Jet);
+  reader_2l_Vjets->AddVariable("Mt_0"                    , &BDTG_MLep0MET);
+  reader_2l_Vjets->AddVariable("Mt_1"                    , &BDTG_MLep1MET);
+  reader_2l_Vjets->AddVariable("Mt_all"                  , &BDTG_MAll);
+
+  reader_2l_2->AddVariable("dilep_type"    , &BDTG_dilep_type);
+  reader_2l_2->AddVariable("lep_Eta_0"     , &BDTG_lep_Eta_0);
+  reader_2l_2->AddVariable("lep_Eta_1"     , &BDTG_lep_Eta_1);
+  reader_2l_2->AddVariable("met_met"       , &BDTG_MET);
+  reader_2l_2->AddVariable("Mll01"         , &BDTG_Mll01);
+  reader_2l_2->AddVariable("minDeltaR_LJ_0", &BDTG_minDR_LJ_0);
+  reader_2l_2->AddVariable("minDeltaR_LJ_1", &BDTG_minDR_LJ_1);
+  reader_2l_2->AddVariable("m_l2j"         , &BDTG_MLep1Jet);
+  reader_2l_2->AddVariable("m_l1j"         , &BDTG_MLep0Jet);
+  reader_2l_2->AddVariable("nJets_OR"      , &BDTG_nJets);
+  reader_2l_2->AddVariable("max_eta"       , &BDTG_MaxEtalep01);
+  reader_2l_2->AddVariable("DRll01"        , &BDTG_DRll01);
+  reader_2l_2->AddVariable("HT"            , &BDTG_HT);
+  reader_2l_2->AddVariable("RMS"           , &BDTG_RMS);
+
+  reader_2l_1->BookMVA("BDTG_All", xmlFile1);
+
+  reader_2l_VV   ->BookMVA("BDTG_VV"   , xmlFile_VV); 
+  reader_2l_tt   ->BookMVA("BDTG_tt"   , xmlFile_tt);
+  reader_2l_Vjets->BookMVA("BDTG_Vjets", xmlFile_Vjets); 
+
+  int EventNo;
+  reader_2l_2->AddSpectator("p_Event_No", &EventNo);
+
+  reader_2l_2->BookMVA("BDT_hh2lss", xmlFile2);
   
   return sc;
 }
@@ -199,6 +320,54 @@ StatusCode HHMLSys_MVA::BookMVA_3l(const string& xmlFile) {
 }
 
 //-----------------------------------------------------------------------------------
+StatusCode HHMLSys_MVA::BookMVA_4lbb(const string& xmlFile) {
+
+  StatusCode sc = StatusCode::SUCCESS;
+
+  if(xmlFile == "") {
+    ATH_MSG_FATAL("No weight xml file to read!");
+    return StatusCode::FAILURE;
+  }
+
+  if(xmlFile != "" and xmlFile.find(".xml") != std::string::npos) {
+    ATH_MSG_INFO("Reading weight xml file ");
+  }
+  else {
+    ATH_MSG_FATAL("Unable to read weight xml file!!");
+    return StatusCode::FAILURE;
+  }
+
+  if(sc.isFailure()) return StatusCode::FAILURE;
+  
+  TMVA::Tools::Instance();
+  
+  reader_4lbb = new TMVA::Reader( "!Color:!Silent" );
+  
+  reader_4lbb->AddVariable("lep_Pt_0" , &BDTG_lep_Pt_0);
+  reader_4lbb->AddVariable("lep_Pt_1" , &BDTG_lep_Pt_1);
+  reader_4lbb->AddVariable("lep_Pt_2" , &BDTG_lep_Pt_2);
+  reader_4lbb->AddVariable("lep_Pt_3" , &BDTG_lep_Pt_3);
+  reader_4lbb->AddVariable("jet_Pt_0" , &BDTG_leadJetPt);
+  reader_4lbb->AddVariable("jet_Pt_1" , &BDTG_sublead_JetPt);
+  reader_4lbb->AddVariable("lep_topoEtcone20_0/lep_Pt_0", &BDTG_EtCone20Pt_0);
+  reader_4lbb->AddVariable("lep_topoEtcone20_1/lep_Pt_1", &BDTG_EtCone20Pt_1);
+  reader_4lbb->AddVariable("lep_topoEtcone20_2/lep_Pt_2", &BDTG_EtCone20Pt_2);
+  reader_4lbb->AddVariable("lep_topoEtcone20_3/lep_Pt_3", &BDTG_EtCone20Pt_3);
+  reader_4lbb->AddVariable("m_12"  , &BDTG_MLep12_4l);
+  reader_4lbb->AddVariable("m_34"  , &BDTG_MLep34_4l);
+  reader_4lbb->AddVariable("m_4l"  , &BDTG_M4_4l);
+  reader_4lbb->AddVariable("m_jj"  , &BDTG_MLjSLj_4l);
+  reader_4lbb->AddVariable("p_jj"  , &BDTG_PtLjSLj_4l);
+  reader_4lbb->AddVariable("met_phi - jet_Phi_0"  , &BDTG_DPhiJetMET);
+  reader_4lbb->AddVariable("njets" , &BDTG_nJets);
+  reader_4lbb->AddVariable("nbjets", &BDTG_nJets_OR_DL1r_77);
+
+  reader_4lbb->BookMVA("BDT_hh4lbb", xmlFile);
+  
+  return sc;
+}
+
+//-----------------------------------------------------------------------------------
 float HHMLSys_MVA::EvaluateMVA_1l2tau(const HHMLSys_Ntuple& ntup) {
 
   float BDTG_weight = -99;
@@ -244,7 +413,7 @@ float HHMLSys_MVA::EvaluateMVA_2l2tau(const HHMLSys_Ntuple& ntup) {
   BDTG_Mtau0tau1      = ntup.Mtau0tau1;
   BDTG_MaxEtalep01    = ntup.MaxEtalep01;
   BDTG_DEtalep01      = ntup.DEtalep01;
-  BDTG_lep_flavor     = ntup.lep_flavor;
+  BDTG_lep_flavor     = float(ntup.lep_flavor);
   BDTG_Mlep1tau0tau1  = ntup.Mlep1tau0tau1;
   BDTG_MET            = ntup.met_met;
   BDTG_tau_pt_0       = ntup.tau_pt_0;
@@ -288,6 +457,48 @@ float HHMLSys_MVA::EvaluateMVA_2l1tau(const HHMLSys_Ntuple& ntup) {
 }
 
 //-----------------------------------------------------------------------------------
+void HHMLSys_MVA::EvaluateMVA_2l(const HHMLSys_Ntuple& ntup, float& BDTG_weight_2l_1, float& BDTG_weight_2l_2, float& BDTG_weight_2l_VV, float& BDTG_weight_2l_tt, float& BDTG_weight_2l_Vjets ) 
+{
+  BDTG_lep_Eta_0        = ntup.lep_Eta_0;
+  BDTG_lep_Eta_1        = ntup.lep_Eta_1;
+  BDTG_Mll01            = ntup.Mll01;
+  BDTG_DRll01           = ntup.DRll01;
+  BDTG_HT_lep           = ntup.HT_lep;
+  BDTG_DR_min_LepJet    = ntup.DR_min_LepJet;
+  BDTG_HT               = ntup.HT;
+  BDTG_dilep_type       = float(ntup.dilep_type);
+  BDTG_MET              = ntup.met_met;
+  BDTG_nJets            = float(ntup.nJets_OR);
+  BDTG_total_charge     = float(total_charge);
+  BDTG_AbsDEtalep01     = ntup.AbsDEtalep01;
+  BDTG_MLep0Jet         = ntup.MLep0Jet;
+  BDTG_MLep1Jet         = ntup.MLep1Jet;
+  BDTG_MLep0MET         = ntup.MLep0MET;
+  BDTG_MLep1MET         = ntup.MLep1MET; 
+  BDTG_MAll             = ntup.MAll;
+  BDTG_nJets_OR_DL1r_85 = float(nJets_OR_DL1r_85);
+  BDTG_minDR_LJ_0       = ntup.minDR_LJ_0;
+  BDTG_minDR_LJ_1       = ntup.minDR_LJ_1;
+  BDTG_MaxEtalep01      = ntup.MaxEtalep01;
+  BDTG_RMS              = ntup.RMS;
+  
+  BDTG_weight_2l_VV    = reader_2l_VV->EvaluateMVA("BDTG_VV");
+  BDTG_weight_2l_tt    = reader_2l_VV->EvaluateMVA("BDTG_tt");
+  BDTG_weight_2l_Vjets = reader_2l_VV->EvaluateMVA("BDTG_Vjet");
+
+  BDTG_tt    = BDTG_weight_2l_tt;
+  BDTG_VV    = BDTG_weight_2l_VV;
+  BDTG_Vjets = BDTG_weight_2l_Vjets;
+
+  BDTG_weight_2l_1 = reader_2l_1->EvaluateMVA("BDTG_All");
+
+  BDTG_MLep0Jet = ntup.MLep0Jet/1000.;
+  BDTG_MLep1Jet = ntup.MLep1Jet/1000.;
+  
+  BDTG_weight_2l_2 = reader_2l_2->EvaluateMVA("BDT_hh2lss");
+}
+
+//-----------------------------------------------------------------------------------
 float HHMLSys_MVA::EvaluateMVA_3l(const HHMLSys_Ntuple& ntup) {
 
   float BDTG_weight = -99;
@@ -309,10 +520,39 @@ float HHMLSys_MVA::EvaluateMVA_3l(const HHMLSys_Ntuple& ntup) {
   BDTG_lep_Pt_1     = ntup.lep_Pt_1;
   BDTG_lep_Pt_2     = ntup.lep_Pt_2;
   BDTG_lep_E_0      = ntup.lep_E_0;
-  BDTG_lep_E_1      = ntup.lep_E_0;
-  BDTG_lep_E_2      = ntup.lep_E_0;
+  BDTG_lep_E_1      = ntup.lep_E_1;
+  BDTG_lep_E_2      = ntup.lep_E_2;
 
   BDTG_weight = reader_3l->EvaluateMVA("BDT_hh3l");
+  
+  return BDTG_weight;
+}
+
+//-----------------------------------------------------------------------------------
+float HHMLSys_MVA::EvaluateMVA_4lbb(const HHMLSys_Ntuple& ntup) {
+
+  float BDTG_weight = -99;
+
+  BDTG_lep_Pt_0      = ntup.lep_Pt_0;
+  BDTG_lep_Pt_1      = ntup.lep_Pt_1;
+  BDTG_lep_Pt_2      = ntup.lep_Pt_2;
+  BDTG_lep_Pt_3      = ntup.lep_Pt_3;
+  BDTG_leadJetPt     = ntup.lead_jetPt;
+  BDTG_sublead_JetPt = ntup.sublead_jetPt;
+  BDTG_EtCone20Pt_0  = 1/ntup.lep_Pt_0; //
+  BDTG_EtCone20Pt_1  = 1/ntup.lep_Pt_1; //
+  BDTG_EtCone20Pt_2  = 1/ntup.lep_Pt_2; //
+  BDTG_EtCone20Pt_3  = 1/ntup.lep_Pt_3; //
+  BDTG_MLep12_4l     = ntup.MLep12_4l;
+  BDTG_MLep34_4l     = ntup.MLep34_4l;
+  BDTG_M4_4l         = ntup.M4_4l;
+  BDTG_MLjSLj_4l     = ntup.MLjSLj_4l;
+  BDTG_PtLjSLj_4l    = ntup.PtLjSLj_4l;
+  BDTG_DPhiJetMET    = ntup.DPhiJetMET;
+  BDTG_nJets         = float(ntup.nJets_OR);
+  BDTG_nJets_OR_DL1r_77 = float(ntup.nJets_OR_DL1r_77);
+
+  BDTG_weight = reader_4lbb->EvaluateMVA("BDT_hh4lbb");
   
   return BDTG_weight;
 }

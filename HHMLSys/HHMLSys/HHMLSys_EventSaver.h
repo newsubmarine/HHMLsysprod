@@ -94,13 +94,16 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   //
   //BDT output
   //
-  Float_t BDTOutput_2l     = -99;
-  Float_t BDTOutput_3l     = -99;
-  Float_t BDTOutput_4l     = -99;
-  Float_t BDTOutput_4lbb   = -99;
-  Float_t BDTOutput_2l1tau = -99;
-  Float_t BDTOutput_1l2tau = -99;
-  Float_t BDTOutput_2l2tau = -99;
+  Float_t BDTOutput_2l_1;
+  Float_t BDTOutput_2l_2;
+  Float_t BDTOutput_2l_VV;
+  Float_t BDTOutput_2l_tt;
+  Float_t BDTOutput_2l_Vjets;
+  Float_t BDTOutput_3l;
+  Float_t BDTOutput_4lbb;
+  Float_t BDTOutput_2l1tau;
+  Float_t BDTOutput_1l2tau;
+  Float_t BDTOutput_2l2tau;
 
   //
   // Helper Functions

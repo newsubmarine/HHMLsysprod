@@ -27,6 +27,8 @@
 #include "TH1.h"
 #include "TH2.h"
 #include "TLorentzVector.h"
+#include "TVector3.h"
+#include <ROOT/RVec.hxx>
 
 //AsgTools
 #include "AsgTools/MessageCheck.h"
@@ -86,8 +88,12 @@ class HHMLSys_Base: public asg::AsgMessaging {
   //2l
   bool m_do_2lSR  = false;
   bool m_do_2lMVA = false;
-  std::string m_2l_BDTxmlFile  = "";
-
+  std::string m_2l_1_BDTxmlFile     = "";
+  std::string m_2l_2_BDTxmlFile     = "";
+  std::string m_2l_VV_BDTxmlFile    = "";
+  std::string m_2l_tt_BDTxmlFile    = "";
+  std::string m_2l_Vjets_BDTxmlFile = "";
+  
   //3l
   bool m_do_3lSR  = false;
   bool m_do_3lMVA = false;

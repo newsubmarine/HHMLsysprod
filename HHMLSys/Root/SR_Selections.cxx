@@ -12,7 +12,11 @@ void HHMLSys_EventSaver::SR2lSelection() {
 
   is2Lep = false;
 
-  BDTOutput_2l = -99;
+  BDTOutput_2l_1     = -99;
+  BDTOutput_2l_2     = -99;
+  BDTOutput_2l_VV    = -99;
+  BDTOutput_2l_tt    = -99;
+  BDTOutput_2l_Vjets = -99;
 
   if( !ntup.dilep_type ) return;
   if( !(ntup.GlobalTrigDecision > 0) ) return;
@@ -32,7 +36,7 @@ void HHMLSys_EventSaver::SR2lSelection() {
   weight_2l = getMCweight("2l");
 
   //Get 2l BDT
-  if(m_do_2lMVA) BDTOutput_2l = 1;
+  if(m_do_2lMVA) mva.EvaluateMVA_2l(ntup, BDTOutput_2l_1, BDTOutput_2l_2, BDTOutput_2l_VV, BDTOutput_2l_tt, BDTOutput_2l_Vjets);
 }
 
 //3l channel
@@ -73,8 +77,6 @@ void HHMLSys_EventSaver::SR4lSelection() {
 
   is4Lep = false;
 
-  BDTOutput_4l = -99;
-
   if( !ntup.quadlep_type ) return;
   if( !(ntup.GlobalTrigDecision > 0) ) return;
   if( !JetCut(1) ) return;
@@ -113,14 +115,14 @@ void HHMLSys_EventSaver::SR4lbbSelection() {
   if( (ntup.ID_leps4[ntup.lepID[2]] != -ntup.ID_leps4[ntup.lepID[3]]) ) return;
   if( !JetCut(2) ) return;
   if( !BJetCut(1) ) return;
-  if( ntup.Mllll0123/GeV < 115 or ntup.Mllll0123/GeV > 135 ) return;
+  if( ntup.TLV_4l.M()/GeV < 115 or ntup.TLV_4l.M()/GeV > 135 ) return;
   
   is4Lepbb = true;
 
   weight_4lbb = getMCweight("4lbb");
 
   //Get 4lbb BDT
-  if(m_do_4lbbMVA) BDTOutput_4lbb = 1;
+  if(m_do_4lbbMVA) BDTOutput_4lbb = mva.EvaluateMVA_4lbb(ntup);
 }
 
 //2l+1tau channel

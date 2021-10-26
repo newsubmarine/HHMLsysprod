@@ -76,6 +76,14 @@ class HHMLSys_Ntuple {
   Float_t MCloserLepTau0;
   Float_t RSumPtlep01tau0Jets;
 
+  //2l channel
+  Float_t MAll;
+  Float_t MLep1Jet;
+  Float_t MLep0MET;
+  Float_t MLep1MET;
+  Float_t RMS;
+  Float_t AbsDEtalep01;
+  
   //3l channel
   Int_t   FlavorCat;
   Float_t Mlep0lep1;
@@ -94,8 +102,15 @@ class HHMLSys_Ntuple {
   Int_t Pt20_4leps;
   Int_t Pt15_4leps;
   Int_t Pt10_4leps;
+  Float_t MLep12_4l;
+  Float_t MLep34_4l;
+  Float_t M4_4l;
+  Float_t MLjSLj_4l;
+  Float_t PtLjSLj_4l;
+  Float_t DPhiJetMET;
   std::vector<int> ID_leps4;
   int lepID[4];
+  TLorentzVector TLV_4l;
   TLorentzVector TLV_4l_lep2;
 
   //

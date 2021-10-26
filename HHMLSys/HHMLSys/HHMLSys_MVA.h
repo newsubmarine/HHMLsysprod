@@ -44,6 +44,11 @@ class HHMLSys_MVA: public asg::AsgMessaging
 
   HHMLSys_MVA(const std::string& name = "HHMLSys_MVA");
   ~HHMLSys_MVA() {
+    delete reader_2l_1;
+    delete reader_2l_2;
+    delete reader_2l_VV;
+    delete reader_2l_tt;
+    delete reader_2l_Vjets;
     delete reader_3l;
     delete reader_1l2tau;
     delete reader_2l2tau;
@@ -54,9 +59,13 @@ class HHMLSys_MVA: public asg::AsgMessaging
   HHMLSys_Ntuple ntup;
   
   //Non-tau channels
+  StatusCode BookMVA_2l(const std::string& xmlFile);
   StatusCode BookMVA_3l(const std::string& xmlFile);
+  StatusCode BookMVA_4lbb(const std::string& xmlFile);
 
+  void  EvaluateMVA_2l(const HHMLSys_Ntuple& ntup, float& BDTG_weight_2l_1, float& BDTG_weight_2l_2, float& BDTG_weight_2l_VV, float& BDTG_weight_2l_tt, float& BDTG_weight_2l_Vjets);
   float EvaluateMVA_3l(const HHMLSys_Ntuple& ntup);
+  float EvaluateMVA_4lbb(const HHMLSys_Ntuple& ntup);
 
   //Tau channels
   StatusCode BookMVA_1l2tau(const std::string& xmlEvenFile, const std::string& xmlOddFile);
@@ -69,8 +78,13 @@ class HHMLSys_MVA: public asg::AsgMessaging
   
  private:
 
+  TMVA::Reader *reader_2l_1;
+  TMVA::Reader *reader_2l_2;
+  TMVA::Reader *reader_2l_VV;
+  TMVA::Reader *reader_2l_tt;
+  TMVA::Reader *reader_2l_Vjets;
   TMVA::Reader *reader_3l;
-
+  TMVA::Reader *reader_4lbb;
   TMVA::Reader *reader_1l2tau;
   TMVA::Reader *reader_2l2tau;
   TMVA::Reader *reader_2l1tau;
@@ -112,6 +126,25 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_minDRLepTau0;
   Float_t BDTG_MCloserLepTau0;
   Float_t BDTG_RSumPtlep01tau0Jets;
+  //2l
+  Float_t BDTG_VV;
+  Float_t BDTG_tt;
+  Float_t BDTG_Vjets;
+  Float_t BDTG_MAll;
+  Float_t BDTG_MLep1Jet;
+  Float_t BDTG_AbsEtalep01;
+  Float_t BDTG_DR_min_LepJet;
+  Float_t BDTG_HT_lep;
+  Float_t BDTG_MLep0MET;
+  Float_t BDTG_MLep1MET;
+  Float_t BDTG_dilep_type;
+  Float_t BDTG_total_charge;
+  Float_t BDTG_DR_min_lep_jet;
+  Float_t BDTG_nJets_OR_DL1r_85;
+  Float_t BDTG_lep_Eta_0;
+  Float_t BDTG_lep_Eta_1;
+  Float_t BDTG_minDR_LJ_1;
+  Float_t BDTG_MAll;
   //3l
   Float_t BDTG_FlavorCat;
   Float_t BDTG_Mlep0lep1;
@@ -132,6 +165,20 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_lep_E_0;
   Float_t BDTG_lep_E_1;
   Float_t BDTG_lep_E_2;
+  //4l
+  BDTG_lep_Pt_3;
+  Float_t BDTG_sublead_JetPt;
+  BDTG_EtCone20Pt_0;
+  BDTG_EtCone20Pt_1;
+  BDTG_EtCone20Pt_2;
+  BDTG_EtCone20Pt_3;
+  BDTG_MLep12_4l;
+  BDTG_MLep34_4l;
+  BDTG_M4_4l;
+  BDTG_MLjSLj_4l;
+  BDTG_PtLjSLj_4l;
+  BDTG_DPhiJetMET;
+  BDTG_nJets_OR_DL1r_77;
 };
 
 #endif
