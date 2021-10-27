@@ -18,6 +18,7 @@ p.add_option('--output', '-o',  type='string',  default=None ,  dest='output')
 p.add_option('--dir-path'    ,  type='string',  default=None ,  dest='dir_path')
 p.add_option('--input-files' ,  type='string',  default=None ,  dest='input_files')
 p.add_option('--afs-path'    ,  type='string',  default=None ,  dest='afs_path')
+p.add_option('--build-path'  ,  type='string',  default=None ,  dest='build_path')
 p.add_option('--configFile'  ,  type='string',  default=None ,  dest='configFile')
 p.add_option('--mcRun'       ,  type='string',  default=None ,  dest='mcRun')
 p.add_option('--txtFilesDir' ,  type='string',  default=None ,  dest='txtFilesDir')
@@ -96,6 +97,14 @@ def createJobScript(files, outDir, jobKey):
     if not os.path.isdir(options.afs_path):
         os.makedirs(options.afs_path)
 
+    if not options.build_path:
+        log.error('createJobScript - build dir. path is not given: %s' %options.build_path)
+        sys.exit(1)
+        
+    if not os.path.isdir(options.build_path):
+        log.error('createJobScript - build dir. not found. Did you compile the framework')
+        sys.exit(1)
+
     if not os.path.isfile(options.configFile):
         log.error('createJobScript - config file %s not found' %options.configFile)
         sys.exit(1)
@@ -129,9 +138,9 @@ def createJobScript(files, outDir, jobKey):
     stext += 'source ${ATLAS_LOCAL_ROOT_BASE}/user/atlasLocalSetup.sh \n\n'
 
     stext += 'pwd=$PWD \n'
-    stext += 'echo pwd \n\n'
+    stext += 'echo $pwd \n\n'
     stext += 'lsetup asetup \n'
-    stext += 'cd /publicfs/atlas/atlasnew/higgs/HHML/Slim_sys_prod/build/ \n'
+    stext += 'cd %s \n'%options.build_path
     stext += 'asetup 21.2.182,AnalysisBase \n'
     stext += 'source x86_64-*/setup.sh \n'
     stext += 'cd $pwd \n\n'
@@ -398,39 +407,6 @@ if __name__ == '__main__':
                 raise Exception('main - sample ID is zero. Something went wrong!')
         except:
             raise Exception('main - Couldn''t extract the sample ID. Something went wrong!')
-
-        #Filter out priority 1 samples
-        if sampleID not in {'450661', '450662', '450663',
-                            '413008',
-                            '410156', '410157', '410218', '410219', '410220',
-                            '410470',
-                            '410472',
-                            '345873', '345874', '345875',
-                            '410560',
-                            '364250', '364253', '364254', '364255', '364283', '364284', '364285', '364286', '364287', 
-                            '363355', '363356', '363357', '363358', '363359', '363360', '363489',
-                            '364242', '364243', '364244', '364245', '364246', '364247', '364248', '364249', 
-                            '364500', '364501', '364502', '364503', '364504', '364505', '364506', '364507', '364508', '364509',
-                            '364510', '364511', '364512', '364513', '364514', '364521', '364522', '364523', '364524', '364525', 
-                            '364526', '364527', '364528', '364529', '364530', '364531', '364532', '364533', '364534', '364535',
-                            '342284', '342285',
-                            '361106', '361107',
-                            '364100', '364101', '364102', '364103', '364104', '364105', '364106', '364107', '364108', '364109',
-                            '364110', '364111', '364112', '364113', '364114', '364115', '364116', '364117', '364118', '364119',
-                            '364120', '364121', '364122', '364123', '364124', '364125', '364126', '364127', '364128', '364129',
-                            '364130', '364131', '364132', '364133', '364134', '364135', '364136', '364137', '364138', '364139',
-                            '364140', '364141',
-                            '364156', '364157', '364158', '364159', '364160', '364161', '364162', '364163', '364164', '364165',
-                            '364166', '364167', '364168', '364169', '364170', '364171', '364172', '364173', '364174', '364175',
-                            '364176', '364177', '364178', '364179', '364180', '364181', '364182', '364183', '364184', '364185',
-                            '364186', '364187', '364188', '364189', '364190', '364191', '364192', '364193', '364194', '364195', '364196', '364197',
-                            '364198', '364199', '364200', '364201', '364202', '364203', '364204', '364205', '364206', 
-                            '364207', '364208', '364209', '364210', '364211', '364212', '364213', '364214', '364215',
-                            '304014',
-                            '410080',
-                            '410082',
-                            '700011', '700012', '700013', '700014', '700015', '700016', '700017'}:
-            continue
 
         #Make sure the .txt file contain at least one root file
         if filelen(input_file) < 1:
