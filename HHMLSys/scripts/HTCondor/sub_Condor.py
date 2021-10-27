@@ -342,7 +342,7 @@ def procJob(files, file_sizes, outDir, jobKey):
     else:
         log.info('Input file size is <2 Gb. 1Gb memory request is made')
 
-    commands = ['hep_sub', '-o %s'%(jobResult + '/' + jobOutput), '-e %s'%(jobResult + '/' + jobError), '-mem %s'%memory, jobScript]
+    commands = ['hep_sub', '-o %s'%(jobResult + '/' + jobOutput), '-e %s'%(jobResult + '/' + jobError), '-mem %s'%memory, '%s'%(jobResult + '/' + jobScript)]
         
     ostr = 'job {} using file {} with size {} MB: {}'.format(ijob, jobKey, file_sizes_mb, ' '.join(commands))
     
