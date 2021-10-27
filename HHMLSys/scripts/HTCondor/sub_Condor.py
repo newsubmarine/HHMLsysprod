@@ -158,7 +158,7 @@ def createJobScript(files, outDir, jobKey):
     stext += '   echo job command has failed with code=$job_return_code - quit job now...\n'
     stext += '   exit $job_return_code\n'
     stext += 'else\n'
-    stext += '    ls -lah %s/%s.root'%(outDir,jobKey) + '\n'
+    stext += '    ls -lah %s/out_%s_%s.root'%(outDir,options.mcRun,jobKey) + '\n'
     stext += '    lsFail=$? \n'
     stext += '    if [ $lsFail -ne 0 ]\n'
     stext += '    then\n'
