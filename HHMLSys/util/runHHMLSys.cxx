@@ -27,6 +27,7 @@ static void usage(const std::string  &name) {
 	    << "\t--me             : maximum number of events to be process\n"
 	    << "\t--conf           : path of configuration file\n"
 	    << "\t--out            : Output dir path\n"
+            << "\t--outName        : Output root file name\n"
 	    << "\t--mcRun          : mc campaign e.g. mc16a etc\n"
 	    << std::endl;
 }
@@ -46,6 +47,7 @@ int main(int argc, char* argv[]) {
   std::string max_evnt    = "-1";
   int out_arg = 0;
   TString configFile, outDir, mcRun;
+  TString sampleName = "";
 
   for(int i = 0; i < argc; ++i) {
     
@@ -130,6 +132,10 @@ int main(int argc, char* argv[]) {
       input = argv[++i];
       if((input != "--h" or input != "--help") && input != "--sp" && input != "--conf" && input != "--out" && input != "--mcRun") max_evnt = input;
     }
+    else if(arg == "--outName") {
+      input = argv[++i];
+      sampleName = input;
+    }
   }
 
   if(samplePath == "") {
@@ -148,7 +154,7 @@ int main(int argc, char* argv[]) {
 
   hhmlSys.msg().setLevel(MSG::INFO);
   
-  if(!hhmlSys.initialize(configFile, samplePath, outDir, mcRun).isSuccess()) return EXIT_FAILURE;
+  if(!hhmlSys.initialize(configFile, samplePath, outDir, sampleName, mcRun).isSuccess()) return EXIT_FAILURE;
   
   if(!hhmlSys.executeEventLoop(atoi(max_evnt.c_str())).isSuccess()) return EXIT_FAILURE;
   

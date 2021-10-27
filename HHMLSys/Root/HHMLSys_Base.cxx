@@ -11,7 +11,7 @@ HHMLSys_Base::~HHMLSys_Base() {
 }
 
 //---------------------------------------------------------------------
-StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string& samplePath, const TString& outDir, const TString& mcRun) {
+StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string& samplePath, const TString& outDir, TString& sampleName, const TString& mcRun) {
 
   StatusCode sc = StatusCode::SUCCESS;
   
@@ -152,8 +152,8 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
       return StatusCode::FAILURE;
     }
   }
-  
-  TString sampleName = SetOutputName(samplePath);
+
+  if(sampleName == "") sampleName = SetOutputName(samplePath);
 
   if(m_isData) {
     
@@ -164,8 +164,14 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
     
     TString mc_chan = TString::Itoa(m_dsid, 10);
 
-    if(outDir != "") m_outputFile = TFile::Open(outDir + "/" + "out_" + mcRun + "_" + mc_chan + "_" + sampleName + ".root", "RECREATE");
-    else             m_outputFile = TFile::Open("out_" + mcRun + "_" + mc_chan + "_" + sampleName + ".root", "RECREATE");
+    if(sampleName != "") {
+      if(outDir != "") m_outputFile = TFile::Open(outDir + "/" + "out_" + mcRun + "_" + sampleName + ".root", "RECREATE");
+      else             m_outputFile = TFile::Open("out_" + mcRun + "_" + sampleName + ".root", "RECREATE");
+    }
+    else {
+      if(outDir != "") m_outputFile = TFile::Open(outDir + "/" + "out_" + mcRun + "_" + mc_chan + "_" + sampleName + ".root", "RECREATE");
+      else             m_outputFile = TFile::Open("out_" + mcRun + "_" + mc_chan + "_" + sampleName + ".root", "RECREATE");
+    }
   }
 
   return sc;
@@ -183,12 +189,12 @@ StatusCode HHMLSys_Base::finalize()
 }
 
 //--------------------------------------------------------------
-std::string HHMLSys_Base::SetOutputName(const std::string& InputSamplePath) {
+TString HHMLSys_Base::SetOutputName(const std::string& InputSamplePath) {
 
   unsigned first_delim = InputSamplePath.find_last_of("/");
   unsigned last_delim  = InputSamplePath.find(".root");
   
-  std::string sample_name = InputSamplePath.substr(first_delim + 1, (last_delim - 1) - first_delim);
+  TString sample_name = InputSamplePath.substr(first_delim + 1, (last_delim - 1) - first_delim);
 
   return sample_name;
 }

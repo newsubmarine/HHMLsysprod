@@ -28,7 +28,7 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   ~HHMLSys_EventSaver();
 
   //Initialize this class
-  StatusCode initialize(const TString& configFile, const std::string& samplePath, const TString& outDir, const TString& mcRun);
+  StatusCode initialize(const TString& configFile, const std::string& samplePath, const TString& outDir, TString& sampleName, const TString& mcRun);
 
   //Execute event loop. This is main Event Loop, all the other methods should be called inside it.
   StatusCode executeEventLoop(unsigned int max_evt = -1);

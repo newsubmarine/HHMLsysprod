@@ -129,7 +129,7 @@ def createJobScript(files, outDir, jobKey):
         return None
 
     #Job options
-    jobOpts = '--sp %s --conf %s --mcRun %s '%(files, options.configFile, options.mcRun)
+    jobOpts = '--sp %s --conf %s --out %s --mcRun %s --outName %s'%(files, options.configFile, outDir, options.mcRun, jobKey)
 
     stext = '#!/bin/sh\n\n'
 
@@ -145,11 +145,11 @@ def createJobScript(files, outDir, jobKey):
     stext += 'source x86_64-*/setup.sh \n'
     stext += 'cd $pwd \n\n'
 
-    #Check if file is copied or not. If not read the file directly. (wip: copy only the large files?)
-    stext += 'echo Reading %s.root file directly'%files + '\n'
+    #Read the root file directly
+    stext += 'echo Reading %s.root file directly'%files + '\n\n'
     stext += ' %s\n\n' %(' '.join(['runHHMLSys', jobOpts]))
     
-    #Check if job succeeded or failed. Then, copy the output root file to output directory and delete the input file.
+    #Check if job succeeded or failed
     stext += 'job_return_code=$?\n\n'
 
     stext += 'if [ $job_return_code -ne 0 ]\n'
@@ -158,35 +158,15 @@ def createJobScript(files, outDir, jobKey):
     stext += '   echo job command has failed with code=$job_return_code - quit job now...\n'
     stext += '   exit $job_return_code\n'
     stext += 'else\n'
-    stext += '    ls -lah %s.root'%jobKey + '\n'
+    stext += '    ls -lah %s/%s.root'%(outDir,jobKey) + '\n'
     stext += '    lsFail=$? \n'
     stext += '    if [ $lsFail -ne 0 ]\n'
     stext += '    then\n'
     stext += '        echo %s.root not found'%jobKey + '\n'
     stext += '        touch %s.fail\n' %jobResult 
     stext += '    else\n'
-    stext += '        echo copying the output file to output dir....\n'
-    stext += '        xrdcp -np -f '+ '%s.root '%jobKey + '%s/%s.root'%(outDir, jobKey) + '\n'
-    stext += '        fileCopyToDir=$? \n'
-    stext += '        if [ $fileCopyToDir -ne 0 ] \n'
-    stext += '        then\n'  
-    stext += '            echo %s.root couldnt copy to dir.'%jobKey + ' I/O error ?? Ok lets try to mv it to afs area... \n'
-    stext += '            mv '+ '%s.root '%jobKey + '%s'%options.afs_path + '\n'
-    stext += '            fileCopyToafs=$? \n'
-    stext += '            if [ $fileCopyToafs -ne 0 ] \n'
-    stext += '            then\n'
-    stext += '                echo %s.root couldnt copy to afs'%jobKey + '\n'
-    stext += '                touch %s.fail\n' %jobResult
-    stext += '            else\n'
-    stext += '                touch %s.pass\n' %jobResult
-    stext += '                echo Done!!!!\n'
-    stext += '            fi \n'
-    stext += '        else\n'
-    stext += '            touch %s.pass\n' %jobResult
-    stext += '            echo deleting the output root file....\n'
-    stext += '            rm -r %s.root '%jobKey + ' \n'
-    stext += '            echo All Done!!!!\n'
-    stext += '        fi \n'
+    stext += '        touch %s.pass\n' %jobResult
+    stext += '        echo Done!!!!\n'
     stext += '    fi \n'
     stext += 'fi \n\n'
 

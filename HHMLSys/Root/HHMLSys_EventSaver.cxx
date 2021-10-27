@@ -13,12 +13,12 @@ HHMLSys_EventSaver::~HHMLSys_EventSaver() {
 }
 
 //-----------------------------------------------------------------------------
-StatusCode HHMLSys_EventSaver::initialize(const TString& configFile, const string& samplePath, const TString& outDir, const TString& mcRun) {
+StatusCode HHMLSys_EventSaver::initialize(const TString& configFile, const string& samplePath, const TString& outDir, TString& sampleName, const TString& mcRun) {
 
   StatusCode sc = StatusCode::SUCCESS;
   
   //Initialize Base class
-  sc = HHMLSys_Base::initialize(configFile, samplePath, outDir, mcRun);
+  sc = HHMLSys_Base::initialize(configFile, samplePath, outDir, sampleName, mcRun);
   
   if(!sc) {
     ATH_MSG_FATAL("HHMLSys_Base initialized failed!");

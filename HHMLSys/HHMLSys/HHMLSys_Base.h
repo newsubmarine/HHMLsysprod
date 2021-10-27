@@ -49,7 +49,7 @@ class HHMLSys_Base: public asg::AsgMessaging {
   ~HHMLSys_Base();
   
   //Initialize the Base class
-  StatusCode initialize(const TString& configFile, const std::string& samplePath, const TString& outDir, const TString& mcRun);
+  StatusCode initialize(const TString& configFile, const std::string& samplePath, const TString& outDir, TString& sampleName, const TString& mcRun);
   
   //Finalize the Base class
   StatusCode finalize();
@@ -146,7 +146,7 @@ class HHMLSys_Base: public asg::AsgMessaging {
  private:
 
   //Simple method to set the name of output file
-  std::string SetOutputName(const std::string& InputSamplePath);
+  TString SetOutputName(const std::string& InputSamplePath);
 
   //Get sumWeight Tree entries and fill the histogram (in case later use for normalization)
   void SumWeights(const std::string& SamplePath);
