@@ -78,6 +78,7 @@ class HHMLSys_Ntuple {
 
   //2l channel
   Float_t MAll;
+  Float_t MetAll;
   Float_t MLep1Jet;
   Float_t MLep0MET;
   Float_t MLep1MET;

@@ -51,6 +51,7 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
 
   //BDT input variables + some kinematic vars.
   outTree->Branch("MAll"           , &ntup.MAll);
+  outTree->Branch("MetAll"         , &ntup.MetAll);
   outTree->Branch("Mlep0tau0"      , &ntup.Mlep0tau0);
   outTree->Branch("Mlep0tau1"      , &ntup.Mlep0tau1);
   outTree->Branch("MLep0Jet"       , &ntup.MLep0Jet);
@@ -137,7 +138,6 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("DRll01"        , &ntup.DRll01);
   outTree->Branch("nJets_OR"      , &ntup.nJets_OR);
   outTree->Branch("nJets_OR_DL1r_77" , &ntup.nJets_OR_DL1r_77);
-  outTree->Branch("nJets_OR_DL1r_85" , &ntup.nJets_OR_DL1r_85);
   outTree->Branch("nTaus_OR_Pt25_RNN", &ntup.nTaus_OR_Pt25_RNN);
   outTree->Branch("HT"            , &ntup.HT);
   outTree->Branch("HT_lep"        , &ntup.HT_lep);

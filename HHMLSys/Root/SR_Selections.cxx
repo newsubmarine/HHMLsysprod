@@ -25,8 +25,8 @@ void HHMLSys_EventSaver::SR2lSelection() {
   if( !DiLepPtCuts(20, 20) ) return;
   if( !isSSPair() ) return;
   if( !(ntup.nTaus_OR_Pt25_RNN == 0) ) return;
-  if( !METCut(10) ) return;
-  if( !Mll01Cut(15) ) return;
+  if( !METCut(0) ) return;
+  if( !Mll01Cut(12) ) return;
   if( !ZVeto("2l") ) return;
   if( !JetCut(2) ) return;
   if( !BJetVeto() ) return;

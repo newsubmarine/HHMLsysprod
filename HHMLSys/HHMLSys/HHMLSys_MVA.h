@@ -132,6 +132,7 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_tt;
   Float_t BDTG_Vjets;
   Float_t BDTG_MAll;
+  Float_t BDTG_MetAll;
   Float_t BDTG_RMS;
   Float_t BDTG_MLep1Jet;
   Float_t BDTG_AbsDEtalep01;
@@ -142,11 +143,11 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_dilep_type;
   Float_t BDTG_total_charge;
   Float_t BDTG_DR_min_lep_jet;
-  Float_t BDTG_nJets_OR_DL1r_85;
   Float_t BDTG_lep_Eta_0;
   Float_t BDTG_lep_Eta_1;
   Float_t BDTG_minDR_LJ_1;
   //3l
+  Int_t   BDTG_EventNo;
   Float_t BDTG_FlavorCat;
   Float_t BDTG_Mlep0lep1;
   Float_t BDTG_Mlep0lep2;

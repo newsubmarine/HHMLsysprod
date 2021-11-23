@@ -74,6 +74,7 @@ void HHMLSys_EventSaver::AddVars() {
 
   //2l
   ntup.MAll     = -999.;
+  ntup.MetAll   = -999.;
   ntup.MLep1Jet = -999.;
   ntup.MLep0MET = -999.;
   ntup.MLep1MET = -999.;
@@ -193,7 +194,6 @@ void HHMLSys_EventSaver::AddVars() {
 
   //Max & Delta eta lep0 & lep1
   ntup.MaxEtalep01 = fmax(fabs(ntup.lep_Eta_0), fabs(ntup.lep_Eta_1));
-  ntup.DEtalep01   = (ntup.lep_Eta_0 - ntup.lep_Eta_1);
   
   Float_t DEtalep0Lj = (ntup.lep_Eta_0 - ntup.lead_jetEta);
   Float_t DEtalep1Lj = (ntup.lep_Eta_1 - ntup.lead_jetEta);
@@ -202,6 +202,7 @@ void HHMLSys_EventSaver::AddVars() {
   Float_t DEtalep1tau0 = (ntup.lep_Eta_1 - ntup.tau_eta_0);
 
   ntup.AbsDEtalep01 = abs(ntup.lep_Eta_0 - ntup.lep_Eta_1); //2l
+  ntup.DEtalep01 = ntup.lep_Eta_0 - ntup.lep_Eta_1; //2l
 
   //
   //DeltaPhi
@@ -358,6 +359,7 @@ void HHMLSys_EventSaver::AddVars() {
   
   //Invariant mass var. for 2l 
   ntup.MAll = (leps[0] + leps[1] + totalSumjet + MET).M(); //2l
+  ntup.MetAll = (leps[0] + leps[1] + totalSumjet + MET).Mt(); //2l
  
   //Phi info. for 2l
   ntup.RMS = getRMS(phi_jets) * getRMS(phi_leptons) / (getRMS(phi_all));
