@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<MethodSetup Method="CrossValidation::BDTG">
+  <GeneralInfo>
+    <Info name="TMVA Release" value="4.2.1 [262657]"/>
+    <Info name="ROOT Release" value="6.20/06 [398342]"/>
+    <Info name="Creator" value="bali"/>
+    <Info name="Date" value="Wed Nov 24 10:38:54 2021"/>
+    <Info name="Host" value="Linux aibuild16-017.cern.ch 3.10.0-1062.9.1.el7.x86_64 #1 SMP Fri Dec 6 15:49:49 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux"/>
+    <Info name="Dir" value="/afs/cern.ch/work/b/bali/HH_studies/HHML_studies/Run2_Analysis/run/TMVA/2l2tau/FoldTest"/>
+    <Info name="Training events" value="14829"/>
+    <Info name="TrainingTime" value="5.00679016e-06"/>
+    <Info name="AnalysisType" value="Classification"/>
+  </GeneralInfo>
+  <Options>
+    <Option name="V" modified="No">False</Option>
+    <Option name="VerbosityLevel" modified="No">Default</Option>
+    <Option name="VarTransform" modified="No">None</Option>
+    <Option name="H" modified="No">False</Option>
+    <Option name="CreateMVAPdfs" modified="No">False</Option>
+    <Option name="IgnoreNegWeightsInTraining" modified="No">False</Option>
+    <Option name="EncapsulatedMethodName" modified="Yes">BDTG</Option>
+    <Option name="EncapsulatedMethodTypeName" modified="Yes">BDT</Option>
+    <Option name="NumFolds" modified="Yes">5</Option>
+    <Option name="OutputEnsembling" modified="Yes">None</Option>
+    <Option name="SplitExpr" modified="Yes">int(fabs([Event]))%int([NumFolds])</Option>
+  </Options>
+  <Variables NVar="8">
+    <Variable VarIndex="0" Expression="Mtau0tau1" Label="Mtau0tau1" Title="Mtau0tau1" Unit="" Internal="Mtau0tau1" Type="F" Min="1.02578867e+04" Max="3.04175438e+05"/>
+    <Variable VarIndex="1" Expression="MET" Label="MET" Title="MET" Unit="" Internal="MET" Type="F" Min="7.24497742e+02" Max="7.13451625e+05"/>
+    <Variable VarIndex="2" Expression="tau_pt_0" Label="tau_pt_0" Title="tau_pt_0" Unit="" Internal="tau_pt_0" Type="F" Min="2.00984414e+04" Max="7.34547438e+05"/>
+    <Variable VarIndex="3" Expression="tau_pt_1" Label="tau_pt_1" Title="tau_pt_1" Unit="" Internal="tau_pt_1" Type="F" Min="2.00015684e+04" Max="2.57640109e+05"/>
+    <Variable VarIndex="4" Expression="Mll01" Label="Mll01" Title="Mll01" Unit="" Internal="Mll01" Type="F" Min="1.92365509e+02" Max="2.05612425e+06"/>
+    <Variable VarIndex="5" Expression="DRll01" Label="DRll01" Title="DRll01" Unit="" Internal="DRll01" Type="F" Min="3.82702891e-03" Max="4.44296217e+00"/>
+    <Variable VarIndex="6" Expression="HT" Label="HT" Title="HT" Unit="" Internal="HT" Type="F" Min="1.09326594e+05" Max="3.20046625e+06"/>
+    <Variable VarIndex="7" Expression="DRlep1tau0" Label="DRlep1tau0" Title="DRlep1tau0" Unit="" Internal="DRlep1tau0" Type="F" Min="3.59575361e-01" Max="5.06258488e+00"/>
+  </Variables>
+  <Spectators NSpec="1">
+    <Spectator SpecIndex="0" Expression="Event" Label="Event" Title="I" Unit="" Internal="Event" Type="F" Min="7.00000000e+00" Max="4.85086848e+08"/>
+  </Spectators>
+  <Classes NClass="2">
+    <Class Name="Signal" Index="0"/>
+    <Class Name="Background" Index="1"/>
+  </Classes>
+  <Transformations NTransformations="0"/>
+  <MVAPdfs/>
+  <Weights JobName="TMVACrossValidation" SplitExpr="int(fabs([Event]))%int([NumFolds])" NumFolds="5" EncapsulatedMethodName="BDTG" EncapsulatedMethodTypeName="BDT" OutputEnsembling="None"/>
+</MethodSetup>
