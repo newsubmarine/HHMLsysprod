@@ -44,15 +44,15 @@ class HHMLSys_MVA: public asg::AsgMessaging
 
   HHMLSys_MVA(const std::string& name = "HHMLSys_MVA");
   ~HHMLSys_MVA() {
-    delete reader_2l_1;
-    delete reader_2l_2;
-    delete reader_2l_VV;
-    delete reader_2l_tt;
-    delete reader_2l_Vjets;
-    delete reader_3l;
-    delete reader_1l2tau;
-    delete reader_2l2tau;
-    delete reader_2l1tau;
+    if(reader_2l_1)     delete reader_2l_1;
+    if(reader_2l_2)     delete reader_2l_2;
+    if(reader_2l_VV)    delete reader_2l_VV;
+    if(reader_2l_tt)    delete reader_2l_tt;
+    if(reader_2l_Vjets) delete reader_2l_Vjets;
+    if(reader_3l)       delete reader_3l;
+    if(reader_1l2tau)   delete reader_1l2tau;
+    if(reader_2l2tau)   delete reader_2l2tau;
+    if(reader_2l1tau)   delete reader_2l1tau;
   }
 
   //HHMLSys_nTuple class
@@ -78,16 +78,16 @@ class HHMLSys_MVA: public asg::AsgMessaging
   
  private:
 
-  TMVA::Reader *reader_2l_1;
-  TMVA::Reader *reader_2l_2;
-  TMVA::Reader *reader_2l_VV;
-  TMVA::Reader *reader_2l_tt;
-  TMVA::Reader *reader_2l_Vjets;
-  TMVA::Reader *reader_3l;
-  TMVA::Reader *reader_4lbb;
-  TMVA::Reader *reader_1l2tau;
-  TMVA::Reader *reader_2l2tau;
-  TMVA::Reader *reader_2l1tau;
+  TMVA::Reader *reader_2l_1     = nullptr;
+  TMVA::Reader *reader_2l_2     = nullptr;
+  TMVA::Reader *reader_2l_VV    = nullptr;
+  TMVA::Reader *reader_2l_tt    = nullptr;
+  TMVA::Reader *reader_2l_Vjets = nullptr;
+  TMVA::Reader *reader_3l       = nullptr; 
+  TMVA::Reader *reader_4lbb     = nullptr;
+  TMVA::Reader *reader_1l2tau   = nullptr;
+  TMVA::Reader *reader_2l2tau   = nullptr;
+  TMVA::Reader *reader_2l1tau   = nullptr;
   
   StatusCode CheckXMLFile(const std::string& xmlFile);
   StatusCode CheckXMLFiles(const std::string& xmlEvenFile, const std::string& xmlOddFile);
