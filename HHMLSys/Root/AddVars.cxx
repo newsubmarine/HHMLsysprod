@@ -52,6 +52,7 @@ void HHMLSys_EventSaver::AddVars() {
   ntup.DRlep0SLj      = 99.;
   ntup.DRtau0tau1lep0 = 99.;
   ntup.DRtau0tau1lep1 = 99.;
+  ntup.DRlep1tau0     = 99.;
   ntup.minDR_LJ_0     = 99.;
   ntup.minDR_LJ_1     = 99.;
   ntup.SumPttau0tau1  = -999.;
@@ -246,9 +247,10 @@ void HHMLSys_EventSaver::AddVars() {
     ntup.DRlep0SLj = leps[0].DeltaR(jets[1]);
   }
 
-  ntup.DRtau0tau1     = taus[1].DeltaR(taus[0]);
-  ntup.DRtau0tau1lep0 = (taus[0] + taus[1]).DeltaR(leps[0]);
-  ntup.DRtau0tau1lep1 = (taus[0] + taus[1]).DeltaR(leps[1]);
+  ntup.DRtau0tau1     = taus[1].DeltaR(taus[0]); //2taus
+  ntup.DRlep1tau0     = leps[1].DeltaR(taus[0]); //2taus
+  ntup.DRtau0tau1lep0 = (taus[0] + taus[1]).DeltaR(leps[0]); //2taus
+  ntup.DRtau0tau1lep1 = (taus[0] + taus[1]).DeltaR(leps[1]); //2taus
 
   ntup.DRl0Lj     = DeltaR(DEtalep0Lj    , ntup.DPhilep0Lj); //2ltau
   ntup.DRlep1Lj   = DeltaR(DEtalep1Lj    , DPhilep1Lj); //2ltau

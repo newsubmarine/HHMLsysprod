@@ -75,6 +75,7 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("minDR_LJ_1"     , &ntup.minDR_LJ_1);
   outTree->Branch("DRtau0tau1lep0" , &ntup.DRtau0tau1lep0);
   outTree->Branch("DRtau0tau1lep1" , &ntup.DRtau0tau1lep1);
+  outTree->Branch("DRlep1tau0"     , &ntup.DRlep1tau0);
   outTree->Branch("DRlep0lep1"     , &ntup.DRlep0lep1);
   outTree->Branch("DRl0Lj"         , &ntup.DRl0Lj);
   outTree->Branch("DRlep1Lj"       , &ntup.DRlep1Lj);

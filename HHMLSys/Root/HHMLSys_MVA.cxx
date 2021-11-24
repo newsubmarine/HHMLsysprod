@@ -89,11 +89,11 @@ StatusCode HHMLSys_MVA::BookMVA_1l2tau(const string& xmlEvenFile, const string& 
 }
 
 //-----------------------------------------------------------------------------------
-StatusCode HHMLSys_MVA::BookMVA_2l2tau(const string& xmlEvenFile, const string& xmlOddFile) {
+StatusCode HHMLSys_MVA::BookMVA_2l2tau(const string& xmlFile) {
 
   StatusCode sc = StatusCode::SUCCESS;
 
-  sc = CheckXMLFiles(xmlEvenFile, xmlOddFile);
+  sc = CheckXMLFile(xmlFile);
 
   if(sc.isFailure()) return StatusCode::FAILURE;
   
@@ -101,21 +101,18 @@ StatusCode HHMLSys_MVA::BookMVA_2l2tau(const string& xmlEvenFile, const string& 
   
   reader_2l2tau = new TMVA::Reader( "!Color:!Silent" );
   
-  reader_2l2tau->AddVariable("DRtau0tau1lep1" , &BDTG_DRtau0tau1lep1);
   reader_2l2tau->AddVariable("Mtau0tau1"      , &BDTG_Mtau0tau1);
-  reader_2l2tau->AddVariable("MaxEtalep01"    , &BDTG_MaxEtalep01);
-  reader_2l2tau->AddVariable("DEtalep01"      , &BDTG_DEtalep01);
-  reader_2l2tau->AddVariable("lep_flavor"     , &BDTG_lep_flavor);
-  reader_2l2tau->AddVariable("Mlep1tau0tau1"  , &BDTG_Mlep1tau0tau1);
   reader_2l2tau->AddVariable("MET"            , &BDTG_MET);
   reader_2l2tau->AddVariable("tau_pt_0"       , &BDTG_tau_pt_0);
   reader_2l2tau->AddVariable("tau_pt_1"       , &BDTG_tau_pt_1);
   reader_2l2tau->AddVariable("Mll01"          , &BDTG_Mll01);
   reader_2l2tau->AddVariable("DRll01"         , &BDTG_DRll01);
   reader_2l2tau->AddVariable("HT"             , &BDTG_HT);
-  
-  reader_2l2tau->BookMVA("BDTG method even", xmlEvenFile);
-  reader_2l2tau->BookMVA("BDTG method odd" , xmlOddFile);
+  reader_2l2tau->AddVariable("DRlep1tau0"     , &BDTG_DRlep1tau0);
+
+  reader_2l2tau->AddSpectator("Event", &BDTG_EventNo);
+
+  reader_2l2tau->BookMVA("BDTG", xmlFile);
   
   return sc;
 }
@@ -412,26 +409,18 @@ float HHMLSys_MVA::EvaluateMVA_2l2tau(const HHMLSys_Ntuple& ntup) {
 
   float BDTG_weight = -99;
 
-  BDTG_DRtau0tau1lep1 = ntup.DRtau0tau1lep1;
-  BDTG_Mtau0tau1      = ntup.Mtau0tau1;
-  BDTG_MaxEtalep01    = ntup.MaxEtalep01;
-  BDTG_DEtalep01      = ntup.DEtalep01;
-  BDTG_lep_flavor     = float(ntup.lep_flavor);
-  BDTG_Mlep1tau0tau1  = ntup.Mlep1tau0tau1;
-  BDTG_MET            = ntup.met_met;
-  BDTG_tau_pt_0       = ntup.tau_pt_0;
-  BDTG_tau_pt_1       = ntup.tau_pt_1;
-  BDTG_Mll01          = ntup.Mll01;
-  BDTG_DRll01         = ntup.DRll01;
-  BDTG_HT             = ntup.HT;
+  BDTG_EventNo    = ntup.eventNumber;
+  BDTG_Mtau0tau1  = ntup.Mtau0tau1;
+  BDTG_DRlep1tau0 = ntup.DRlep1tau0;
+  BDTG_MET        = ntup.met_met;
+  BDTG_tau_pt_0   = ntup.tau_pt_0;
+  BDTG_tau_pt_1   = ntup.tau_pt_1;
+  BDTG_Mll01      = ntup.Mll01;
+  BDTG_DRll01     = ntup.DRll01;
+  BDTG_HT         = ntup.HT;
 
-  if( ntup.eventNumber%2 == 1 ) {
-    BDTG_weight = reader_2l2tau->EvaluateMVA("BDTG method even");
-  }
-  else {
-    BDTG_weight = reader_2l2tau->EvaluateMVA("BDTG method odd");
-  }
-  
+  BDTG_weight = reader_2l2tau->EvaluateMVA("BDTG");
+    
   return BDTG_weight;
 }
 

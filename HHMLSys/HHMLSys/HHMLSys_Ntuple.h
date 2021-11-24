@@ -53,12 +53,11 @@ class HHMLSys_Ntuple {
   Float_t DRlep0SLj;
   Float_t DRtau0tau1lep0;
   Float_t DRtau0tau1lep1;
+  Float_t DRlep1tau0;
   Float_t minDR_LJ_0;
   Float_t minDR_LJ_1;
   Float_t DR_min_LepJet;
   Float_t SumPttau0tau1;
-  Float_t MaxEtalep01;
-  Float_t DEtalep01;
   Int_t   lep_flavor;
   Float_t Mtw;
 
@@ -84,7 +83,9 @@ class HHMLSys_Ntuple {
   Float_t MLep1MET;
   Float_t RMS;
   Float_t AbsDEtalep01;
-  
+  Float_t MaxEtalep01;
+  Float_t DEtalep01;
+
   //3l channel
   Int_t   FlavorCat;
   Float_t Mlep0lep1;

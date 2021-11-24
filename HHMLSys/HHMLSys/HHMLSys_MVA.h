@@ -69,7 +69,7 @@ class HHMLSys_MVA: public asg::AsgMessaging
 
   //Tau channels
   StatusCode BookMVA_1l2tau(const std::string& xmlEvenFile, const std::string& xmlOddFile);
-  StatusCode BookMVA_2l2tau(const std::string& xmlEvenFile, const std::string& xmlOddFile);
+  StatusCode BookMVA_2l2tau(const std::string& xmlFile);
   StatusCode BookMVA_2l1tau(const std::string& xmlFile);
   
   float EvaluateMVA_1l2tau(const HHMLSys_Ntuple& ntup);
@@ -105,15 +105,12 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_Mlep0tau1;
   Float_t BDTG_MLep0Jet;
   Float_t BDTG_HT;
-  Float_t BDTG_MaxEtalep01;
-  Float_t BDTG_DEtalep01;
-  Float_t BDTG_lep_flavor;
-  Float_t BDTG_Mlep1tau0tau1;
   Float_t BDTG_MET;
   Float_t BDTG_tau_pt_0;
   Float_t BDTG_tau_pt_1;
   Float_t BDTG_Mll01;
   Float_t BDTG_DRll01;
+  Float_t BDTG_DRlep1tau0;
   //2lSS+1tau
   Float_t BDTG_DRlep0lep1;
   Float_t BDTG_DRl0Lj;
@@ -136,6 +133,8 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_RMS;
   Float_t BDTG_MLep1Jet;
   Float_t BDTG_AbsDEtalep01;
+  Float_t BDTG_MaxEtalep01;
+  Float_t BDTG_DEtalep01;
   Float_t BDTG_DR_min_LepJet;
   Float_t BDTG_HT_lep;
   Float_t BDTG_MLep0MET;
