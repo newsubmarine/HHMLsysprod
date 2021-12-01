@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<MethodSetup Method="CrossValidation::BDTG">
+<MethodSetup Method="CrossValidation::BDT">
   <GeneralInfo>
     <Info name="TMVA Release" value="4.2.1 [262657]"/>
     <Info name="ROOT Release" value="6.22/08 [398856]"/>
     <Info name="Creator" value="bzabinsk"/>
-    <Info name="Date" value="Sat Nov 27 15:17:35 2021"/>
+    <Info name="Date" value="Sat Nov 27 15:17:37 2021"/>
     <Info name="Host" value="Linux noName 5.11.0-40-generic #44~20.04.2-Ubuntu SMP Tue Oct 26 18:07:44 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux"/>
     <Info name="Dir" value="/data/CERN/DIHiggs/HHML_GFW2/HHML_2LSS_1Tau_v4/BDT_TMVA"/>
     <Info name="Training events" value="44819"/>
@@ -18,7 +18,7 @@
     <Option name="H" modified="No">False</Option>
     <Option name="CreateMVAPdfs" modified="No">False</Option>
     <Option name="IgnoreNegWeightsInTraining" modified="No">False</Option>
-    <Option name="EncapsulatedMethodName" modified="Yes">BDTG</Option>
+    <Option name="EncapsulatedMethodName" modified="Yes">BDT</Option>
     <Option name="EncapsulatedMethodTypeName" modified="Yes">BDT</Option>
     <Option name="NumFolds" modified="Yes">5</Option>
     <Option name="OutputEnsembling" modified="Yes">None</Option>
@@ -48,5 +48,5 @@
   </Classes>
   <Transformations NTransformations="0"/>
   <MVAPdfs/>
-  <Weights JobName="TMVACrossValidation" SplitExpr="int(fabs([p_Event_No2]))%int([NumFolds])" NumFolds="5" EncapsulatedMethodName="BDTG" EncapsulatedMethodTypeName="BDT" OutputEnsembling="None"/>
+  <Weights JobName="TMVACrossValidation" SplitExpr="int(fabs([p_Event_No2]))%int([NumFolds])" NumFolds="5" EncapsulatedMethodName="BDT" EncapsulatedMethodTypeName="BDT" OutputEnsembling="None"/>
 </MethodSetup>
