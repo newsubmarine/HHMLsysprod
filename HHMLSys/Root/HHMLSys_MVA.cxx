@@ -143,7 +143,7 @@ StatusCode HHMLSys_MVA::BookMVA_2l1tau(const string& xmlFile) {
   reader_2l1tau->AddVariable("p_LBoost2L_AngleTauJ1"   , &BDTG_LBoost2L_ThetaLjTau0);
   reader_2l1tau->AddVariable("p_LBoost2L_AngleTauJ2"   , &BDTG_LBoost2L_ThetaSLjTau0);
   reader_2l1tau->AddVariable("p_LBoostL1Tau_DRL1J2"    , &BDTG_LBoostLep0Tau0_DRlep0SLj);
-  reader_2l1tau->AddVariable("p_LBoostL2Tau_DRL2J2"    , &BDTG_LBoostLep1Tau0_DRlep1Lj);
+  reader_2l1tau->AddVariable("p_LBoostL2Tau_DRL2J1"    , &BDTG_LBoostLep1Tau0_DRlep1Lj);
 
   reader_2l1tau->AddSpectator("p_Event_No2", &BDTG_EventNo);
 
