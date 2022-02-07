@@ -68,12 +68,19 @@ class HHMLSys_Ntuple {
   Float_t DPhilep0Lj;
   Float_t Mlep0Lj;
   Float_t Mlep1Lj;
+  Float_t Mlep0SLj;
   Float_t Mlep01LjSLj;
   Float_t minDRlep0Jet;
+  Float_t minDRLep1Jet;
   Float_t farDRlep0Jet;
   Float_t minDRLepTau0;
   Float_t MCloserLepTau0;
+  Float_t MCloserJetlep0;
   Float_t RSumPtlep01tau0Jets;
+  Float_t LBoost2L_ThetaLjTau0;
+  Float_t LBoost2L_ThetaSLjTau0;
+  Float_t LBoostLep0Tau0_DRlep0SLj;
+  Float_t LBoostLep1Tau0_DRlep1Lj;
 
   //2l channel
   Float_t MAll;

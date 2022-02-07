@@ -118,12 +118,20 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_DPhilep0Lj;
   Float_t BDTG_Mlep0Lj;
   Float_t BDTG_Mlep1Lj;
+  Float_t BDTG_Mlep0SLj;
   Float_t BDTG_Mlep01LjSLj;
   Float_t BDTG_minDRlep0Jet;
   Float_t BDTG_farDRlep0Jet;
   Float_t BDTG_minDRLepTau0;
+  Float_t BDTG_minDRLep1Jet;
   Float_t BDTG_MCloserLepTau0;
+  Float_t BDTG_MCloserJetlep0;
   Float_t BDTG_RSumPtlep01tau0Jets;
+  Float_t BDTG_LBoost2L_ThetaLjTau0;
+  Float_t BDTG_LBoost2L_ThetaSLjTau0;
+  Float_t BDTG_LBoostLep0Tau0_DRlep0SLj;
+  Float_t BDTG_LBoostLep1Tau0_DRlep1Lj;
+
   //2l
   Float_t BDTG_VV;
   Float_t BDTG_tt;

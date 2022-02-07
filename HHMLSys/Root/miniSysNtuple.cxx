@@ -61,6 +61,7 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("Mtau0tau1"      , &ntup.Mtau0tau1);
   outTree->Branch("Mlep0Lj"        , &ntup.Mlep0Lj);
   outTree->Branch("Mlep1Lj"        , &ntup.Mlep1Lj);
+  outTree->Branch("Mlep0SLj"       , &ntup.Mlep0SLj);
   outTree->Branch("Mlep01LjSLj"    , &ntup.Mlep01LjSLj);
   outTree->Branch("Mlep1tau0tau1"  , &ntup.Mlep1tau0tau1);
   outTree->Branch("Mlep0lep1"      , &ntup.Mlep0lep1);
@@ -84,6 +85,7 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("DRlep2CloseJ"   , &ntup.DRlep2CloseJ);
   outTree->Branch("DR_min_LepJet"  , &ntup.DR_min_LepJet); 
   outTree->Branch("minDRlep0Jet"   , &ntup.minDRlep0Jet);
+  outTree->Branch("minDRLep1Jet"   , &ntup.minDRLep1Jet);
   outTree->Branch("farDRlep0Jet"   , &ntup.farDRlep0Jet);
   outTree->Branch("minDRLepTau0"   , &ntup.minDRLepTau0);
   outTree->Branch("SumPttau0tau1"  , &ntup.SumPttau0tau1); 
@@ -96,6 +98,7 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("FlavorCat"      , &ntup.FlavorCat);
   outTree->Branch("lep_flavor"     , &ntup.lep_flavor);
   outTree->Branch("MCloserLepTau0" , &ntup.MCloserLepTau0);
+  outTree->Branch("MCloserJetlep0" , &ntup.MCloserJetlep0);
   outTree->Branch("RSumPtlep01tau0Jets", &ntup.RSumPtlep01tau0Jets);
   outTree->Branch("MLep12_4l"      , &ntup.MLep12_4l);
   outTree->Branch("MLep34_4l"      , &ntup.MLep34_4l);
@@ -103,6 +106,10 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("MLjSLj_4l"      , &ntup.MLjSLj_4l);
   outTree->Branch("PtLjSLj_4l"     , &ntup.PtLjSLj_4l);
   outTree->Branch("DPhiJetMET"     , &ntup.DPhiJetMET);
+  outTree->Branch("LBoost2L_ThetaLjTau0"    , &ntup.LBoost2L_ThetaLjTau0);
+  outTree->Branch("LBoost2L_ThetaSLjTau0"   , &ntup.LBoost2L_ThetaSLjTau0);
+  outTree->Branch("LBoostLep0Tau0_DRlep0SLj", &ntup.LBoostLep0Tau0_DRlep0SLj);
+  outTree->Branch("LBoostLep1Tau0_DRlep1Lj" , &ntup.LBoostLep1Tau0_DRlep1Lj);
   
   //GN1 branches
   outTree->Branch("MET"           , &ntup.met_met);

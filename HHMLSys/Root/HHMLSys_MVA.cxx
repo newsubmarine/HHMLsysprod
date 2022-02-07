@@ -129,23 +129,23 @@ StatusCode HHMLSys_MVA::BookMVA_2l1tau(const string& xmlFile) {
   TMVA::Tools::Instance();
   
   reader_2l1tau = new TMVA::Reader( "!Color:!Silent" );
-  
-  reader_2l1tau->AddVariable("tau_pt_0"              , &BDTG_tau_pt_0); 
-  reader_2l1tau->AddVariable("p_DR_l1_l2"            , &BDTG_DRlep0lep1); 
-  reader_2l1tau->AddVariable("p_Dphi_l1_j1"          , &BDTG_DPhilep0Lj); 
-  reader_2l1tau->AddVariable("p_DR_l1_j1"            , &BDTG_DRl0Lj); 
-  reader_2l1tau->AddVariable("p_DR_l2_j1"            , &BDTG_DRlep1Lj); 
-  reader_2l1tau->AddVariable("p_invMass_l1_j1"       , &BDTG_Mlep0Lj); 
-  reader_2l1tau->AddVariable("p_invMass_l2_j1"       , &BDTG_Mlep1Lj); 
-  reader_2l1tau->AddVariable("p_drCloserLepToTau"    , &BDTG_minDRLepTau0); 
-  reader_2l1tau->AddVariable("p_invMCloserLepToTau"  , &BDTG_MCloserLepTau0); 
-  reader_2l1tau->AddVariable("p_drCloserJetToLeadLep", &BDTG_minDRlep0Jet);
-  reader_2l1tau->AddVariable("p_drFarestJetToLeadLep", &BDTG_farDRlep0Jet);  
-  reader_2l1tau->AddVariable("p_sumPtleptauAll_Ptjet", &BDTG_RSumPtlep01tau0Jets);  
-  reader_2l1tau->AddVariable("p_invMl2j1j2"          , &BDTG_Mlep01LjSLj);  
 
-  int EventNo2;
-  reader_2l1tau->AddSpectator("p_Event_No2", &EventNo2);
+  reader_2l1tau->AddVariable("p_DR_l1_l2"              , &BDTG_DRlep0lep1); //
+  reader_2l1tau->AddVariable("p_DR_l1_j1"              , &BDTG_DRl0Lj); //
+  reader_2l1tau->AddVariable("p_invMass_l1_j1"         , &BDTG_Mlep0Lj); //
+  reader_2l1tau->AddVariable("p_invMass_l1_j2"         , &BDTG_Mlep0SLj); 
+  reader_2l1tau->AddVariable("p_invMass_l2_j1"         , &BDTG_Mlep1Lj); //
+  reader_2l1tau->AddVariable("p_invMCloserLepToTau"    , &BDTG_MCloserLepTau0);  //
+  reader_2l1tau->AddVariable("p_drCloserJetToLeadLep"  , &BDTG_minDRlep0Jet); //
+  reader_2l1tau->AddVariable("p_invMCloserJetToLeadLep", &BDTG_MCloserJetlep0);
+  reader_2l1tau->AddVariable("p_drCloserJetToLep2"     , &BDTG_minDRLep1Jet); //
+  reader_2l1tau->AddVariable("p_invMl2j1j2"            , &BDTG_Mlep01LjSLj);  //
+  reader_2l1tau->AddVariable("p_LBoost2L_AngleTauJ1"   , &BDTG_LBoost2L_ThetaLjTau0);
+  reader_2l1tau->AddVariable("p_LBoost2L_AngleTauJ2"   , &BDTG_LBoost2L_ThetaSLjTau0);
+  reader_2l1tau->AddVariable("p_LBoostL1Tau_DRL1J2"    , &BDTG_LBoostLep0Tau0_DRlep0SLj);
+  reader_2l1tau->AddVariable("p_LBoostL2Tau_DRL2J2"    , &BDTG_LBoostLep1Tau0_DRlep1Lj);
+
+  reader_2l1tau->AddSpectator("p_Event_No2", &BDTG_EventNo);
 
   reader_2l1tau->BookMVA("BDTG", xmlFile);
   
@@ -429,19 +429,21 @@ float HHMLSys_MVA::EvaluateMVA_2l1tau(const HHMLSys_Ntuple& ntup) {
 
   float BDTG_weight = -99;
 
-  BDTG_tau_pt_0       = ntup.tau_pt_0;
+  BDTG_EventNo        = ntup.eventNumber;
   BDTG_DRlep0lep1     = ntup.DRlep0lep1;
   BDTG_DRl0Lj         = ntup.DRl0Lj;
-  BDTG_DRlep1Lj       = ntup.DRlep1Lj;
-  BDTG_DPhilep0Lj     = ntup.DPhilep0Lj;
   BDTG_Mlep0Lj        = ntup.Mlep0Lj; 
+  BDTG_Mlep0SLj       = ntup.Mlep0SLj;
   BDTG_Mlep1Lj        = ntup.Mlep1Lj;
-  BDTG_Mlep01LjSLj    = ntup.Mlep01LjSLj;
-  BDTG_minDRlep0Jet   = ntup.minDRlep0Jet;
-  BDTG_farDRlep0Jet   = ntup.farDRlep0Jet;
-  BDTG_minDRLepTau0   = ntup.minDRLepTau0;
   BDTG_MCloserLepTau0 = ntup.MCloserLepTau0;
-  BDTG_RSumPtlep01tau0Jets = ntup.RSumPtlep01tau0Jets;
+  BDTG_minDRlep0Jet   = ntup.minDRlep0Jet;
+  BDTG_MCloserJetlep0 = ntup.MCloserJetlep0;
+  BDTG_minDRLep1Jet   = ntup.minDRLep1Jet;
+  BDTG_Mlep01LjSLj    = ntup.Mlep01LjSLj;
+  BDTG_LBoost2L_ThetaLjTau0     = ntup.LBoost2L_ThetaLjTau0;
+  BDTG_LBoost2L_ThetaSLjTau0    = ntup.LBoost2L_ThetaSLjTau0;
+  BDTG_LBoostLep0Tau0_DRlep0SLj = ntup.LBoostLep0Tau0_DRlep0SLj;
+  BDTG_LBoostLep1Tau0_DRlep1Lj  = ntup.LBoostLep1Tau0_DRlep1Lj;
 
   BDTG_weight = reader_2l1tau->EvaluateMVA("BDTG");
   
