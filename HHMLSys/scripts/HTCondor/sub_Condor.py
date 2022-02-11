@@ -15,6 +15,7 @@ from optparse import OptionParser
 p = OptionParser()
 
 p.add_option('--output', '-o',  type='string',  default=None ,  dest='output')
+p.add_option('--condor-group',  type='string',  default='atlas' ,  dest='condor_group')
 p.add_option('--dir-path'    ,  type='string',  default=None ,  dest='dir_path')
 p.add_option('--input-files' ,  type='string',  default=None ,  dest='input_files')
 p.add_option('--afs-path'    ,  type='string',  default=None ,  dest='afs_path')
@@ -29,6 +30,8 @@ p.add_option('--nprint', '-p',  type='int',     default=1,     dest='nprint')
 p.add_option('--debug', '-d',     action='store_true', default=False, dest='debug')
 p.add_option('--make-job-dir',    action='store_true', default=False, dest='make_job_dir')
 p.add_option('--submit', '-s',    action='store_true', default=False, dest='submit')
+
+p.add_option('--Data', action='store_true', default=False, dest='Data')
 
 
 (options, args) = p.parse_args()
@@ -306,6 +309,7 @@ def procJob(files, file_sizes, outDir, jobKey):
         return
 
     jobResult = '%s' %options.afs_path
+    jobGroup  = '%s' %options.condor_group
         
     #Use the appropriate mem usage depending on the file size.
     #If file size is < 2 Gb. Use the default 1Gb.
@@ -315,14 +319,14 @@ def procJob(files, file_sizes, outDir, jobKey):
     memory = 1000
 
     if file_sizes_mb >= 2000 and file_sizes_mb <= 10000:
-        memory = 3000
+        memory = 4000
     elif file_sizes_mb > 1e4:
         log.info('Request for more disk/memory resources for file > 10 Gb')
-        memory = 5000    
+        memory = 8000    
     else:
         log.info('Input file size is <2 Gb. 1Gb memory request is made')
 
-    commands = ['hep_sub', '-o %s'%(jobResult + '/' + jobOutput), '-e %s'%(jobResult + '/' + jobError), '-mem %s'%memory, '%s'%(jobResult + '/' + jobScript)]
+    commands = ['hep_sub', '-o %s'%(jobResult + '/' + jobOutput), '-e %s'%(jobResult + '/' + jobError), '-mem %s'%memory, '%s'%(jobResult + '/' + jobScript), '-g %s'%(jobGroup)]
         
     ostr = 'job {} using file {} with size {} MB: {}'.format(ijob, jobKey, file_sizes_mb, ' '.join(commands))
     
@@ -387,6 +391,43 @@ if __name__ == '__main__':
                 raise Exception('main - sample ID is zero. Something went wrong!')
         except:
             raise Exception('main - Couldn''t extract the sample ID. Something went wrong!')
+            
+        if not options.Data:
+            #Filter out priority 1 samples                                                                                                                                                                    
+            if sampleID not in {'450661', '450662', '450663',
+                                '600536', '600537', '600538', '600539', '600540', '600541',
+                                '600761', '600763', '600764', '600765', '600766', '600767', '600768', '600772',
+                                '600853', '600854', '600855', '600856', '600857', '600858', '600862', '600863',
+                                '600888', '600889', '600890', '600891', '600892', '600893', '600897', '600898',
+                                '502959', '502960', '502961', '502962', '502963', '502964', '508674',
+                                '413008', '410155', '700168', '412123',
+                                '410156', '410157', '410218', '410219', '410220',
+                                '346343', '346344', '346345',
+                                '410560',
+                                '364250', '364253', '364254', '364255', '364283', '364284', '364285', '364286', '364287',
+                                '363355', '363356', '363357', '363358', '363359', '363360', '363489',
+                                '364242', '364243', '364244', '364245', '364246', '364247', '364248', '364249',
+                                '364500', '364501', '364502', '364503', '364504', '364505', '364506', '364507', '364508', '364509',
+                                '364510', '364511', '364512', '364513', '364514', '364521', '364522', '364523', '364524', '364525',
+                                '364526', '364527', '364528', '364529', '364530', '364531', '364532', '364533', '364534', '364535',
+                                '342284', '342285',
+                                '364198', '364199', '364200', '364201', '364202', '364203', '364204', '364205', '364206',
+                                '364207', '364208', '364209', '364210', '364211', '364212', '364213', '364214', '364215',
+                                '304014',
+                                '410080',
+                                '410081',
+                                '410082',
+                                '410408',
+                                '410397', '410398', '410399',
+                                '410276', '410277', '410278',
+                                '410644', '410645', '410646', '410647', '410648', '410649', '410658', '410659',
+                                #'410470', '410472', '364100-364141', '364156-364197'
+                                '700011', '700012', '700013', '700014', '700015', '700016', '700017',
+                                '700125', '700126', '700127', '700128', '700129', '700130', '700131', '700132', '700133', '700134', '700135', '700136', '700137', '700138', '700139',
+                                '700140', '700141', '700142', '700143', '700144', '700145', '700146', '700147', '700148', '700149', '700150', '700151',
+                                '700046', '700075'}:
+                continue
+
 
         #Make sure the .txt file contain at least one root file
         if filelen(input_file) < 1:
