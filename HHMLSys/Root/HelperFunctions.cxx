@@ -36,13 +36,13 @@ bool HHMLSys_EventSaver::Tight2LepCuts(const std::string& channel) {
  
   if( channel == "2l" ) {
     //Cuts for 2lSS+0tau
-    if( ((abs(ntup.lep_ID_0) == 13 and ntup.lep_isMedium_0 > 0  and ntup.lep_plvWP_Tight_0 > 0 and ntup.lep_isolationFCLoose_0 > 0 and abs(ntup.lep_Z0SinTheta_0) < 0.5 and abs(ntup.lep_sigd0PV_0) < 3 and abs(ntup.lep_Eta_0) < 2.5) or
-         (abs(ntup.lep_ID_0) == 11 and ntup.lep_isTightLH_0 > 0 and ntup.lep_plvWP_Tight_0 > 0 and ntup.lep_isolationFCLoose_0 > 0 and abs(ntup.lep_Z0SinTheta_0) < 0.5 and abs(ntup.lep_sigd0PV_0) < 5 and abs(ntup.lep_Eta_0) < 2.5 and
-	  (abs(ntup.lep_Eta_0) < 1.37 or abs(ntup.lep_Eta_0) > 1.52) and ntup.lep_chargeIDBDTResult_0 > -0.337671 and ntup.lep_ambiguityType_0 == 0))
+    if( ((abs(ntup.lep_ID_0) == 13 and ntup.lep_isMedium_0 > 0  and ntup.lep_plvWP_Tight_0 > 0 and abs(ntup.lep_Z0SinTheta_0) < 0.5 and abs(ntup.lep_sigd0PV_0) < 3 and abs(ntup.lep_Eta_0) < 2.5) or
+         (abs(ntup.lep_ID_0) == 11 and ntup.lep_isTightLH_0 > 0 and ntup.lep_plvWP_Tight_0 > 0 and abs(ntup.lep_Z0SinTheta_0) < 0.5 and abs(ntup.lep_sigd0PV_0) < 5 and abs(ntup.lep_EtaBE2_0) < 2.5 and
+	  (abs(ntup.lep_EtaBE2_0) < 1.37 or abs(ntup.lep_EtaBE2_0) > 1.52) and ntup.lep_chargeIDBDTLoose_0 > 0 and ntup.lep_ambiguityType_0 == 0))
 	and
-        ((abs(ntup.lep_ID_1) == 13 and ntup.lep_isMedium_1 > 0  and ntup.lep_plvWP_Tight_1 > 0 and ntup.lep_isolationFCLoose_1 > 0 and abs(ntup.lep_Z0SinTheta_1) < 0.5 and abs(ntup.lep_sigd0PV_1) < 3 and abs(ntup.lep_Eta_1) < 2.5) or
-         (abs(ntup.lep_ID_1) == 11 and ntup.lep_isTightLH_1 > 0 and ntup.lep_plvWP_Tight_1 > 0 and ntup.lep_isolationFCLoose_1 > 0 and abs(ntup.lep_Z0SinTheta_1) < 0.5 and abs(ntup.lep_sigd0PV_1) < 5 and abs(ntup.lep_Eta_1) < 2.5 and
-	  (abs(ntup.lep_Eta_1) < 1.37 or abs(ntup.lep_Eta_1) > 1.52) and ntup.lep_chargeIDBDTResult_1 > -0.337671 and ntup.lep_ambiguityType_1 == 0))
+        ((abs(ntup.lep_ID_1) == 13 and ntup.lep_isMedium_1 > 0  and ntup.lep_plvWP_Tight_1 > 0 and abs(ntup.lep_Z0SinTheta_1) < 0.5 and abs(ntup.lep_sigd0PV_1) < 3 and abs(ntup.lep_Eta_1) < 2.5) or
+         (abs(ntup.lep_ID_1) == 11 and ntup.lep_isTightLH_1 > 0 and ntup.lep_plvWP_Tight_1 > 0 and abs(ntup.lep_Z0SinTheta_1) < 0.5 and abs(ntup.lep_sigd0PV_1) < 5 and abs(ntup.lep_EtaBE2_1) < 2.5 and
+	  (abs(ntup.lep_EtaBE2_1) < 1.37 or abs(ntup.lep_EtaBE2_1) > 1.52) and ntup.lep_chargeIDBDTLoose_1 > 0 and ntup.lep_ambiguityType_1 == 0))
 	) return true;
   }
   else if( channel == "2l1tau" ) { 
