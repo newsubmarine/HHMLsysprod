@@ -168,7 +168,11 @@ double HHMLSys_EventSaver::getMCweight(const string& channel) {
     event_weight *= ntup.lepSFObjLoose * ntup.custTrigSF_LooseID_FCLooseIso_SLTorDLT;
   }
   else if(channel == "2l1tau") {
-    event_weight *= ntup.lepSFObjLoose * ntup.custTrigSF_LooseID_FCLooseIso_SLTorDLT * ntup.tauSFRNNLoose_TAU_SF_NOMINAL;
+    event_weight *= ntup.custTrigSF_LooseID_FCLooseIso_SLTorDLT * ntup.tauSFRNNMedium_TAU_SF_NOMINAL;
+    if( abs(ntup.lep_ID_0) == 11 && abs(ntup.lep_ID_1) == 11 ) event_weight *= ntup.lep_SF_El_Reco_AT_0 * ntup.lep_SF_El_Reco_AT_1 * ntup.lep_SF_El_ID_LooseAndBLayerLH_AT_0 * ntup.lep_SF_El_ID_LooseAndBLayerLH_AT_1 * ntup.lep_SF_El_Iso_FCTight_0 * ntup.lep_SF_El_Iso_FCTight_1 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_0 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_1;
+    else if( abs(ntup.lep_ID_0) == 11 && abs(ntup.lep_ID_1) == 13 ) event_weight *= ntup.lep_SF_El_Reco_AT_0 * ntup.lep_SF_El_ID_LooseAndBLayerLH_AT_0 * ntup.lep_SF_El_Iso_FCTight_0 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_0 * ntup.lep_SF_Mu_TTVA_AT_1 * ntup.lep_SF_Mu_ID_Medium_AT_1 * ntup.lep_SF_Mu_Iso_FCLoose_AT_1;
+    else if( abs(ntup.lep_ID_0) == 13 && abs(ntup.lep_ID_1) == 11 ) event_weight *= ntup.lep_SF_Mu_TTVA_AT_0 * ntup.lep_SF_Mu_ID_Medium_AT_0 * ntup.lep_SF_Mu_Iso_FCLoose_AT_0 * ntup.lep_SF_El_Reco_AT_1 * ntup.lep_SF_El_ID_LooseAndBLayerLH_AT_1 * ntup.lep_SF_El_Iso_FCTight_1 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_1;
+    else if( abs(ntup.lep_ID_0) == 13 && abs(ntup.lep_ID_1 == 13) ) event_weight *= ntup.lep_SF_Mu_TTVA_AT_0 * ntup.lep_SF_Mu_TTVA_AT_1 * ntup.lep_SF_Mu_ID_Medium_AT_0 * ntup.lep_SF_Mu_ID_Medium_AT_1 * ntup.lep_SF_Mu_Iso_FCLoose_AT_0 * ntup.lep_SF_Mu_Iso_FCLoose_AT_1;  
   }
   else if(channel == "1l2tau") {
     event_weight *= ntup.lepSFObjLoose * ntup.custTrigSF_LooseID_FCLooseIso_SLT * ntup.tauSFRNNMedium_TAU_SF_NOMINAL;
