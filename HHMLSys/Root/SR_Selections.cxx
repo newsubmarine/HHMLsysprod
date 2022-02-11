@@ -144,7 +144,7 @@ void HHMLSys_EventSaver::SR2l1TauSelection() {
   if( !(ntup.nTaus_OR_Pt25_RNN == 1) ) return;
   if( !OneTauCuts("Med") ) return;
   if( !isTauOSToLep() ) return;
-  if( !OneTauPtCut(30) ) return;
+  if( !OneTauPtCut(25) ) return;
   //if( !ZVeto("2lep") ) return; 
   if( !JetCut(2) ) return;
   if( !BJetVeto() ) return;
