@@ -94,10 +94,14 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   }
 
   //
-  //Get sumWeights TTree entries
+  //Get sumWeights TTree entries from all possible inputs
   //
-  if(!m_isData) SumWeights(samplePath);
-  
+  if(!m_isData) {
+    const size_t index = samplePath.rfind('/');
+    if(std::string::npos != index) std::string sampleDir = samplePath.substr(0,index);
+    sampleDir = sampleDir + "/*root";
+    SumWeights(sampleDir)
+  }
   //
   //Fill vector with TTree names
   //
