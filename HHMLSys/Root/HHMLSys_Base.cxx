@@ -94,10 +94,22 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   }
 
   //
-  //Get sumWeights TTree entries
+  //Get sumWeights TTree entries from all possible inputs
   //
-  if(!m_isData) SumWeights(samplePath);
-  
+  if(!m_isData) {
+      const size_t index = samplePath.rfind('/');
+      std::string sampleDir;
+      if(std::string::npos != index){
+          sampleDir = samplePath.substr(0,index);
+          sampleDir = sampleDir + "/*root";
+          ATH_MSG_INFO("Reading sumWeights from " << sampleDir);
+          SumWeights(sampleDir);
+      }
+      else{
+          ATH_MSG_FATAL("Fail to get sumWeights from" << sampleDir);
+          return StatusCode::FAILURE;
+      }
+  }
   //
   //Fill vector with TTree names
   //
