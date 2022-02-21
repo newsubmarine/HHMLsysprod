@@ -4,10 +4,10 @@
     <Info name="TMVA Release" value="4.2.1 [262657]"/>
     <Info name="ROOT Release" value="6.22/08 [398856]"/>
     <Info name="Creator" value="bzabinsk"/>
-    <Info name="Date" value="Tue Jan 25 21:27:05 2022"/>
+    <Info name="Date" value="Thu Feb 17 09:22:31 2022"/>
     <Info name="Host" value="Linux noName 5.11.0-40-generic #44~20.04.2-Ubuntu SMP Tue Oct 26 18:07:44 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux"/>
     <Info name="Dir" value="/data/CERN/DIHiggs/HHML_GFW2/HHML_2LSS_1Tau_v4/BDT_TMVA"/>
-    <Info name="Training events" value="43930"/>
+    <Info name="Training events" value="38650"/>
     <Info name="TrainingTime" value="2.14576721e-06"/>
     <Info name="AnalysisType" value="Classification"/>
   </GeneralInfo>
@@ -20,28 +20,28 @@
     <Option name="IgnoreNegWeightsInTraining" modified="No">False</Option>
     <Option name="EncapsulatedMethodName" modified="Yes">BDTG</Option>
     <Option name="EncapsulatedMethodTypeName" modified="Yes">BDT</Option>
-    <Option name="NumFolds" modified="Yes">5</Option>
+    <Option name="NumFolds" modified="Yes">4</Option>
     <Option name="OutputEnsembling" modified="Yes">None</Option>
     <Option name="SplitExpr" modified="Yes">int(fabs([p_Event_No2]))%int([NumFolds])</Option>
   </Options>
   <Variables NVar="14">
-    <Variable VarIndex="0" Expression="p_DR_l1_l2" Label="p_DR_l1_l2" Title="p_DR_l1_l2" Unit="" Internal="p_DR_l1_l2" Type="F" Min="1.63536474e-01" Max="5.69275713e+00"/>
+    <Variable VarIndex="0" Expression="p_DR_l1_l2" Label="p_DR_l1_l2" Title="p_DR_l1_l2" Unit="" Internal="p_DR_l1_l2" Type="F" Min="1.03017516e-01" Max="5.69275713e+00"/>
     <Variable VarIndex="1" Expression="p_DR_l1_j1" Label="p_DR_l1_j1" Title="p_DR_l1_j1" Unit="" Internal="p_DR_l1_j1" Type="F" Min="3.99129480e-01" Max="5.68730354e+00"/>
-    <Variable VarIndex="2" Expression="p_invMass_l1_j1" Label="p_invMass_l1_j1" Title="p_invMass_l1_j1" Unit="" Internal="p_invMass_l1_j1" Type="F" Min="1.53995581e+01" Max="3.70955127e+03"/>
-    <Variable VarIndex="3" Expression="p_invMass_l1_j2" Label="p_invMass_l1_j2" Title="p_invMass_l1_j2" Unit="" Internal="p_invMass_l1_j2" Type="F" Min="1.21779261e+01" Max="2.42721338e+03"/>
-    <Variable VarIndex="4" Expression="p_invMass_l2_j1" Label="p_invMass_l2_j1" Title="p_invMass_l2_j1" Unit="" Internal="p_invMass_l2_j1" Type="F" Min="1.45340710e+01" Max="1.89437109e+03"/>
-    <Variable VarIndex="5" Expression="p_invMCloserLepToTau" Label="p_invMCloserLepToTau" Title="p_invMCloserLepToTau" Unit="" Internal="p_invMCloserLepToTau" Type="F" Min="6.95287895e+00" Max="8.50627319e+02"/>
-    <Variable VarIndex="6" Expression="p_drCloserJetToLeadLep" Label="p_drCloserJetToLeadLep" Title="p_drCloserJetToLeadLep" Unit="" Internal="p_drCloserJetToLeadLep" Type="F" Min="3.87351602e-01" Max="5.35628653e+00"/>
-    <Variable VarIndex="7" Expression="p_invMCloserJetToLeadLep" Label="p_invMCloserJetToLeadLep" Title="p_invMCloserJetToLeadLep" Unit="" Internal="p_invMCloserJetToLeadLep" Type="F" Min="1.21779261e+01" Max="2.37901733e+03"/>
-    <Variable VarIndex="8" Expression="p_drCloserJetToLep2" Label="p_drCloserJetToLep2" Title="p_drCloserJetToLep2" Unit="" Internal="p_drCloserJetToLep2" Type="F" Min="3.85621518e-01" Max="5.13744545e+00"/>
-    <Variable VarIndex="9" Expression="p_invMl2j1j2" Label="p_invMl2j1j2" Title="p_invMl2j1j2" Unit="" Internal="p_invMl2j1j2" Type="F" Min="3.43483086e+01" Max="6.10816504e+03"/>
-    <Variable VarIndex="10" Expression="p_LBoost2L_AngleTauJ1" Label="p_LBoost2L_AngleTauJ1" Title="p_LBoost2L_AngleTauJ1" Unit="" Internal="p_LBoost2L_AngleTauJ1" Type="F" Min="4.82666446e-03" Max="3.13619161e+00"/>
-    <Variable VarIndex="11" Expression="p_LBoost2L_AngleTauJ2" Label="p_LBoost2L_AngleTauJ2" Title="p_LBoost2L_AngleTauJ2" Unit="" Internal="p_LBoost2L_AngleTauJ2" Type="F" Min="4.94246976e-03" Max="3.13128877e+00"/>
-    <Variable VarIndex="12" Expression="p_LBoostL1Tau_DRL1J2" Label="p_LBoostL1Tau_DRL1J2" Title="p_LBoostL1Tau_DRL1J2" Unit="" Internal="p_LBoostL1Tau_DRL1J2" Type="F" Min="1.54831439e-01" Max="7.75876617e+00"/>
+    <Variable VarIndex="2" Expression="p_invMass_l1_j1" Label="p_invMass_l1_j1" Title="p_invMass_l1_j1" Unit="" Internal="p_invMass_l1_j1" Type="F" Min="1.69484921e+01" Max="3.70955127e+03"/>
+    <Variable VarIndex="3" Expression="p_invMass_l1_j2" Label="p_invMass_l1_j2" Title="p_invMass_l1_j2" Unit="" Internal="p_invMass_l1_j2" Type="F" Min="1.48331528e+01" Max="2.68582153e+03"/>
+    <Variable VarIndex="4" Expression="p_invMass_l2_j1" Label="p_invMass_l2_j1" Title="p_invMass_l2_j1" Unit="" Internal="p_invMass_l2_j1" Type="F" Min="1.22829456e+01" Max="1.89437109e+03"/>
+    <Variable VarIndex="5" Expression="p_invMCloserLepToTau" Label="p_invMCloserLepToTau" Title="p_invMCloserLepToTau" Unit="" Internal="p_invMCloserLepToTau" Type="F" Min="9.15525913e+00" Max="8.50627319e+02"/>
+    <Variable VarIndex="6" Expression="p_drCloserJetToLeadLep" Label="p_drCloserJetToLeadLep" Title="p_drCloserJetToLeadLep" Unit="" Internal="p_drCloserJetToLeadLep" Type="F" Min="3.87351602e-01" Max="5.10115004e+00"/>
+    <Variable VarIndex="7" Expression="p_invMCloserJetToLeadLep" Label="p_invMCloserJetToLeadLep" Title="p_invMCloserJetToLeadLep" Unit="" Internal="p_invMCloserJetToLeadLep" Type="F" Min="1.48331528e+01" Max="2.19066821e+03"/>
+    <Variable VarIndex="8" Expression="p_drCloserJetToLep2" Label="p_drCloserJetToLep2" Title="p_drCloserJetToLep2" Unit="" Internal="p_drCloserJetToLep2" Type="F" Min="3.85621518e-01" Max="4.77851105e+00"/>
+    <Variable VarIndex="9" Expression="p_invMl2j1j2" Label="p_invMl2j1j2" Title="p_invMl2j1j2" Unit="" Internal="p_invMl2j1j2" Type="F" Min="3.43818359e+01" Max="6.10816504e+03"/>
+    <Variable VarIndex="10" Expression="p_LBoost2L_AngleTauJ1" Label="p_LBoost2L_AngleTauJ1" Title="p_LBoost2L_AngleTauJ1" Unit="" Internal="p_LBoost2L_AngleTauJ1" Type="F" Min="6.18624501e-03" Max="3.13619161e+00"/>
+    <Variable VarIndex="11" Expression="p_LBoost2L_AngleTauJ2" Label="p_LBoost2L_AngleTauJ2" Title="p_LBoost2L_AngleTauJ2" Unit="" Internal="p_LBoost2L_AngleTauJ2" Type="F" Min="6.93284022e-03" Max="3.12355375e+00"/>
+    <Variable VarIndex="12" Expression="p_LBoostL1Tau_DRL1J2" Label="p_LBoostL1Tau_DRL1J2" Title="p_LBoostL1Tau_DRL1J2" Unit="" Internal="p_LBoostL1Tau_DRL1J2" Type="F" Min="1.93541810e-01" Max="7.75876617e+00"/>
     <Variable VarIndex="13" Expression="p_LBoostL2Tau_DRL2J1" Label="p_LBoostL2Tau_DRL2J1" Title="p_LBoostL2Tau_DRL2J1" Unit="" Internal="p_LBoostL2Tau_DRL2J1" Type="F" Min="1.22100815e-01" Max="6.84708929e+00"/>
   </Variables>
   <Spectators NSpec="1">
-    <Spectator SpecIndex="0" Expression="p_Event_No2" Label="p_Event_No2" Title="I" Unit="" Internal="p_Event_No2" Type="F" Min="1.00000000e+00" Max="3.54410000e+04"/>
+    <Spectator SpecIndex="0" Expression="p_Event_No2" Label="p_Event_No2" Title="I" Unit="" Internal="p_Event_No2" Type="F" Min="1.00000000e+00" Max="3.09360000e+04"/>
   </Spectators>
   <Classes NClass="2">
     <Class Name="Signal" Index="0"/>
@@ -49,5 +49,5 @@
   </Classes>
   <Transformations NTransformations="0"/>
   <MVAPdfs/>
-  <Weights JobName="TMVACrossValidation" SplitExpr="int(fabs([p_Event_No2]))%int([NumFolds])" NumFolds="5" EncapsulatedMethodName="BDTG" EncapsulatedMethodTypeName="BDT" OutputEnsembling="None"/>
+  <Weights JobName="TMVACrossValidation" SplitExpr="int(fabs([p_Event_No2]))%int([NumFolds])" NumFolds="4" EncapsulatedMethodName="BDTG" EncapsulatedMethodTypeName="BDT" OutputEnsembling="None"/>
 </MethodSetup>
