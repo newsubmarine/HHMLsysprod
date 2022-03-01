@@ -33,7 +33,7 @@ void HHMLSys_EventSaver::SR2lSelection() {
   
   is2Lep = true;
 
-  weight_2l = getMCweight("2l");
+  if(!m_isData) weight_2l = getMCweight("2l");
 
   //Get 2l BDT
   if(m_do_2lMVA) mva.EvaluateMVA_2l(ntup, BDTOutput_2l_1, BDTOutput_2l_2, BDTOutput_2l_VV, BDTOutput_2l_tt, BDTOutput_2l_Vjets);
@@ -63,7 +63,7 @@ void HHMLSys_EventSaver::SR3lSelection() {
   
   is3Lep = true;
 
-  weight_3l = getMCweight("3l");
+  if(!m_isData) weight_3l = getMCweight("3l");
 
   //Get 3l BDT
   if(m_do_3lMVA) BDTOutput_3l = mva.EvaluateMVA_3l(ntup);
@@ -84,7 +84,7 @@ void HHMLSys_EventSaver::SR4lSelection() {
   
   is4Lep = true;
 
-  weight_4l = getMCweight("4l");
+  if(!m_isData) weight_4l = getMCweight("4l");
 }
 
 //4lbb channel
@@ -119,7 +119,7 @@ void HHMLSys_EventSaver::SR4lbbSelection() {
   
   is4Lepbb = true;
 
-  weight_4lbb = getMCweight("4lbb");
+  if(!m_isData) weight_4lbb = getMCweight("4lbb");
 
   //Get 4lbb BDT
   if(m_do_4lbbMVA) BDTOutput_4lbb = mva.EvaluateMVA_4lbb(ntup);
@@ -151,7 +151,7 @@ void HHMLSys_EventSaver::SR2l1TauSelection() {
   
   is2Lep1Tau = true;
 
-  weight_2l1tau = getMCweight("2l1tau");
+  if(!m_isData) weight_2l1tau = getMCweight("2l1tau");
 
   //Get 2l+1tau BDT
   if(m_do_2l1tauMVA) BDTOutput_2l1tau = mva.EvaluateMVA_2l1tau(ntup);
@@ -180,7 +180,7 @@ void HHMLSys_EventSaver::SR1l2TauSelection() {
   
   is1Lep2Tau = true;
 
-  weight_1l2tau = getMCweight("1l2tau");
+  if(!m_isData) weight_1l2tau = getMCweight("1l2tau");
 
   //Get 1l+2tau BDT
   if(m_do_1l2tauMVA) BDTOutput_1l2tau = mva.EvaluateMVA_1l2tau(ntup);
@@ -214,5 +214,5 @@ void HHMLSys_EventSaver::SR2l2TauSelection() {
   weight_2l2tau = getMCweight("2l2tau");
   
   //Get 2l2tau BDT
-  if(m_do_2l2tauMVA) BDTOutput_2l2tau = mva.EvaluateMVA_2l2tau(ntup);
+  if(!m_isData) if(m_do_2l2tauMVA) BDTOutput_2l2tau = mva.EvaluateMVA_2l2tau(ntup);
 }
