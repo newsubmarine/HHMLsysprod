@@ -68,8 +68,8 @@ void HHMLSys_EventSaver::AddVars() {
   ntup.Mlep01LjSLj              = -999.;
   ntup.MCloserLepTau0           = -999.;
   ntup.MCloserJetlep0           = -999.; //
-  ntup.minDRlep0Jet             = 20.;
-  ntup.minDRLep1Jet             = 20.; //
+  ntup.minDRlep0Jet             = -99.;
+  ntup.minDRLep1Jet             = -99.; //
   ntup.LBoost2L_ThetaLjTau0     = 20.;//
   ntup.LBoost2L_ThetaSLjTau0    = 20.;//
   ntup.LBoostLep0Tau0_DRlep0SLj = 20.;//
