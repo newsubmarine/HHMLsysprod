@@ -111,6 +111,12 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("LBoostLep0Tau0_DRlep0SLj", &ntup.LBoostLep0Tau0_DRlep0SLj);
   outTree->Branch("LBoostLep1Tau0_DRlep1Lj" , &ntup.LBoostLep1Tau0_DRlep1Lj);
   
+  //QMisID variables
+  outTree->Branch("QMisID_EventWeight"      , &ntup.QMisID_EventWeight);
+  outTree->Branch("QMisID_EventWeight_Up"   , &ntup.QMisID_EventWeight_Up);
+  outTree->Branch("QMisID_EventWeight_Dn"   , &ntup.QMisID_EventWeight_Dn);
+
+
   //GN1 branches
   outTree->Branch("MET"           , &ntup.met_met);
   outTree->Branch("lep_ID_0"      , &ntup.lep_ID_0);

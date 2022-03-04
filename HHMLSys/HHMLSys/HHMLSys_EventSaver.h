@@ -213,6 +213,22 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   //MET cut, takes value in GeV
   bool METCut(const float met);
 
+  //
+  // QMisID stuffs
+  //
+  void getQMisIdRates(TH2D* rate_map, TH1D* proj_Eta, TH1D* proj_Pt,
+		      float eta, float pt,
+		      float& r, float& r_up, float& r_dn);
+  void calcQMisIdWeights(float &weight_Nom, float &weight_Up, float &weight_Dn);
+
+  //Get QMisID weights for all the events
+  void getQMisIDWeights();
+
+  //2lSS0Tau
+  void SR2LSS0Tau_QMisIDCuts();
+
+  bool is2LSS0tau_ee_QMisID = false;
+  bool is2LSS0tau_OF_QMisID = false;
 };
 
 #endif

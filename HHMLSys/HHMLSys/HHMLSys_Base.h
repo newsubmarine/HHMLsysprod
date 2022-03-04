@@ -86,6 +86,12 @@ class HHMLSys_Base: public asg::AsgMessaging {
   bool m_isData = false;
 
   //2l
+  bool m_do_2l_QMisID = false;
+  std::string m_QMisIDPath = "";
+  TH2D* hist_QMisID_T;
+  TH2D* hist_QMisID_AT;
+
+
   bool m_do_2lSR  = false;
   bool m_do_2lMVA = false;
   std::string m_2l_1_BDTxmlFile     = "";
@@ -149,6 +155,11 @@ class HHMLSys_Base: public asg::AsgMessaging {
 
   //Get sumWeight Tree entries and fill the histogram (in case later use for normalization)
   void SumWeights(const std::string& SamplePath);
+
+  //Read 2lss QMisID files
+  StatusCode ReadQMisIdRates();
+  template<typename T> T* get_object(TFile& file, const std::string& name);
+
   
 };
 

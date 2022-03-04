@@ -123,6 +123,13 @@ class HHMLSys_Ntuple {
   TLorentzVector TLV_4l_lep2;
 
   //
+  //QMisID branches
+  //
+  Float_t QMisID_EventWeight;
+  Float_t QMisID_EventWeight_Up;
+  Float_t QMisID_EventWeight_Dn;
+  
+  //
   //Declaration of leaf types
   //
   Float_t         weight_mc;

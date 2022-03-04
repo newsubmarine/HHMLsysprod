@@ -43,6 +43,16 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   Config(m_2l_tt_BDTxmlFile   , "2l_tt_BDTxmlFile"   , rEnv);
   Config(m_2l_Vjets_BDTxmlFile, "2l_Vjets_BDTxmlFile", rEnv);
 
+  //2l qmisid rates
+  
+  Config(m_do_2lQMisId,  "do_2lQMisID", rEnv);
+  Config(m_pathTRates ,  "pathTRates" , rEnv);
+  Config(m_pathATRates,  "pathATRates", rEnv);
+  Config(m_QMisIDPath ,  "qmisidFile" , rEnv);
+  
+
+
+
   //3l
   Config(m_do_3lSR  , "do_3lSR" , rEnv);
   Config(m_do_3lMVA , "do_3lMVA", rEnv);
@@ -145,6 +155,18 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   if(m_do_2l2tauMVA) sc = mva.BookMVA_2l2tau(m_2l2tau_BDTGxmlFile);
   if(m_do_1l2tauMVA) sc = mva.BookMVA_1l2tau(m_1l2tau_BDTGEvenxmlFile, m_1l2tau_BDTGOddxmlFile);
 
+
+  //
+  // 2lss QMisID
+  if(m_isData && m_do_2l_QMisID){ 
+    sc = ReadQMisIdRates();
+    if(!sc){
+      ATH_MSG_FATAL("Failed to ReadQMisIDRates!!");
+      return StatusCode::FAILURE;
+      }
+    }
+  //
+
   //
   //Create the output root file
   //
@@ -196,6 +218,10 @@ StatusCode HHMLSys_Base::finalize()
   m_outputFile->Write(0, TObject::kWriteDelete);
   m_outputFile->Close();
 
+  if(m_isData && m_do_2l_QMisID){
+      delete hist_QMisID_T;
+      delete hist_QMisID_AT;
+  }
   return sc;
 }
 
@@ -230,3 +256,48 @@ void HHMLSys_Base::SumWeights(const std::string &SamplePath) {
 
   m_scale = sum_weight;
 }
+
+//--------------------------------------------------------------------------------------------------
+StatusCode HHMLEventSaver_Base::ReadQMisIdRates()
+{
+  StatusCode sc = StatusCode::SUCCESS;
+
+  //Path of root files given in conf file
+  if(m_QMisIDPath== "") {
+    ATH_MSG_FATAL("ReadQMisIdFile - Path of root file of QMisId rates not found");
+    return StatusCode::FAILURE;
+  }
+  
+
+  TFile *file_Qmis  = new TFile(m_QMisIDPath.c_str());
+  
+  if(!file_Qmis->IsOpen()) {
+    ATH_MSG_FATAL("ReadQMisIdFile - Failed to open root file: " << m_QMisIDPath<< " of QMisId rates");
+    return StatusCode::FAILURE;
+    }
+
+
+  ATH_MSG_INFO("Reading root file: " << m_QMisIDPath << " of QMisId rates");
+  
+  hist_QMisID_T  = get_object<TH2D>( *file_Qmis  , "tight" );
+  hist_QMisID_AT = get_object<TH2D>( *file_Qmis , "antitight" );
+    
+  hist_QMisID_T ->SetDirectory(0);
+  hist_QMisID_AT->SetDirectory(0);
+  
+  delete file_Qmis;
+  
+  return sc;
+}
+
+//---------------------------------------------------------------------------------------------------
+template<typename T> T* HHMLEventSaver_Base::get_object( TFile& file, const string& name )
+{
+  T* obj = dynamic_cast<T*>( file.Get(name.c_str()) );
+  if(!obj)
+    {
+      throw std::runtime_error("2DHist " + name + " not found"); 
+    }
+  return obj;
+}
+
