@@ -69,7 +69,7 @@ void HHMLSys_EventSaver::AddVars() {
   ntup.MCloserLepTau0           = -999.;
   ntup.MCloserJetlep0           = -999.; //
   ntup.minDRlep0Jet             = 20.;
-  ntup.minDRLep1Jet             = -99.; //
+  ntup.minDRLep1Jet             = 20.; //
   ntup.LBoost2L_ThetaLjTau0     = 20.;//
   ntup.LBoost2L_ThetaSLjTau0    = 20.;//
   ntup.LBoostLep0Tau0_DRlep0SLj = 20.;//
@@ -413,7 +413,7 @@ void HHMLSys_EventSaver::AddVars() {
       if( DR_lep0Jet > ntup.farDRlep0Jet ) {
 	ntup.farDRlep0Jet = DR_lep0Jet;
       }
-      if( DR_lep1Jet > ntup.minDRLep1Jet ) {
+      if( DR_lep1Jet < ntup.minDRLep1Jet ) {
 	ntup.minDRLep1Jet = DR_lep1Jet;
       }
     }
