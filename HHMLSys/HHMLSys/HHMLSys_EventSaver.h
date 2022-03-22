@@ -229,6 +229,10 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
 
   bool is2LSS0tau_ee_QMisID = false;
   bool is2LSS0tau_OF_QMisID = false;
+
+  bool AntiTight2LepCuts(const std::string& chan);
+
+
 };
 
 #endif
