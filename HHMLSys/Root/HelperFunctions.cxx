@@ -517,7 +517,7 @@ bool HHMLSys_EventSaver::QMisID_Tight_Lep1(){
 
 int HHMLSys_EventSaver::QMisID_Region_Lep0(){
   
-  if(abs(lep_ID_0) != 11) return -1;
+  if(abs(ntup.lep_ID_0) != 11) return -1;
 
   if(ntup.lep_Mtrktrk_atConvV_CO_0 >= 0 and
   ntup.lep_Mtrktrk_atConvV_CO_0 < 0.1 and
@@ -533,7 +533,7 @@ int HHMLSys_EventSaver::QMisID_Region_Lep0(){
 }
 int HHMLSys_EventSaver::QMisID_Region_Lep1(){
 
-  if( abs(lep_ID_1) != 11 ) return -1;
+  if( abs(ntup.lep_ID_1) != 11 ) return -1;
 
   if( ntup.lep_Mtrktrk_atConvV_CO_1 >= 0 and
   ntup.lep_Mtrktrk_atConvV_CO_1 < 0.1 and

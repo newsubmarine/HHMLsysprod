@@ -224,9 +224,9 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   //Get QMisID weights for all the events
   void getQMisIDWeights();
 
-  void QMisID_Tight_Lep0();
+  bool QMisID_Tight_Lep0();
 
-  void QMisID_Tight_Lep1();
+  bool QMisID_Tight_Lep1();
 
   int QMisID_Region_Lep0();
 

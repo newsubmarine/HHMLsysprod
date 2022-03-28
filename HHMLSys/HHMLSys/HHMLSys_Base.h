@@ -26,6 +26,7 @@
 #include "TString.h"
 #include "TH1.h"
 #include "TH2.h"
+#include "TH3.h"
 #include "TLorentzVector.h"
 #include "TVector3.h"
 #include <ROOT/RVec.hxx>
