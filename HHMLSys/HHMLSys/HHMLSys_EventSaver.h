@@ -216,13 +216,21 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   //
   // QMisID stuffs
   //
-  void getQMisIdRates(TH2D* rate_map, TH1D* proj_Eta, TH1D* proj_Pt,
-		      float eta, float pt,
+  void getQMisIdRates(TH3D* rate_map, TH1D* proj_Eta, TH1D* proj_Pt, TH1D* proj_R,
+		      float eta, float pt, float rg,
 		      float& r, float& r_up, float& r_dn);
   void calcQMisIdWeights(float &weight_Nom, float &weight_Up, float &weight_Dn);
 
   //Get QMisID weights for all the events
   void getQMisIDWeights();
+
+  void QMisID_Tight_Lep0();
+
+  void QMisID_Tight_Lep1();
+
+  int QMisID_Region_Lep0();
+
+  int QMisID_Region_Lep1();
 
   //2lSS0Tau
   void SR2LSS0Tau_QMisIDCuts();
@@ -231,6 +239,8 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   bool is2LSS0tau_OF_QMisID = false;
 
   bool AntiTight2LepCuts(const std::string& chan);
+
+
 
 
 };
