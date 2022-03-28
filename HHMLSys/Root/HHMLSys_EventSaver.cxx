@@ -59,7 +59,7 @@ StatusCode HHMLSys_EventSaver::executeEventLoop(unsigned int max_evnt) {
   for(itr = m_treeVec->begin(); itr != m_treeVec->end(); ++itr) {
     
     if(*itr == "AnalysisTracking" or *itr == "particleLevel" or *itr == "truth" or *itr == "sumWeights") continue;
-    
+    if(*itr != "nominal") continue; 
     ATH_MSG_INFO("Reading TTree " << *itr);
 
     //Read the TTree

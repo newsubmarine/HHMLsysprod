@@ -85,41 +85,42 @@ void HHMLSys_EventSaver::calcQMisIdWeights(float &weight_Nom, float &weight_Up, 
   
   // Tight or Anti-tight
   bool  is_lep_0_tight(false), is_lep_1_tight(false);
-  
-  if(QMisID_Tight_Lep0){
+  TH1D *proj_eta,*proj_pt,*proj_rg;
+
+  if(QMisID_Tight_Lep0()){
     
     is_lep_0_tight = true;
-    TH1D* proj_eta  = hist_QMisID_T->ProjectionX("proj_eta");
-    TH1D* proj_pt   = hist_QMisID_T->ProjectionY("proj_pt" );
-    TH1D* proj_rg   = hist_QMisID_T->ProjectionZ("proj_rg" );
+    proj_eta  = hist_QMisID_T->ProjectionX("proj_eta");
+    proj_pt   = hist_QMisID_T->ProjectionY("proj_pt" );
+    proj_rg   = hist_QMisID_T->ProjectionZ("proj_rg" );
     getQMisIdRates(hist_QMisID_T, proj_eta, proj_pt, proj_rg, Eta0, Pt0, R0, r0, r0_up, r0_dn);
 
   }
   else{
 
     is_lep_0_tight = false;
-    TH1D* proj_eta  = hist_QMisID_AT->ProjectionX("proj_eta");
-    TH1D* proj_pt   = hist_QMisID_AT->ProjectionY("proj_pt" );
-    TH1D* proj_rg   = hist_QMisID_AT->ProjectionZ("proj_rg" );
+    proj_eta  = hist_QMisID_AT->ProjectionX("proj_eta");
+    proj_pt   = hist_QMisID_AT->ProjectionY("proj_pt" );
+    proj_rg   = hist_QMisID_AT->ProjectionZ("proj_rg" );
     getQMisIdRates(hist_QMisID_AT, proj_eta, proj_pt, proj_rg, Eta0, Pt0, R0, r0, r0_up, r0_dn);
 
   }
     
-  if(QMisID_Tight_Lep1){
+  if(QMisID_Tight_Lep1()){
     
     is_lep_1_tight = true;
-    TH1D* proj_eta  = hist_QMisID_T->ProjectionX("proj_eta");
-    TH1D* proj_pt   = hist_QMisID_T->ProjectionY("proj_pt" );
-    TH1D* proj_rg   = hist_QMisID_T->ProjectionZ("proj_rg" );
+    proj_eta  = hist_QMisID_T->ProjectionX("proj_eta");
+    proj_pt   = hist_QMisID_T->ProjectionY("proj_pt" );
+    proj_rg   = hist_QMisID_T->ProjectionZ("proj_rg" );
     getQMisIdRates(hist_QMisID_T, proj_eta, proj_pt, proj_rg, Eta1, Pt1, R1, r1, r1_up, r1_dn);
 
   }
   else{
 
     is_lep_1_tight = false;
-    TH1D* proj_eta  = hist_QMisID_AT->ProjectionX("proj_eta");
-    TH1D* proj_pt   = hist_QMisID_AT->ProjectionY("proj_pt" );
-    TH1D* proj_rg   = hist_QMisID_AT->ProjectionZ("proj_rg" );
+    proj_eta  = hist_QMisID_AT->ProjectionX("proj_eta");
+    proj_pt   = hist_QMisID_AT->ProjectionY("proj_pt" );
+    proj_rg   = hist_QMisID_AT->ProjectionZ("proj_rg" );
 
     getQMisIdRates(hist_QMisID_AT, proj_eta, proj_pt, proj_rg, Eta1, Pt1, R1, r1, r1_up, r1_dn);
 
@@ -153,8 +154,9 @@ void HHMLSys_EventSaver::calcQMisIdWeights(float &weight_Nom, float &weight_Up, 
     weight_Dn  = ( r0_dn + r1_dn - 2.0 * r0_dn * r1_dn ) / ( 1.0 - r0_dn - r1_dn + 2.0 * r0_dn * r1_dn );
   }
 
-  delete proj_eta_T;
-  delete proj_pt_T;
+  delete proj_eta;
+  delete proj_pt;
+  delete proj_rg;
 }
 
 //--------------------------------------------------------------
