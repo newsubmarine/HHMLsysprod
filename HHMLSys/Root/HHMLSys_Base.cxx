@@ -45,9 +45,9 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
 
   //2l qmisid rates
   
-  Config(m_do_2lQMisId,  "do_2lQMisID", rEnv);
-  Config(m_pathTRates ,  "pathTRates" , rEnv);
-  Config(m_pathATRates,  "pathATRates", rEnv);
+  Config(m_do_2l_QMisID,  "do_2lQMisID", rEnv);
+  //Config(m_pathTRates ,  "pathTRates" , rEnv);
+  //Config(m_pathATRates,  "pathATRates", rEnv);
   Config(m_QMisIDPath ,  "qmisidFile" , rEnv);
   
 
@@ -258,7 +258,7 @@ void HHMLSys_Base::SumWeights(const std::string &SamplePath) {
 }
 
 //--------------------------------------------------------------------------------------------------
-StatusCode HHMLEventSaver_Base::ReadQMisIdRates()
+StatusCode HHMLSys_Base::ReadQMisIdRates()
 {
   StatusCode sc = StatusCode::SUCCESS;
 
@@ -291,7 +291,7 @@ StatusCode HHMLEventSaver_Base::ReadQMisIdRates()
 }
 
 //---------------------------------------------------------------------------------------------------
-template<typename T> T* HHMLEventSaver_Base::get_object( TFile& file, const string& name )
+template<typename T> T* HHMLSys_Base::get_object( TFile& file, const std::string& name )
 {
   T* obj = dynamic_cast<T*>( file.Get(name.c_str()) );
   if(!obj)
