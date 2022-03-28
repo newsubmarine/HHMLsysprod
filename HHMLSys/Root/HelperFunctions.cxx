@@ -477,3 +477,46 @@ bool HHMLSys_EventSaver::Mll01Cut(const float mll) {
   
   return false;
 }
+
+//-----------------------------------------------------------------------------------------------
+bool HHMLSys_EventSaver::Lep0Tight(){
+
+  if((abs(ntup.lep_ID_0)==13 and
+   ntup.lep_isolationFCLoose_0 and 
+   ntup.lep_plvWP_Tight_0 and 
+   ntup.lep_isMedium_0)
+   or (abs(ntup.lep_ID_0)==11 and
+   ntup.lep_isolationFCLoose_0 and
+   ntup.lep_isTightLH_0 and 
+   ntup.lep_chargeIDBDTResult_0>-0.337671 and
+   ntup.lep_ambiguityType_0 == 0 and
+   ntup.lep_plvWP_Tight_0)) return true; 
+
+   return false;
+}
+//-----------------------------------------------------------------------------------------------
+bool HHMLSys_EventSaver::Lep1Tight(){
+
+  if((abs(ntup.lep_ID_1)==13 and
+   ntup.lep_isolationFCLoose_1 and 
+   
+   ntup.lep_plvWP_Tight_1 and 
+   ntup.lep_isMedium_1)
+   or (abs(ntup.lep_ID_1)==11 and
+   ntup.lep_isolationFCLoose_1 and
+   ntup.lep_isTightLH_1 and 
+   ntup.lep_chargeIDBDTResult_1>-0.337671 and
+   ntup.lep_ambiguityType_1 == 0 and
+   ntup.lep_plvWP_Tight_1)) return true; 
+
+   return false;
+}
+
+bool HHMLSys_EventSaver::QMisID_Region(){
+  if(((ntup.dilep_type==2 and 
+  (ntup.lep_Mtrktrk_atConvV_CO_0*(abs(ntup.lep_ID_0)==11)+ntup.lep_Mtrktrk_atConvV_CO_1*(abs(ntup.lep_ID_1)==11))<0.2 and 
+  (ntup.*(abs(lep_ID_0)==11)+lep_MeeCO_1*(abs(lep_ID_1)==11))>0.1)||(dilep_type==3&&((lep_MeeCO_0<0.2&&lep_MeeCO_0>0.1&&((lep_MeeCO_1<0)||(lep_MeeCO_1>0&&lep_MeeCO_0<lep_MeeCO_1)))||(lep_MeeCO_1<0.2&&lep_MeeCO_1>0.1&&((lep_MeeCO_0<0)||(lep_MeeCO_0>0&&lep_MeeCO_1<lep_MeeCO_0))))))
+
+)
+
+}

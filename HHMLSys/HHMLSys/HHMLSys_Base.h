@@ -88,8 +88,8 @@ class HHMLSys_Base: public asg::AsgMessaging {
   //2l
   bool m_do_2l_QMisID = false;
   std::string m_QMisIDPath = "";
-  TH2D* hist_QMisID_T;
-  TH2D* hist_QMisID_AT;
+  TH3D* hist_QMisID_T;
+  TH3D* hist_QMisID_AT;
 
 
   bool m_do_2lSR  = false;

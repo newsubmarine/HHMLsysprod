@@ -279,8 +279,8 @@ StatusCode HHMLSys_Base::ReadQMisIdRates()
 
   ATH_MSG_INFO("Reading root file: " << m_QMisIDPath << " of QMisId rates");
   
-  hist_QMisID_T  = get_object<TH2D>( *file_Qmis  , "tight" );
-  hist_QMisID_AT = get_object<TH2D>( *file_Qmis , "antitight" );
+  hist_QMisID_T  = get_object<TH3D>( *file_Qmis  , "tight" );
+  hist_QMisID_AT = get_object<TH3D>( *file_Qmis , "antitight" );
     
   hist_QMisID_T ->SetDirectory(0);
   hist_QMisID_AT->SetDirectory(0);
@@ -296,7 +296,7 @@ template<typename T> T* HHMLSys_Base::get_object( TFile& file, const std::string
   T* obj = dynamic_cast<T*>( file.Get(name.c_str()) );
   if(!obj)
     {
-      throw std::runtime_error("2DHist " + name + " not found"); 
+      throw std::runtime_error("3DHist " + name + " not found"); 
     }
   return obj;
 }
