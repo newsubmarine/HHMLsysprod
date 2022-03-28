@@ -479,44 +479,72 @@ bool HHMLSys_EventSaver::Mll01Cut(const float mll) {
 }
 
 //-----------------------------------------------------------------------------------------------
-bool HHMLSys_EventSaver::Lep0Tight(){
+bool HHMLSys_EventSaver::QMisID_Tight_Lep0(){
 
-  if((abs(ntup.lep_ID_0)==13 and
+  if( (abs(ntup.lep_ID_0) == 13 and
    ntup.lep_isolationFCLoose_0 and 
    ntup.lep_plvWP_Tight_0 and 
    ntup.lep_isMedium_0)
-   or (abs(ntup.lep_ID_0)==11 and
+   or (abs(ntup.lep_ID_0) == 11 and
    ntup.lep_isolationFCLoose_0 and
    ntup.lep_isTightLH_0 and 
-   ntup.lep_chargeIDBDTResult_0>-0.337671 and
+   ntup.lep_chargeIDBDTResult_0 >- 0.337671 and
    ntup.lep_ambiguityType_0 == 0 and
-   ntup.lep_plvWP_Tight_0)) return true; 
+   ntup.lep_plvWP_Tight_0) ) return true; 
 
    return false;
 }
 //-----------------------------------------------------------------------------------------------
-bool HHMLSys_EventSaver::Lep1Tight(){
+bool HHMLSys_EventSaver::QMisID_Tight_Lep1(){
 
-  if((abs(ntup.lep_ID_1)==13 and
+  if( (abs(ntup.lep_ID_1) == 13 and
    ntup.lep_isolationFCLoose_1 and 
-   
    ntup.lep_plvWP_Tight_1 and 
    ntup.lep_isMedium_1)
-   or (abs(ntup.lep_ID_1)==11 and
+   or (abs(ntup.lep_ID_1) == 11 and
    ntup.lep_isolationFCLoose_1 and
    ntup.lep_isTightLH_1 and 
-   ntup.lep_chargeIDBDTResult_1>-0.337671 and
+   ntup.lep_chargeIDBDTResult_1 >- 0.337671 and
    ntup.lep_ambiguityType_1 == 0 and
-   ntup.lep_plvWP_Tight_1)) return true; 
+   ntup.lep_plvWP_Tight_1) ) return true; 
 
    return false;
 }
 
-bool HHMLSys_EventSaver::QMisID_Region(){
-  if(((ntup.dilep_type==2 and 
-  (ntup.lep_Mtrktrk_atConvV_CO_0*(abs(ntup.lep_ID_0)==11)+ntup.lep_Mtrktrk_atConvV_CO_1*(abs(ntup.lep_ID_1)==11))<0.2 and 
-  (ntup.*(abs(lep_ID_0)==11)+lep_MeeCO_1*(abs(lep_ID_1)==11))>0.1)||(dilep_type==3&&((lep_MeeCO_0<0.2&&lep_MeeCO_0>0.1&&((lep_MeeCO_1<0)||(lep_MeeCO_1>0&&lep_MeeCO_0<lep_MeeCO_1)))||(lep_MeeCO_1<0.2&&lep_MeeCO_1>0.1&&((lep_MeeCO_0<0)||(lep_MeeCO_0>0&&lep_MeeCO_1<lep_MeeCO_0))))))
+//-----------------------------------------------------------------------------------------------
+//if (mtrtrConv >= 0. && mtrtrConv < 0.1 && radiusConv > 20.) return 1; // ExtCR
+//if (mtrtrPV   >= 0. && mtrtrPV   < 0.1) return 0; // IntCR
 
-)
+int HHMLSys_EventSaver::QMisID_Region_Lep0(){
+  
+  if(abs(lep_ID_0) != 11) return -1;
 
+  if(ntup.lep_Mtrktrk_atConvV_CO_0 >= 0 and
+  ntup.lep_Mtrktrk_atConvV_CO_0 < 0.1 and
+  ntup.lep_RadiusCO_0 > 20
+  ) return 0; //Ext CO
+
+  else if(ntup.lep_Mtrktrk_atPV_CO_0 >= 0 and
+  ntup.lep_Mtrktrk_atPV_CO_0 < 0.1
+  ) return 1; //Int CO
+
+  else 
+    return 2; //SR
 }
+int HHMLSys_EventSaver::QMisID_Region_Lep1(){
+
+  if( abs(lep_ID_1) != 11 ) return -1;
+
+  if( ntup.lep_Mtrktrk_atConvV_CO_1 >= 0 and
+  ntup.lep_Mtrktrk_atConvV_CO_1 < 0.1 and
+  ntup.lep_RadiusCO_1 > 20
+  ) return 0; //Ext CO
+
+  else if( ntup.lep_Mtrktrk_atPV_CO_1 >= 0 and
+  ntup.lep_Mtrktrk_atPV_CO_1 < 0.1
+  ) return 1; //Int CO
+
+  else 
+    return 2; //SR
+}
+
