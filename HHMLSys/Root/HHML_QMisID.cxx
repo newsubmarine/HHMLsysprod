@@ -195,15 +195,10 @@ void HHMLSys_EventSaver::getQMisIDWeights() {
 
 
   if( !m_isData ) return;
-<<<<<<< HEAD
-  //if( !ntup.passEventCleaning ) return;
-  //if( !(SLTrigCuts() || DLTrigCuts()) ) return;
-  //if( !ntup.dilep_type ) return;
-  //if( !LepTrigMatch("SLTorDLT_Tight") ) return;
-=======
+
   if( !ntup.dilep_type ) return;
   if( !LepTrigMatch("SLTorDLT_Tight") ) return;
->>>>>>> c5cfb87d548b9e13df914194f9508a6a5ea88814
+
   if( !isOSPair() ) return;        //OS pair
   if( isMuonPair() ) return;
 
