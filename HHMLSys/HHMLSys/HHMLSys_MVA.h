@@ -174,6 +174,7 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_lep_E_0;
   Float_t BDTG_lep_E_1;
   Float_t BDTG_lep_E_2;
+  Float_t BDTG_best_Z_Mll;
   //4l
   Float_t BDTG_lep_Pt_3;
   Float_t BDTG_sublead_JetPt;

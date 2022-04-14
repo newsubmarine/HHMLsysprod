@@ -311,6 +311,7 @@ StatusCode HHMLSys_MVA::BookMVA_3l(const string& xmlFile) {
   reader_3l->AddVariable("lep_E_0"  , &BDTG_lep_E_0);
   reader_3l->AddVariable("lep_E_1"  , &BDTG_lep_E_1);
   reader_3l->AddVariable("lep_E_2"  , &BDTG_lep_E_2);
+  reader_3l->AddVariable("best_Z_Mll"  , &BDTG_best_Z_Mll);
 
   reader_3l->AddSpectator("EvtNum", &BDTG_EventNo);
 
@@ -520,6 +521,7 @@ float HHMLSys_MVA::EvaluateMVA_3l(const HHMLSys_Ntuple& ntup) {
   BDTG_lep_E_0      = ntup.lep_E_0/1000.;
   BDTG_lep_E_1      = ntup.lep_E_1/1000.;
   BDTG_lep_E_2      = ntup.lep_E_2/1000.;
+  BDTG_best_Z_Mll   = ntup.best_Z_Mll/1000.;
 
   BDTG_weight = reader_3l->EvaluateMVA("BDT_hh3l");
   
