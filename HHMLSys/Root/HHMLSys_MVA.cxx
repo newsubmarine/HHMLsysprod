@@ -522,9 +522,37 @@ float HHMLSys_MVA::EvaluateMVA_3l(const HHMLSys_Ntuple& ntup) {
   BDTG_lep_E_1      = ntup.lep_E_1/1000.;
   BDTG_lep_E_2      = ntup.lep_E_2/1000.;
   BDTG_best_Z_Mll   = ntup.best_Z_Mll/1000.;
+  BDTG_MET          = ntup.met_met/1000.;
 
   BDTG_weight = reader_3l->EvaluateMVA("BDT_hh3l");
-  
+
+    if (fabs(BDTG_MET/1000. - 330.04) < 1) {
+        cout<< BDTG_EventNo      << endl;
+        cout<< BDTG_FlavorCat    << endl;
+        cout<< BDTG_Mlep0lep1    << endl;
+        cout<< BDTG_Mlep0lep2    << endl;
+        cout<< BDTG_Mlep1lep2    << endl;
+        cout<< BDTG_Mlep012      << endl;
+        cout<< BDTG_Mlep2LjSLj   << endl;
+        cout<< BDTG_Mlep012LjSLj << endl;
+        cout<< BDTG_DRl0l1       << endl;
+        cout<< BDTG_DRlep1lep2   << endl;
+        cout<< BDTG_DRlep2CloseJ << endl;
+        cout<< BDTG_nJets        << endl;
+        cout<< BDTG_leadJetPt    << endl;
+        cout<< BDTG_leadJetE     << endl;
+        cout<< BDTG_lep_Pt_0     << endl;
+        cout<< BDTG_lep_Pt_1     << endl;
+        cout<< BDTG_lep_Pt_2     << endl;
+        cout<< BDTG_lep_E_0      << endl;
+        cout<< BDTG_lep_E_1      << endl;
+        cout<< BDTG_lep_E_2      << endl;
+        cout<< BDTG_best_Z_Mll   << endl;
+        cout<< BDTG_MET          << endl;
+
+        cout<<"weight: "<<BDTG_weight<<endl;
+    }
+
   return BDTG_weight;
 }
 
