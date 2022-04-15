@@ -526,7 +526,7 @@ float HHMLSys_MVA::EvaluateMVA_3l(const HHMLSys_Ntuple& ntup) {
 
   BDTG_weight = reader_3l->EvaluateMVA("BDT_hh3l");
 
-    if (fabs(BDTG_MET/1000. - 330.04) < 1) {
+    if (fabs(BDTG_MET/ - 330.04) < 1) {
         cout<< BDTG_EventNo      << endl;
         cout<< BDTG_FlavorCat    << endl;
         cout<< BDTG_Mlep0lep1    << endl;
