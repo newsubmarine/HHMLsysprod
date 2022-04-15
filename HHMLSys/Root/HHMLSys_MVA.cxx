@@ -12,7 +12,7 @@ HHMLSys_MVA::HHMLSys_MVA(const std::string& name) :
 StatusCode HHMLSys_MVA::CheckXMLFile(const string& xmlFile) {
 
   StatusCode sc = StatusCode::SUCCESS;
-  
+
   if(xmlFile == "") {
     ATH_MSG_FATAL("No weight xml file to read!");
     return StatusCode::FAILURE;
@@ -33,12 +33,12 @@ StatusCode HHMLSys_MVA::CheckXMLFile(const string& xmlFile) {
 StatusCode HHMLSys_MVA::CheckXMLFiles(const string& xmlEvenFile, const string& xmlOddFile) {
 
   StatusCode sc = StatusCode::SUCCESS;
-  
+
   if(xmlEvenFile == "" or xmlOddFile == "") {
     ATH_MSG_FATAL("No even or odd weight xml file to read!");
     return StatusCode::FAILURE;
   }
-  
+
   if(xmlEvenFile != "" and xmlEvenFile.find(".xml") != std::string::npos) {
     ATH_MSG_INFO("Reading even weight xml file ");
   }
@@ -46,7 +46,7 @@ StatusCode HHMLSys_MVA::CheckXMLFiles(const string& xmlEvenFile, const string& x
     ATH_MSG_FATAL("Unable to read even weight xml file!!");
     return StatusCode::FAILURE;
   }
-  
+
   if(xmlOddFile != "" and xmlOddFile.find(".xml") != std::string::npos) {
     ATH_MSG_INFO("Reading odd weight xml file ");
   }
@@ -54,7 +54,7 @@ StatusCode HHMLSys_MVA::CheckXMLFiles(const string& xmlEvenFile, const string& x
     ATH_MSG_FATAL("Unable to read odd weight xml file!!");
     return StatusCode::FAILURE;
   }
-  
+
   return sc;
 }
 
@@ -66,25 +66,25 @@ StatusCode HHMLSys_MVA::BookMVA_1l2tau(const string& xmlEvenFile, const string& 
   sc = CheckXMLFiles(xmlEvenFile, xmlOddFile);
 
   if(sc.isFailure()) return StatusCode::FAILURE;
-  
+
   TMVA::Tools::Instance();
-  
+
   reader_1l2tau = new TMVA::Reader( "!Color:!Silent" );
-  
-  reader_1l2tau->AddVariable("Mtau0tau1"     , &BDTG_Mtau0tau1); 
-  reader_1l2tau->AddVariable("DRlep0Lj"      , &BDTG_DRlep0Lj); 
-  reader_1l2tau->AddVariable("DRlep0SLj"     , &BDTG_DRlep0SLj); 
-  reader_1l2tau->AddVariable("minDR_LJ_0"    , &BDTG_minDR_LJ_0); 
-  reader_1l2tau->AddVariable("DRtau0tau1lep0", &BDTG_DRtau0tau1lep0); 
-  reader_1l2tau->AddVariable("SumPttau0tau1" , &BDTG_SumPttau0tau1); 
-  reader_1l2tau->AddVariable("Mlep0tau0"     , &BDTG_Mlep0tau0); 
-  reader_1l2tau->AddVariable("Mlep0tau1"     , &BDTG_Mlep0tau1); 
-  reader_1l2tau->AddVariable("MLep0Jet"      , &BDTG_MLep0Jet); 
-  reader_1l2tau->AddVariable("HT"            , &BDTG_HT);  
-  
+
+  reader_1l2tau->AddVariable("Mtau0tau1"     , &BDTG_Mtau0tau1);
+  reader_1l2tau->AddVariable("DRlep0Lj"      , &BDTG_DRlep0Lj);
+  reader_1l2tau->AddVariable("DRlep0SLj"     , &BDTG_DRlep0SLj);
+  reader_1l2tau->AddVariable("minDR_LJ_0"    , &BDTG_minDR_LJ_0);
+  reader_1l2tau->AddVariable("DRtau0tau1lep0", &BDTG_DRtau0tau1lep0);
+  reader_1l2tau->AddVariable("SumPttau0tau1" , &BDTG_SumPttau0tau1);
+  reader_1l2tau->AddVariable("Mlep0tau0"     , &BDTG_Mlep0tau0);
+  reader_1l2tau->AddVariable("Mlep0tau1"     , &BDTG_Mlep0tau1);
+  reader_1l2tau->AddVariable("MLep0Jet"      , &BDTG_MLep0Jet);
+  reader_1l2tau->AddVariable("HT"            , &BDTG_HT);
+
   reader_1l2tau->BookMVA("BDTG method even", xmlEvenFile);
   reader_1l2tau->BookMVA("BDTG method odd" , xmlOddFile);
-  
+
   return sc;
 }
 
@@ -96,11 +96,11 @@ StatusCode HHMLSys_MVA::BookMVA_2l2tau(const string& xmlFile) {
   sc = CheckXMLFile(xmlFile);
 
   if(sc.isFailure()) return StatusCode::FAILURE;
-  
+
   TMVA::Tools::Instance();
-  
+
   reader_2l2tau = new TMVA::Reader( "!Color:!Silent" );
-  
+
   reader_2l2tau->AddVariable("Mtau0tau1"      , &BDTG_Mtau0tau1);
   reader_2l2tau->AddVariable("MET"            , &BDTG_MET);
   reader_2l2tau->AddVariable("tau_pt_0"       , &BDTG_tau_pt_0);
@@ -113,7 +113,7 @@ StatusCode HHMLSys_MVA::BookMVA_2l2tau(const string& xmlFile) {
   reader_2l2tau->AddSpectator("Event", &BDTG_EventNo);
 
   reader_2l2tau->BookMVA("BDTG", xmlFile);
-  
+
   return sc;
 }
 
@@ -123,17 +123,17 @@ StatusCode HHMLSys_MVA::BookMVA_2l1tau(const string& xmlFile) {
   StatusCode sc = StatusCode::SUCCESS;
 
   sc = CheckXMLFile(xmlFile);
-  
+
   if(sc.isFailure()) return StatusCode::FAILURE;
-  
+
   TMVA::Tools::Instance();
-  
+
   reader_2l1tau = new TMVA::Reader( "!Color:!Silent" );
 
   reader_2l1tau->AddVariable("p_DR_l1_l2"              , &BDTG_DRlep0lep1); //
   reader_2l1tau->AddVariable("p_DR_l1_j1"              , &BDTG_DRl0Lj); //
   reader_2l1tau->AddVariable("p_invMass_l1_j1"         , &BDTG_Mlep0Lj); //
-  reader_2l1tau->AddVariable("p_invMass_l1_j2"         , &BDTG_Mlep0SLj); 
+  reader_2l1tau->AddVariable("p_invMass_l1_j2"         , &BDTG_Mlep0SLj);
   reader_2l1tau->AddVariable("p_invMass_l2_j1"         , &BDTG_Mlep1Lj); //
   reader_2l1tau->AddVariable("p_invMCloserLepToTau"    , &BDTG_MCloserLepTau0);  //
   reader_2l1tau->AddVariable("p_drCloserJetToLeadLep"  , &BDTG_minDRlep0Jet); //
@@ -148,7 +148,7 @@ StatusCode HHMLSys_MVA::BookMVA_2l1tau(const string& xmlFile) {
   reader_2l1tau->AddSpectator("eventNumber", &BDTG_EventNo);
 
   reader_2l1tau->BookMVA("BDTG", xmlFile);
-  
+
   return sc;
 }
 
@@ -164,15 +164,15 @@ StatusCode HHMLSys_MVA::BookMVA_2l(const string& xmlFile1, const string& xmlFile
   sc = (CheckXMLFile(xmlFile1) and CheckXMLFile(xmlFile2) and CheckXMLFile(xmlFile_VV) and CheckXMLFile(xmlFile_tt) and CheckXMLFile(xmlFile_Vjets));
 
   if(sc.isFailure()) return StatusCode::FAILURE;
-  
+
   TMVA::Tools::Instance();
-  
+
   reader_2l_1     = new TMVA::Reader( "!Color:!Silent" );
   reader_2l_2     = new TMVA::Reader( "!Color:!Silent" );
   reader_2l_VV    = new TMVA::Reader( "!Color:!Silent" );
   reader_2l_tt    = new TMVA::Reader( "!Color:!Silent" );
   reader_2l_Vjets = new TMVA::Reader( "!Color:!Silent" );
-  
+
   reader_2l_1->AddVariable("BDTG_Oceane_tt_V4"   , &BDTG_tt);
   reader_2l_1->AddVariable("BDTG_Oceane_VV_V4"   , &BDTG_VV);
   reader_2l_1->AddVariable("BDTG_Oceane_Vjets_V4", &BDTG_Vjets);
@@ -258,12 +258,12 @@ StatusCode HHMLSys_MVA::BookMVA_2l(const string& xmlFile1, const string& xmlFile
 
   reader_2l_1->BookMVA("BDTG_Oceane_All_V4", xmlFile1);
 
-  reader_2l_VV   ->BookMVA("BDTG_Oceane_VV_V4"   , xmlFile_VV); 
+  reader_2l_VV   ->BookMVA("BDTG_Oceane_VV_V4"   , xmlFile_VV);
   reader_2l_tt   ->BookMVA("BDTG_Oceane_tt_V4"   , xmlFile_tt);
-  reader_2l_Vjets->BookMVA("BDTG_Oceane_Vjets_V4", xmlFile_Vjets); 
+  reader_2l_Vjets->BookMVA("BDTG_Oceane_Vjets_V4", xmlFile_Vjets);
 
   reader_2l_2->BookMVA("BDT_hh2lss", xmlFile2);
-  
+
   return sc;
 }
 
@@ -286,12 +286,12 @@ StatusCode HHMLSys_MVA::BookMVA_3l(const string& xmlFile) {
   }
 
   if(sc.isFailure()) return StatusCode::FAILURE;
-  
+
   TMVA::Tools::Instance();
-  
+
   reader_3l = new TMVA::Reader( "!Color:!Silent" );
-  
-  reader_3l->AddVariable("FlavorCategory", &BDTG_FlavorCat); 
+
+  reader_3l->AddVariable("FlavorCategory", &BDTG_FlavorCat);
   reader_3l->AddVariable("nJets"    , &BDTG_nJets);
   reader_3l->AddVariable("dR_l1l2"  , &BDTG_DRlep0lep1);
   reader_3l->AddVariable("dR_l2l3"  , &BDTG_DRlep1lep2);
@@ -307,7 +307,7 @@ StatusCode HHMLSys_MVA::BookMVA_3l(const string& xmlFile) {
   reader_3l->AddVariable("leadJetE" , &BDTG_leadJetE);
   reader_3l->AddVariable("lep_Pt_0" , &BDTG_lep_Pt_0);
   reader_3l->AddVariable("lep_Pt_1" , &BDTG_lep_Pt_1);
-  reader_3l->AddVariable("lep_Pt_2" , &BDTG_lep_Pt_1);
+  reader_3l->AddVariable("lep_Pt_2" , &BDTG_lep_Pt_2);
   reader_3l->AddVariable("lep_E_0"  , &BDTG_lep_E_0);
   reader_3l->AddVariable("lep_E_1"  , &BDTG_lep_E_1);
   reader_3l->AddVariable("lep_E_2"  , &BDTG_lep_E_2);
@@ -316,7 +316,7 @@ StatusCode HHMLSys_MVA::BookMVA_3l(const string& xmlFile) {
   reader_3l->AddSpectator("EvtNum", &BDTG_EventNo);
 
   reader_3l->BookMVA("BDT_hh3l", xmlFile);
-  
+
   return sc;
 }
 
@@ -339,11 +339,11 @@ StatusCode HHMLSys_MVA::BookMVA_4lbb(const string& xmlFile) {
   }
 
   if(sc.isFailure()) return StatusCode::FAILURE;
-  
+
   TMVA::Tools::Instance();
-  
+
   reader_4lbb = new TMVA::Reader( "!Color:!Silent" );
-  
+
   reader_4lbb->AddVariable("lep_Pt_0" , &BDTG_lep_Pt_0);
   reader_4lbb->AddVariable("lep_Pt_1" , &BDTG_lep_Pt_1);
   reader_4lbb->AddVariable("lep_Pt_2" , &BDTG_lep_Pt_2);
@@ -364,7 +364,7 @@ StatusCode HHMLSys_MVA::BookMVA_4lbb(const string& xmlFile) {
   reader_4lbb->AddVariable("nbjets", &BDTG_nJets_OR_DL1r_77);
 
   reader_4lbb->BookMVA("BDT_hh4lbb", xmlFile);
-  
+
   return sc;
 }
 
@@ -372,7 +372,7 @@ StatusCode HHMLSys_MVA::BookMVA_4lbb(const string& xmlFile) {
 float HHMLSys_MVA::EvaluateMVA_1l2tau(const HHMLSys_Ntuple& ntup) {
 
   float BDTG_weight = -99;
- 
+
   BDTG_Mtau0tau1      = ntup.Mtau0tau1;
   BDTG_DRlep0Lj       = ntup.DRlep0Lj;
   BDTG_DRlep0SLj      = ntup.DRlep0SLj;
@@ -383,7 +383,7 @@ float HHMLSys_MVA::EvaluateMVA_1l2tau(const HHMLSys_Ntuple& ntup) {
   BDTG_Mlep0tau1      = ntup.Mlep0tau1;
   BDTG_MLep0Jet       = ntup.MLep0Jet;
   BDTG_HT             = ntup.HT;
-  
+
   /*cout << "EvntNo: " << ntup.eventNumber << endl;
     cout << "var1: "  << BDTG_Mtau0tau1      << endl;
     cout << "var2: "  << BDTG_DRlep0Lj       << endl;
@@ -421,7 +421,7 @@ float HHMLSys_MVA::EvaluateMVA_2l2tau(const HHMLSys_Ntuple& ntup) {
   BDTG_HT         = ntup.HT;
 
   BDTG_weight = reader_2l2tau->EvaluateMVA("BDTG");
-    
+
   return BDTG_weight;
 }
 
@@ -433,7 +433,7 @@ float HHMLSys_MVA::EvaluateMVA_2l1tau(const HHMLSys_Ntuple& ntup) {
   BDTG_EventNo        = ntup.eventNumber;
   BDTG_DRlep0lep1     = ntup.DRlep0lep1;
   BDTG_DRl0Lj         = ntup.DRl0Lj;
-  BDTG_Mlep0Lj        = ntup.Mlep0Lj; 
+  BDTG_Mlep0Lj        = ntup.Mlep0Lj;
   BDTG_Mlep0SLj       = ntup.Mlep0SLj;
   BDTG_Mlep1Lj        = ntup.Mlep1Lj;
   BDTG_MCloserLepTau0 = ntup.MCloserLepTau0;
@@ -447,12 +447,12 @@ float HHMLSys_MVA::EvaluateMVA_2l1tau(const HHMLSys_Ntuple& ntup) {
   BDTG_LBoostLep1Tau0_DRlep1Lj  = ntup.LBoostLep1Tau0_DRlep1Lj;
 
   BDTG_weight = reader_2l1tau->EvaluateMVA("BDTG");
-  
+
   return BDTG_weight;
 }
 
 //-----------------------------------------------------------------------------------
-void HHMLSys_MVA::EvaluateMVA_2l(const HHMLSys_Ntuple& ntup, float& BDTG_weight_2l_1, float& BDTG_weight_2l_2, float& BDTG_weight_2l_VV, float& BDTG_weight_2l_tt, float& BDTG_weight_2l_Vjets ) 
+void HHMLSys_MVA::EvaluateMVA_2l(const HHMLSys_Ntuple& ntup, float& BDTG_weight_2l_1, float& BDTG_weight_2l_2, float& BDTG_weight_2l_VV, float& BDTG_weight_2l_tt, float& BDTG_weight_2l_Vjets )
 {
   BDTG_lep_Eta_0        = abs(ntup.lep_Eta_0);
   BDTG_lep_Eta_1        = abs(ntup.lep_Eta_1);
@@ -470,14 +470,14 @@ void HHMLSys_MVA::EvaluateMVA_2l(const HHMLSys_Ntuple& ntup, float& BDTG_weight_
   BDTG_MLep0Jet         = ntup.MLep0Jet;
   BDTG_MLep1Jet         = ntup.MLep1Jet;
   BDTG_MLep0MET         = ntup.MLep0MET;
-  BDTG_MLep1MET         = ntup.MLep1MET; 
+  BDTG_MLep1MET         = ntup.MLep1MET;
   BDTG_MAll             = ntup.MAll;
   BDTG_MetAll           = ntup.MetAll;
   BDTG_minDR_LJ_0       = ntup.minDR_LJ_0;
   BDTG_minDR_LJ_1       = ntup.minDR_LJ_1;
   BDTG_MaxEtalep01      = ntup.MaxEtalep01;
   BDTG_RMS              = ntup.RMS;
-  
+
   BDTG_weight_2l_VV    = reader_2l_VV->EvaluateMVA("BDTG_Oceane_VV_V4");
   BDTG_weight_2l_tt    = reader_2l_tt->EvaluateMVA("BDTG_Oceane_tt_V4");
   BDTG_weight_2l_Vjets = reader_2l_Vjets->EvaluateMVA("BDTG_Oceane_Vjets_V4");
@@ -492,7 +492,7 @@ void HHMLSys_MVA::EvaluateMVA_2l(const HHMLSys_Ntuple& ntup, float& BDTG_weight_
   BDTG_lep_Eta_1 = ntup.lep_Eta_1;
   BDTG_MLep0Jet  = ntup.MLep0Jet/1000.;
   BDTG_MLep1Jet  = ntup.MLep1Jet/1000.;
-  
+
   BDTG_weight_2l_2 = reader_2l_2->EvaluateMVA("BDT_hh2lss");
 }
 
@@ -581,6 +581,6 @@ float HHMLSys_MVA::EvaluateMVA_4lbb(const HHMLSys_Ntuple& ntup) {
   BDTG_nJets_OR_DL1r_77 = float(ntup.nJets_OR_DL1r_77);
 
   BDTG_weight = reader_4lbb->EvaluateMVA("BDT_hh4lbb");
-  
+
   return BDTG_weight;
 }
