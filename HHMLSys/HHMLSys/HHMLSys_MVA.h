@@ -154,7 +154,7 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_lep_Eta_1;
   Float_t BDTG_minDR_LJ_1;
   //3l
-  Int_t   BDTG_EventNo;
+  ULong64_t BDTG_EventNo;
   Float_t BDTG_FlavorCat;
   Float_t BDTG_Mlep0lep1;
   Float_t BDTG_Mlep0lep2;
