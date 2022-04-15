@@ -67,13 +67,13 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   //
   //Booleans of each SR
   //
-  bool is2Lep;
-  bool is3Lep;
-  bool is4Lep;
-  bool is4Lepbb;
-  bool is2Lep1Tau;
-  bool is1Lep2Tau;
-  bool is2Lep2Tau;
+  bool is2Lep{false};
+  bool is3Lep{false};
+  bool is4Lep{false};
+  bool is4Lepbb{false};
+  bool is2Lep1Tau{false};
+  bool is1Lep2Tau{false};
+  bool is2Lep2Tau{false};
   
   //
   //MC weights per event per channel
