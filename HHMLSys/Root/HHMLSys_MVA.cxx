@@ -501,7 +501,7 @@ float HHMLSys_MVA::EvaluateMVA_3l(const HHMLSys_Ntuple& ntup) {
 
   float BDTG_weight = -99;
 
-  BDTG_EventNo      = float(ntup.eventNumber);
+  BDTG_EventNo      = static_cast<float>(ntup.eventNumber);
   BDTG_FlavorCat    = float(ntup.FlavorCat);
   BDTG_Mlep0lep1    = ntup.Mlep0lep1;
   BDTG_Mlep0lep2    = ntup.Mlep0lep2;
