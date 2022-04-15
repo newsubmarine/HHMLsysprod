@@ -17,6 +17,7 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("Event"        , &ntup.eventNumber);
   outTree->Branch("RunNumber"    , &ntup.runNumber);
   outTree->Branch("RunYear"      , &ntup.RunYear);
+  outTree->Branch("weight_pileup", &ntup.weight_pileup);
 
   //MC weights of each channel
   outTree->Branch("scale"        , &m_scale); //Sum of weighted events
