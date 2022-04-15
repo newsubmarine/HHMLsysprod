@@ -173,9 +173,9 @@ StatusCode HHMLSys_MVA::BookMVA_2l(const string& xmlFile1, const string& xmlFile
   reader_2l_tt    = new TMVA::Reader( "!Color:!Silent" );
   reader_2l_Vjets = new TMVA::Reader( "!Color:!Silent" );
   
-  reader_2l_1->AddVariable("BDTG_Oceane_tt_V4"   , &BDTG_tt);
-  reader_2l_1->AddVariable("BDTG_Oceane_VV_V4"   , &BDTG_VV);
-  reader_2l_1->AddVariable("BDTG_Oceane_Vjets_V4", &BDTG_Vjets);
+  reader_2l_1->AddVariable("BDTG_Oceane_tt"   , &BDTG_tt);
+  reader_2l_1->AddVariable("BDTG_Oceane_VV"   , &BDTG_VV);
+  reader_2l_1->AddVariable("BDTG_Oceane_Vjets", &BDTG_Vjets);
 
   //VV
   reader_2l_VV->AddVariable("abs(lep_Eta_0)"          , &BDTG_lep_Eta_0);
@@ -192,13 +192,13 @@ StatusCode HHMLSys_MVA::BookMVA_2l(const string& xmlFile1, const string& xmlFile
   reader_2l_VV->AddVariable("nJets_OR"                , &BDTG_nJets);
   reader_2l_VV->AddVariable("Mlj_0"                   , &BDTG_MLep0Jet);
   reader_2l_VV->AddVariable("Mlj_1"                   , &BDTG_MLep1Jet);
-  reader_2l_VV->AddVariable("lep_Eta_0-lep_Eta_1"     , &BDTG_DEtalep01);
-  reader_2l_VV->AddVariable("Mt_0"                    , &BDTG_MLep0MET);
-  reader_2l_VV->AddVariable("Mt_1"                    , &BDTG_MLep1MET);
-  reader_2l_VV->AddVariable("M_all"                   , &BDTG_MAll);
-  reader_2l_VV->AddVariable("MLepJetMet"              , &BDTG_MetAll);
+  //reader_2l_VV->AddVariable("lep_Eta_0-lep_Eta_1"     , &BDTG_DEtalep01);
   reader_2l_VV->AddVariable("total_charge"            , &BDTG_total_charge);
-  reader_2l_VV->AddVariable("abs(lep_Eta_0-lep_Eta_1)", &BDTG_AbsDEtalep01);
+  reader_2l_VV->AddVariable("Mt_0"                    , &BDTG_MLep0MET);
+  reader_2l_VV->AddVariable("M_all"                   , &BDTG_MAll);
+  reader_2l_VV->AddVariable("Mt_1"                    , &BDTG_MLep1MET);
+  //reader_2l_VV->AddVariable("MLepJetMet"              , &BDTG_MetAll);
+  //reader_2l_VV->AddVariable("abs(lep_Eta_0-lep_Eta_1)", &BDTG_AbsDEtalep01);
 
   //ttbar
   reader_2l_tt->AddVariable("abs(lep_Eta_0)"          , &BDTG_lep_Eta_0);
@@ -210,16 +210,16 @@ StatusCode HHMLSys_MVA::BookMVA_2l(const string& xmlFile1, const string& xmlFile
   reader_2l_tt->AddVariable("HT_lep"                  , &BDTG_HT_lep);
   reader_2l_tt->AddVariable("DeltaR_min_lep_jet"      , &BDTG_DR_min_LepJet);
   reader_2l_tt->AddVariable("HT"                      , &BDTG_HT);
-  reader_2l_tt->AddVariable("dilep_type"              , &BDTG_dilep_type);
+  //reader_2l_tt->AddVariable("dilep_type"              , &BDTG_dilep_type);
   reader_2l_tt->AddVariable("met_met"                 , &BDTG_MET);
   reader_2l_tt->AddVariable("nJets_OR"                , &BDTG_nJets);
   reader_2l_tt->AddVariable("Mlj_0"                   , &BDTG_MLep0Jet);
   reader_2l_tt->AddVariable("Mlj_1"                   , &BDTG_MLep1Jet);
-  reader_2l_tt->AddVariable("lep_Eta_0-lep_Eta_1"     , &BDTG_DEtalep01);
+  //reader_2l_tt->AddVariable("lep_Eta_0-lep_Eta_1"     , &BDTG_DEtalep01);
   reader_2l_tt->AddVariable("Mt_0"                    , &BDTG_MLep0MET);
   reader_2l_tt->AddVariable("M_all"                   , &BDTG_MAll);
   reader_2l_tt->AddVariable("Mt_1"                    , &BDTG_MLep1MET);
-  reader_2l_tt->AddVariable("MLepJetMet"              , &BDTG_MetAll);
+  //reader_2l_tt->AddVariable("MLepJetMet"              , &BDTG_MetAll);
 
   //V+jets
   reader_2l_Vjets->AddVariable("abs(lep_Eta_0)"       , &BDTG_lep_Eta_0);
@@ -236,10 +236,10 @@ StatusCode HHMLSys_MVA::BookMVA_2l(const string& xmlFile1, const string& xmlFile
   reader_2l_Vjets->AddVariable("nJets_OR"             , &BDTG_nJets);
   reader_2l_Vjets->AddVariable("Mlj_0"                , &BDTG_MLep0Jet);
   reader_2l_Vjets->AddVariable("Mlj_1"                , &BDTG_MLep1Jet);
-  reader_2l_Vjets->AddVariable("lep_Eta_0-lep_Eta_1"  , &BDTG_DEtalep01);
+  //reader_2l_Vjets->AddVariable("lep_Eta_0-lep_Eta_1"  , &BDTG_DEtalep01);
   reader_2l_Vjets->AddVariable("Mt_0"                 , &BDTG_MLep0MET);
   reader_2l_Vjets->AddVariable("Mt_1"                 , &BDTG_MLep1MET);
-  reader_2l_Vjets->AddVariable("MLepJetMet"           , &BDTG_MetAll);
+  //reader_2l_Vjets->AddVariable("MLepJetMet"           , &BDTG_MetAll);
 
   reader_2l_2->AddVariable("dilep_type"    , &BDTG_dilep_type);
   reader_2l_2->AddVariable("lep_Eta_0"     , &BDTG_lep_Eta_0);
@@ -256,11 +256,11 @@ StatusCode HHMLSys_MVA::BookMVA_2l(const string& xmlFile1, const string& xmlFile
   reader_2l_2->AddVariable("HT"            , &BDTG_HT);
   reader_2l_2->AddVariable("RMS"           , &BDTG_RMS);
 
-  reader_2l_1->BookMVA("BDTG_Oceane_All_V4", xmlFile1);
+  reader_2l_1->BookMVA("BDTG_Oceane_All", xmlFile1);
 
-  reader_2l_VV   ->BookMVA("BDTG_Oceane_VV_V4"   , xmlFile_VV); 
-  reader_2l_tt   ->BookMVA("BDTG_Oceane_tt_V4"   , xmlFile_tt);
-  reader_2l_Vjets->BookMVA("BDTG_Oceane_Vjets_V4", xmlFile_Vjets); 
+  reader_2l_VV   ->BookMVA("BDTG_Oceane_VV"   , xmlFile_VV); 
+  reader_2l_tt   ->BookMVA("BDTG_Oceane_tt"   , xmlFile_tt);
+  reader_2l_Vjets->BookMVA("BDTG_Oceane_Vjets", xmlFile_Vjets); 
 
   reader_2l_2->BookMVA("BDT_hh2lss", xmlFile2);
   
@@ -477,15 +477,15 @@ void HHMLSys_MVA::EvaluateMVA_2l(const HHMLSys_Ntuple& ntup, float& BDTG_weight_
   BDTG_MaxEtalep01      = ntup.MaxEtalep01;
   BDTG_RMS              = ntup.RMS;
   
-  BDTG_weight_2l_VV    = reader_2l_VV->EvaluateMVA("BDTG_Oceane_VV_V4");
-  BDTG_weight_2l_tt    = reader_2l_tt->EvaluateMVA("BDTG_Oceane_tt_V4");
-  BDTG_weight_2l_Vjets = reader_2l_Vjets->EvaluateMVA("BDTG_Oceane_Vjets_V4");
+  BDTG_weight_2l_VV    = reader_2l_VV->EvaluateMVA("BDTG_Oceane_VV");
+  BDTG_weight_2l_tt    = reader_2l_tt->EvaluateMVA("BDTG_Oceane_tt");
+  BDTG_weight_2l_Vjets = reader_2l_Vjets->EvaluateMVA("BDTG_Oceane_Vjets");
 
   BDTG_tt    = BDTG_weight_2l_tt;
   BDTG_VV    = BDTG_weight_2l_VV;
   BDTG_Vjets = BDTG_weight_2l_Vjets;
 
-  BDTG_weight_2l_1 = reader_2l_1->EvaluateMVA("BDTG_Oceane_All_V4");
+  BDTG_weight_2l_1 = reader_2l_1->EvaluateMVA("BDTG_Oceane_All");
 
   BDTG_lep_Eta_0 = ntup.lep_Eta_0;
   BDTG_lep_Eta_1 = ntup.lep_Eta_1;
