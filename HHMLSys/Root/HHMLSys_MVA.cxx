@@ -291,29 +291,29 @@ StatusCode HHMLSys_MVA::BookMVA_3l(const string& xmlFile) {
 
   reader_3l = new TMVA::Reader( "!Color:!Silent" );
 
-  reader_3l->AddVariable("FlavorCategory", &BDTG_FlavorCat);
-  reader_3l->AddVariable("nJets"    , &BDTG_nJets);
-  reader_3l->AddVariable("dR_l1l2"  , &BDTG_DRlep0lep1);
-  reader_3l->AddVariable("dR_l2l3"  , &BDTG_DRlep1lep2);
-  reader_3l->AddVariable("dR_l3j"   , &BDTG_DRlep2CloseJ);
-  reader_3l->AddVariable("m_l1l2"   , &BDTG_Mlep0lep1);
-  reader_3l->AddVariable("m_l2l3"   , &BDTG_Mlep1lep2);
-  reader_3l->AddVariable("m_l1l3"   , &BDTG_Mlep0lep2);
-  reader_3l->AddVariable("m_l3jj"   , &BDTG_Mlep2LjSLj);
-  reader_3l->AddVariable("m_llljj"  , &BDTG_Mlep012LjSLj);
-  reader_3l->AddVariable("m_lll"    , &BDTG_Mlep012);
-  reader_3l->AddVariable("MET_ET"   , &BDTG_MET);
-  reader_3l->AddVariable("leadJetPt", &BDTG_leadJetPt);
-  reader_3l->AddVariable("leadJetE" , &BDTG_leadJetE);
-  reader_3l->AddVariable("lep_Pt_0" , &BDTG_lep_Pt_0);
-  reader_3l->AddVariable("lep_Pt_1" , &BDTG_lep_Pt_1);
-  reader_3l->AddVariable("lep_Pt_2" , &BDTG_lep_Pt_2);
-  reader_3l->AddVariable("lep_E_0"  , &BDTG_lep_E_0);
-  reader_3l->AddVariable("lep_E_1"  , &BDTG_lep_E_1);
-  reader_3l->AddVariable("lep_E_2"  , &BDTG_lep_E_2);
-  reader_3l->AddVariable("best_Z_Mll"  , &BDTG_best_Z_Mll);
-
-  reader_3l->AddSpectator("EvtNum", &BDTG_EventNo);
+  reader_3l->AddVariable("FlavorCategory", &BDTG_FlavorCat);     
+  reader_3l->AddVariable("nJets"    , &BDTG_nJets);                 
+  reader_3l->AddVariable("dR_l1l2"  , &BDTG_DRl0l1);             
+  reader_3l->AddVariable("dR_l2l3"  , &BDTG_DRlep1lep2);            
+  reader_3l->AddVariable("dR_l3j"   , &BDTG_DRlep2CloseJ);          
+  reader_3l->AddVariable("m_l1l2"   , &BDTG_Mlep0lep1);             
+  reader_3l->AddVariable("m_l2l3"   , &BDTG_Mlep1lep2);             
+  reader_3l->AddVariable("m_l1l3"   , &BDTG_Mlep0lep2);             
+  reader_3l->AddVariable("m_l3jj"   , &BDTG_Mlep2LjSLj);            
+  reader_3l->AddVariable("m_llljj"  , &BDTG_Mlep012LjSLj);          
+  reader_3l->AddVariable("m_lll"    , &BDTG_Mlep012);               
+  reader_3l->AddVariable("MET_ET"   , &BDTG_MET);                   
+  reader_3l->AddVariable("leadJetPt", &BDTG_leadJetPt);             
+  reader_3l->AddVariable("leadJetE" , &BDTG_leadJetE);              
+  reader_3l->AddVariable("lep_Pt_0" , &BDTG_lep_Pt_0);              
+  reader_3l->AddVariable("lep_Pt_1" , &BDTG_lep_Pt_1);              
+  reader_3l->AddVariable("lep_Pt_2" , &BDTG_lep_Pt_2);              
+  reader_3l->AddVariable("lep_E_0"  , &BDTG_lep_E_0);               
+  reader_3l->AddVariable("lep_E_1"  , &BDTG_lep_E_1);               
+  reader_3l->AddVariable("lep_E_2"  , &BDTG_lep_E_2);               
+  reader_3l->AddVariable("best_Z_Mll"  , &BDTG_best_Z_Mll);         
+                                                                 
+  reader_3l->AddSpectator("EvtNum", &BDTG_EventNo);              
 
   reader_3l->BookMVA("BDT_hh3l", xmlFile);
 
@@ -503,6 +503,7 @@ float HHMLSys_MVA::EvaluateMVA_3l(const HHMLSys_Ntuple& ntup) {
 
   BDTG_EventNo      = static_cast<float>(ntup.eventNumber);
   BDTG_FlavorCat    = float(ntup.FlavorCat);
+  BDTG_nJets        = float(ntup.nJets_OR);
   BDTG_Mlep0lep1    = ntup.Mlep0lep1;
   BDTG_Mlep0lep2    = ntup.Mlep0lep2;
   BDTG_Mlep1lep2    = ntup.Mlep1lep2;
@@ -512,7 +513,6 @@ float HHMLSys_MVA::EvaluateMVA_3l(const HHMLSys_Ntuple& ntup) {
   BDTG_DRl0l1       = ntup.DRl0l1;
   BDTG_DRlep1lep2   = ntup.DRlep1lep2;
   BDTG_DRlep2CloseJ = ntup.DRlep2CloseJ;
-  BDTG_nJets        = float(ntup.nJets_OR);
   BDTG_leadJetPt    = ntup.lead_jetPt/1000.;
   BDTG_leadJetE     = ntup.lead_jetE/1000.;
   BDTG_lep_Pt_0     = ntup.lep_Pt_0/1000.;
