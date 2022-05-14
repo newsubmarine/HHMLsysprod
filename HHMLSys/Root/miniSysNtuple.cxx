@@ -39,6 +39,7 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("is2Lep2Tau" , &is2Lep2Tau);
 
   //CRs of 3l
+  outTree->Branch("SR3Lep"     , &SR3Lep);
   outTree->Branch("CR3Lep"     , &CR3Lep);
   outTree->Branch("Sample3Lep"     , &Sample3Lep);
 

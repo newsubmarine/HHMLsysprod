@@ -62,7 +62,7 @@ void HHMLSys_EventSaver::SR3lSelection() {
 //  if( !ntup.SFOFZVeto ) return;
 //
 //  is3Lep = true;
-  is3Lep = ntup.trilep_type &&
+  SR3Lep = ntup.trilep_type &&
           abs(ntup.total_charge) == 1 &&
           (ntup.GlobalTrigDecision > 0) &&
           LepTrigMatch("SLTorDLT_Loose") &&
@@ -74,19 +74,90 @@ void HHMLSys_EventSaver::SR3lSelection() {
           ZVeto("3l") &&
           ntup.SFOFZVeto;
 
-    if(!m_isData) weight_3l = getMCweight("3l");
-
+  if(!m_isData) weight_3l = getMCweight("3l");
 
   CR3lSelection();
   Sample3lSelection();
 
+  if (SR3Lep || CR3Lep >= 0) is3Lep = true;
   //Get 3l BDT
-  if(m_do_3lMVA || CR3Lep >= 0) BDTOutput_3l = mva.EvaluateMVA_3l(ntup);
+  if(m_do_3lMVA && is3Lep) BDTOutput_3l = mva.EvaluateMVA_3l(ntup);
 }
 
 void HHMLSys_EventSaver::CR3lSelection() {
+    CR3Lep = -1;
 
+    auto two_electron = abs(ntup.lep_ID_1) == 11 && abs(ntup.lep_ID_2) == 11;
+    auto two_muon = abs(ntup.lep_ID_1) == 13 && abs(ntup.lep_ID_2) == 13;
+    { // Internal/Material Conversion:
 
+        // everything but author cut (ambiguity cut)
+        auto preselection = ntup.trilep_type &&
+                 abs(ntup.total_charge) == 1 &&
+                 (ntup.GlobalTrigDecision > 0) &&
+                 LepTrigMatch("SLTorDLT_Loose") &&
+                 (ntup.nTaus_OR_Pt25_RNN == 0) &&
+                 Tight3LepCuts() &&
+                 TriLepPtCuts(10, 15, 15) &&
+                 JetCut(0) &&
+                 BJetVeto() &&
+                 !ZVeto("3l");
+
+        auto lep_Mtrktrk_atConvV_CO_1 = (ntup.lep_Mtrktrk_atConvV_CO_1 < 0.1 && ntup.lep_Mtrktrk_atConvV_CO_1 > 0);
+        auto lep_Mtrktrk_atConvV_CO_2 = (ntup.lep_Mtrktrk_atConvV_CO_2 < 0.1 && ntup.lep_Mtrktrk_atConvV_CO_2 > 0);
+
+        auto lep_IntConv_atPV_CO_1 = (ntup.lep_Mtrktrk_atPV_CO_1 < 0.1 && ntup.lep_Mtrktrk_atPV_CO_1 > 0);
+        auto lep_IntConv_atPV_CO_2 = (ntup.lep_Mtrktrk_atPV_CO_2 < 0.1 && ntup.lep_Mtrktrk_atPV_CO_2 > 0);
+
+        auto material_con_1 =
+                (abs(ntup.lep_ID_1) == 11 && (ntup.lep_RadiusCO_1 > 20 && lep_Mtrktrk_atConvV_CO_1)) || abs(ntup.lep_ID_1) == 13;
+        auto material_con_2 =
+                (abs(ntup.lep_ID_2) == 11 && (ntup.lep_RadiusCO_2 > 20 && lep_Mtrktrk_atConvV_CO_2)) || abs(ntup.lep_ID_2) == 13;
+
+        auto ele_1 = (abs(ntup.lep_ID_1) == 13) ||
+                     (abs(ntup.lep_ID_1) == 11 &&
+                      (!(lep_IntConv_atPV_CO_1 && !(ntup.lep_RadiusCO_1 > 20 && lep_Mtrktrk_atConvV_CO_1)) &&
+                       !(ntup.lep_RadiusCO_1 > 20 && lep_Mtrktrk_atConvV_CO_1)));
+        auto ele_2 = (abs(ntup.lep_ID_2) == 13) ||
+                     (abs(ntup.lep_ID_2) == 11 &&
+                      (!(lep_IntConv_atPV_CO_2 && !(ntup.lep_RadiusCO_2 > 20 && lep_Mtrktrk_atConvV_CO_2)) &&
+                       !(ntup.lep_RadiusCO_2 > 20 && lep_Mtrktrk_atConvV_CO_2)));
+
+        auto internal_con_1 = abs(ntup.lep_ID_1) == 11 && (lep_IntConv_atPV_CO_1);
+        auto internal_con_2 = abs(ntup.lep_ID_2) == 11 && (lep_IntConv_atPV_CO_2);
+
+        auto external_conversion = preselection && (material_con_1 && material_con_2) && !(ele_1 & ele_2);
+
+//        auto internal_conversion = preselection && (internal_con_1 ^ internal_con_2) && !(material_con_1 || material_con_2);
+        if (external_conversion) CR3Lep = 0;
+    }
+
+    { // Heavy Flavor
+        bool l0 = ((abs(ntup.lep_ID_0) == 11) ? ntup.lep_isLooseLH_0 : ntup.lep_isLoose_0);
+        bool l1 = ((abs(ntup.lep_ID_1) == 11) ? ntup.lep_isTightLH_1 : ntup.lep_isMedium_1);
+        bool l2 = ((abs(ntup.lep_ID_2) == 11) ? ntup.lep_isTightLH_2 : ntup.lep_isMedium_2);
+
+        bool AuthorCut = ( ((abs(ntup.lep_ID_0) == 11 and ntup.lep_ambiguityType_0 == 0) or abs(ntup.lep_ID_0) == 13) and ((abs(ntup.lep_ID_1) == 11 and ntup.lep_ambiguityType_1 == 0) or abs(ntup.lep_ID_1) == 13) and ((abs(ntup.lep_ID_2) == 11 and ntup.lep_ambiguityType_2 == 0) or abs(ntup.lep_ID_2) == 13) );
+        bool ChargeIDBDT = ( ((abs(ntup.lep_ID_0) == 11) ? ntup.lep_chargeIDBDTLoose_0 : 1) and ((abs(ntup.lep_ID_1) == 11) ? ntup.lep_chargeIDBDTLoose_1 : 1) and ((abs(ntup.lep_ID_2) == 11) ? ntup.lep_chargeIDBDTLoose_2 : 1) );
+
+        auto preselection = ntup.trilep_type &&
+                           abs(ntup.total_charge) == 1 &&
+                           (ntup.GlobalTrigDecision > 0) &&
+                           LepTrigMatch("SLTorDLT_Loose") &&
+                           (ntup.nTaus_OR_Pt25_RNN == 0) &&
+                           AuthorCut && ChargeIDBDT && l0 && l1 && l2 &&
+                           TriLepPtCuts(10, 15, 15) &&
+                           JetCut(1) &&
+                           ntup.nJets_OR_DL1r_77 >= 1 &&
+                           ZVeto("3l") &&
+                           ntup.SFOFZVeto;
+
+        auto hf_e = preselection && two_electron;
+        auto hf_m = preselection && two_muon;
+
+        if (hf_e) CR3Lep = 1;
+        if (hf_m) CR3Lep = 2;
+    }
 }
 
 void HHMLSys_EventSaver::Sample3lSelection() {
@@ -108,13 +179,6 @@ void HHMLSys_EventSaver::Sample3lSelection() {
 
         // Miss charge
         if(!(((int)ntup.lep_isQMisID_0 == 0) && ((int)ntup.lep_isQMisID_1 == 0) && ((int)ntup.lep_isQMisID_2 == 0))) Sample3Lep = 0;
-
-        if (Sample3Lep == 0 && is3Lep) {
-            std::cout<<((int)ntup.lep_isQMisID_0)<<", "<<((int)ntup.lep_isQMisID_1)<<", "<<((int)ntup.lep_isQMisID_2)<<std::endl;
-            std::cout<<prompt_1<<", "<<prompt_2<<std::endl;
-            std::cout<<"--> weight: "<<weight_3l<<std::endl;
-        }
-
         if (Sample3Lep == -1 || Sample3Lep == 0) return;
     }
 

@@ -80,6 +80,7 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   //
   void CR3lSelection();
   void Sample3lSelection();
+  bool SR3Lep{false};
   /* Regions
    * 0: Material Conversion
    * 1: HF e
