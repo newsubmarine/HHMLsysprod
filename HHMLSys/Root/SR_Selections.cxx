@@ -160,8 +160,6 @@ void HHMLSys_EventSaver::CR3lSelection() {
     }
 
     { // WZ CR
-        cut_flow(vector<int>({11, 12})) && ZMassVeto == 0 && MET_ET > 30 && nJets >= 0;
-
         auto preselection = ntup.trilep_type &&
                             abs(ntup.total_charge) == 1 &&
                             (ntup.GlobalTrigDecision > 0) &&
