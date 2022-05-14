@@ -107,7 +107,7 @@ void HHMLSys_EventSaver::Sample3lSelection() {
         // Miss charge
         if(!((ntup.lep_isQMisID_0 == 0) && (ntup.lep_isQMisID_1 == 0) && (ntup.lep_isQMisID_2 == 0))) Sample3Lep = 0;
 
-        if (Sample3Lep == 0 && is3Lep && ) {
+        if (Sample3Lep == 0 && is3Lep) {
             std::cout<<(ntup.lep_isQMisID_0 == 0)<<", "<<(ntup.lep_isQMisID_1 == 0)<<", "<<(ntup.lep_isQMisID_2 == 0)<<std::endl;
             std::cout<<prompt_1<<", "<<prompt_2<<std::endl;
             std::cout<<"--> weight: "<<weight_3l<<std::endl;
