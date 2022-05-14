@@ -72,7 +72,7 @@ void HHMLSys_EventSaver::SR3lSelection() {
           JetCut(1) &&
           BJetVeto() &&
           ZVeto("3l") &&
-          ntup.SFOFZVeto;
+          ntup.SFOFZVeto && ntup.SFOFLowMassVeto;
 
   if(!m_isData) weight_3l = getMCweight("3l");
 
@@ -150,7 +150,7 @@ void HHMLSys_EventSaver::CR3lSelection() {
                            JetCut(1) &&
                            ntup.nJets_OR_DL1r_77 >= 1 &&
                            ZVeto("3l") &&
-                           ntup.SFOFZVeto;
+                           ntup.SFOFZVeto && ntup.SFOFLowMassVeto;
 
         auto hf_e = preselection && two_electron;
         auto hf_m = preselection && two_muon;
@@ -171,9 +171,13 @@ void HHMLSys_EventSaver::CR3lSelection() {
                             BJetVeto() &&
                             ZVeto("3l") &&
                             !ntup.SFOFZVeto &&
+                            ntup.SFOFLowMassVeto &&
                             ntup.met_met/1000. > 30;
 
         if (preselection) CR3Lep = 3;
+        if (preselection && fabs(weight_3l - 0.0001539) < 1e-7) {
+            std::cout<<
+        }
     }
 }
 
