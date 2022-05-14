@@ -175,9 +175,6 @@ void HHMLSys_EventSaver::CR3lSelection() {
                             ntup.met_met/1000. > 30;
 
         if (preselection) CR3Lep = 3;
-        if (preselection && fabs(weight_3l - 0.0001539) < 1e-7) {
-            std::cout<<
-        }
     }
 }
 
