@@ -106,6 +106,12 @@ void HHMLSys_EventSaver::Sample3lSelection() {
 
         // Miss charge
         if(!((ntup.lep_isQMisID_0 == 0) && (ntup.lep_isQMisID_1 == 0) && (ntup.lep_isQMisID_2 == 0))) Sample3Lep = 0;
+
+        if (Sample3Lep == 0) {
+            cout<<ntup.lep_isQMisID_0<<", "<<ntup.lep_isQMisID_1<<", "<<ntup.lep_isQMisID_2<<endl;
+            cout<<prompt_1<<", "<<prompt_2<<endl;
+        }
+
         if (Sample3Lep == -1 || Sample3Lep == 0) return;
     }
 
@@ -130,22 +136,22 @@ void HHMLSys_EventSaver::Sample3lSelection() {
                     || ntup.lep_truthOrigin_2 == 33;
 
         auto hf_e = ((hf_1 && abs(ntup.lep_ID_1) == 11) || (hf_2 && abs(ntup.lep_ID_2) == 11)) &&
-                      (!(prompt_e_1 || ntup.lep_isPrompt_1) && abs(ntup.lep_ID_1) == 11 ||
-                       !(prompt_e_2 || ntup.lep_isPrompt_2) && abs(ntup.lep_ID_2) == 11) &&
+                      ((!(prompt_e_1 || ntup.lep_isPrompt_1) && abs(ntup.lep_ID_1) == 11) ||
+                       (!(prompt_e_2 || ntup.lep_isPrompt_2) && abs(ntup.lep_ID_2) == 11)) &&
                       !conv;
         auto hf_m = ((hf_1 && abs(ntup.lep_ID_1) == 13) || (hf_2 && abs(ntup.lep_ID_2) == 13)) &&
-                      (!(prompt_m_1 || ntup.lep_isPrompt_1) && abs(ntup.lep_ID_1) == 13 ||
-                       !(prompt_m_2 || ntup.lep_isPrompt_2) && abs(ntup.lep_ID_2) == 13) &&
+                      ((!(prompt_m_1 || ntup.lep_isPrompt_1) && abs(ntup.lep_ID_1) == 13) ||
+                       (!(prompt_m_2 || ntup.lep_isPrompt_2) && abs(ntup.lep_ID_2) == 13)) &&
                       !conv;
 
         // LF
         auto lf_e = !((hf_1 && abs(ntup.lep_ID_1) == 11) || (hf_2 && abs(ntup.lep_ID_2) == 11)) &&
-                      (!(prompt_e_1 || ntup.lep_isPrompt_1) && abs(ntup.lep_ID_1) == 11 ||
-                       !(prompt_e_2 || ntup.lep_isPrompt_2) && abs(ntup.lep_ID_2) == 11) &&
+                      ((!(prompt_e_1 || ntup.lep_isPrompt_1) && abs(ntup.lep_ID_1) == 11) ||
+                       (!(prompt_e_2 || ntup.lep_isPrompt_2) && abs(ntup.lep_ID_2) == 11)) &&
                       !conv;
         auto lf_m = !((hf_1 && abs(ntup.lep_ID_1) == 13) || (hf_2 && abs(ntup.lep_ID_2) == 13)) &&
-                      (!(prompt_m_1 || ntup.lep_isPrompt_1) && abs(ntup.lep_ID_1) == 13 ||
-                       !(prompt_m_2 || ntup.lep_isPrompt_2) && abs(ntup.lep_ID_2) == 13) &&
+                      ((!(prompt_m_1 || ntup.lep_isPrompt_1) && abs(ntup.lep_ID_1) == 13) ||
+                       (!(prompt_m_2 || ntup.lep_isPrompt_2) && abs(ntup.lep_ID_2) == 13)) &&
                       !conv;
 
 //        auto others = !conv && (!(prompt_e_1 || ntup.lep_isPrompt_1) && abs(ntup.lep_ID_1) == 11 ||
