@@ -133,7 +133,7 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   else {
     m_treeVec->push_back("nominal");
   }
-  std::cout<<m_treeVec.size()<<std::endl;
+  std::cout<<m_treeVec->size()<<std::endl;
   //
   // MVA Classification or Evaluation
   //
