@@ -90,6 +90,8 @@ void HHMLSys_EventSaver::CR3lSelection() {
 }
 
 void HHMLSys_EventSaver::Sample3lSelection() {
+    Sample3Lep = -2;
+
     auto brem_election_1 = (ntup.lep_truthParentPdgId_1 == (int) ntup.lep_ID_1 && ntup.lep_truthParentType_1 == 2);
     auto brem_election_2 = (ntup.lep_truthParentPdgId_2 == (int) ntup.lep_ID_2 && ntup.lep_truthParentType_2 == 2);
     auto prompt_e_1 = (abs(ntup.lep_ID_1) == 11 && ntup.lep_truthOrigin_1 == 5 && brem_election_1);
