@@ -98,7 +98,7 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
    * 5: LF_e
    * 6: LF_m
    */
-  int Sample3Lep{-1};
+  int Sample3Lep{-2};
 
   //
   //MC weights per event per channel

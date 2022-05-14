@@ -49,21 +49,33 @@ void HHMLSys_EventSaver::SR3lSelection() {
 
   BDTOutput_3l = -99;
 
-  if( !ntup.trilep_type ) return;
-  if( abs(ntup.total_charge) != 1 ) return;
-  if( !(ntup.GlobalTrigDecision > 0) ) return;
-  if( !LepTrigMatch("SLTorDLT_Loose") ) return;
-  if( !(ntup.nTaus_OR_Pt25_RNN == 0) ) return;
-  if( !Tight3LepCuts() ) return;
-  if( !TriLepPtCuts(10, 15, 15) ) return;
-  if( !JetCut(1) ) return;
-  if( !BJetVeto() ) return;
-  if( !ZVeto("3l") ) return;
-  if( !ntup.SFOFZVeto ) return;
+//  if( !ntup.trilep_type ) return;
+//  if( abs(ntup.total_charge) != 1 ) return;
+//  if( !(ntup.GlobalTrigDecision > 0) ) return;
+//  if( !LepTrigMatch("SLTorDLT_Loose") ) return;
+//  if( !(ntup.nTaus_OR_Pt25_RNN == 0) ) return;
+//  if( !Tight3LepCuts() ) return;
+//  if( !TriLepPtCuts(10, 15, 15) ) return;
+//  if( !JetCut(1) ) return;
+//  if( !BJetVeto() ) return;
+//  if( !ZVeto("3l") ) return;
+//  if( !ntup.SFOFZVeto ) return;
+//
+//  is3Lep = true;
+  is3Lep = ntup.trilep_type &&
+          abs(ntup.total_charge) == 1 &&
+          (ntup.GlobalTrigDecision > 0) &&
+          LepTrigMatch("SLTorDLT_Loose") &&
+          (ntup.nTaus_OR_Pt25_RNN == 0) &&
+          Tight3LepCuts() &&
+          TriLepPtCuts(10, 15, 15) &&
+          JetCut(1) &&
+          BJetVeto() &&
+          ZVeto("3l") &&
+          ntup.SFOFZVeto;
 
-  is3Lep = true;
+    if(!m_isData) weight_3l = getMCweight("3l");
 
-  if(!m_isData) weight_3l = getMCweight("3l");
 
   CR3lSelection();
   Sample3lSelection();
@@ -136,8 +148,8 @@ void HHMLSys_EventSaver::Sample3lSelection() {
                        !(prompt_m_2 || ntup.lep_isPrompt_2) && abs(ntup.lep_ID_2) == 13) &&
                       !conv;
 
-        auto others = !conv && (!(prompt_e_1 || ntup.lep_isPrompt_1) && abs(ntup.lep_ID_1) == 11 ||
-                                  !(prompt_e_2 || ntup.lep_isPrompt_2) && abs(ntup.lep_ID_2) == 11);
+//        auto others = !conv && (!(prompt_e_1 || ntup.lep_isPrompt_1) && abs(ntup.lep_ID_1) == 11 ||
+//                                  !(prompt_e_2 || ntup.lep_isPrompt_2) && abs(ntup.lep_ID_2) == 11);
 
         if (hf_e) Sample3Lep = 3;
         if (hf_m) Sample3Lep = 4;
