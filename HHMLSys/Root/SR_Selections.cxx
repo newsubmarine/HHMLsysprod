@@ -158,6 +158,25 @@ void HHMLSys_EventSaver::CR3lSelection() {
         if (hf_e) CR3Lep = 1;
         if (hf_m) CR3Lep = 2;
     }
+
+    { // WZ CR
+        cut_flow(vector<int>({11, 12})) && ZMassVeto == 0 && MET_ET > 30 && nJets >= 0;
+
+        auto preselection = ntup.trilep_type &&
+                            abs(ntup.total_charge) == 1 &&
+                            (ntup.GlobalTrigDecision > 0) &&
+                            LepTrigMatch("SLTorDLT_Loose") &&
+                            (ntup.nTaus_OR_Pt25_RNN == 0) &&
+                            Tight3LepCuts() &&
+                            TriLepPtCuts(10, 15, 15) &&
+                            JetCut(0) &&
+                            BJetVeto() &&
+                            ZVeto("3l") &&
+                            !ntup.SFOFZVeto &&
+                            ntup.met_met/1000. > 30;
+
+        if (preselection) CR3Lep = 3;
+    }
 }
 
 void HHMLSys_EventSaver::Sample3lSelection() {
