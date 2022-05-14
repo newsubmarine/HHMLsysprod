@@ -156,10 +156,23 @@ double HHMLSys_EventSaver::getMCweight(const string& channel) {
   }
   else if(channel == "3l") {
     event_weight *= ntup.custTrigSF_LooseID_FCLooseIso_SLTorDLT;
-    event_weight *= ( ((abs(ntup.lep_ID_0) == 11) ? ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_0 : 1) * ((abs(ntup.lep_ID_1) == 11) ? ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_1 : 1) * ((abs(ntup.lep_ID_2) == 11) ? ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_2 : 1) );
-    event_weight *= ( (abs(ntup.lep_ID_0) == 11) ? (ntup.lep_SF_El_Reco_AT_0 * ntup.lep_SF_El_ID_LooseAndBLayerLH_AT_0 * ntup.lep_SF_El_PLVLoose_0) : (ntup.lep_SF_Mu_TTVA_AT_0 * ntup.lep_SF_Mu_ID_Loose_AT_0 * ntup.lep_SF_Mu_PLVLoose_0) );
-    event_weight *= ( (abs(ntup.lep_ID_1) == 11) ? (ntup.lep_SF_El_Reco_AT_1 * ntup.lep_SF_El_ID_TightLH_AT_1 * ntup.lep_SF_El_PLVTight_1) : (ntup.lep_SF_Mu_TTVA_AT_1 * ntup.lep_SF_Mu_ID_Medium_AT_1 * ntup.lep_SF_Mu_PLVTight_1) );
-    event_weight *= ( (abs(ntup.lep_ID_2) == 11) ? (ntup.lep_SF_El_Reco_AT_2 * ntup.lep_SF_El_ID_TightLH_AT_2 * ntup.lep_SF_El_PLVTight_2) : (ntup.lep_SF_Mu_TTVA_AT_2 * ntup.lep_SF_Mu_ID_Medium_AT_2 * ntup.lep_SF_Mu_PLVTight_2) );
+//    event_weight *= ( ((abs(ntup.lep_ID_0) == 11) ? ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_0 : 1) * ((abs(ntup.lep_ID_1) == 11) ? ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_1 : 1) * ((abs(ntup.lep_ID_2) == 11) ? ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_2 : 1) );
+//    event_weight *= ( (abs(ntup.lep_ID_0) == 11) ? (ntup.lep_SF_El_Reco_AT_0 * ntup.lep_SF_El_ID_LooseAndBLayerLH_AT_0 * ntup.lep_SF_El_PLVLoose_0) : (ntup.lep_SF_Mu_TTVA_AT_0 * ntup.lep_SF_Mu_ID_Loose_AT_0 * ntup.lep_SF_Mu_PLVLoose_0) );
+//    event_weight *= ( (abs(ntup.lep_ID_1) == 11) ? (ntup.lep_SF_El_Reco_AT_1 * ntup.lep_SF_El_ID_TightLH_AT_1 * ntup.lep_SF_El_PLVTight_1) : (ntup.lep_SF_Mu_TTVA_AT_1 * ntup.lep_SF_Mu_ID_Medium_AT_1 * ntup.lep_SF_Mu_PLVTight_1) );
+//    event_weight *= ( (abs(ntup.lep_ID_2) == 11) ? (ntup.lep_SF_El_Reco_AT_2 * ntup.lep_SF_El_ID_TightLH_AT_2 * ntup.lep_SF_El_PLVTight_2) : (ntup.lep_SF_Mu_TTVA_AT_2 * ntup.lep_SF_Mu_ID_Medium_AT_2 * ntup.lep_SF_Mu_PLVTight_2) );
+//
+    event_weight *=
+            ntup.lep_SF_El_Reco_AT_0 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_0 *
+            ntup.lep_SF_El_ID_LooseAndBLayerLH_AT_0 * ntup.lep_SF_El_PLVLoose_0 *
+            ntup.lep_SF_Mu_ID_Loose_AT_0 * ntup.lep_SF_Mu_TTVA_AT_0 * ntup.lep_SF_Mu_PLVLoose_0 *
+
+            ntup.lep_SF_El_Reco_AT_1 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_1 *
+            ntup.lep_SF_El_ID_TightLH_AT_1 * ntup.lep_SF_El_PLVTight_1 *
+            ntup.lep_SF_Mu_ID_Medium_AT_1 * ntup.lep_SF_Mu_TTVA_AT_1 * ntup.lep_SF_Mu_PLVTight_1 *
+
+            ntup.lep_SF_El_Reco_AT_2 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_2 *
+            ntup.lep_SF_El_ID_TightLH_AT_2 * ntup.lep_SF_El_PLVTight_2 *
+            ntup.lep_SF_Mu_ID_Medium_AT_2 * ntup.lep_SF_Mu_TTVA_AT_2 * ntup.lep_SF_Mu_PLVTight_2;
   }
   else if(channel == "4l") {
     event_weight *= ntup.lepSFObjLoose;
