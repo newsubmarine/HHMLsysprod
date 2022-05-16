@@ -123,8 +123,8 @@ void HHMLSys_EventSaver::CR3lSelection() {
                       (!(lep_IntConv_atPV_CO_2 && !(ntup.lep_RadiusCO_2 > 20 && lep_Mtrktrk_atConvV_CO_2)) &&
                        !(ntup.lep_RadiusCO_2 > 20 && lep_Mtrktrk_atConvV_CO_2)));
 
-        auto internal_con_1 = abs(ntup.lep_ID_1) == 11 && (lep_IntConv_atPV_CO_1);
-        auto internal_con_2 = abs(ntup.lep_ID_2) == 11 && (lep_IntConv_atPV_CO_2);
+//        auto internal_con_1 = abs(ntup.lep_ID_1) == 11 && (lep_IntConv_atPV_CO_1);
+//        auto internal_con_2 = abs(ntup.lep_ID_2) == 11 && (lep_IntConv_atPV_CO_2);
 
         auto external_conversion = preselection && (material_con_1 && material_con_2) && !(ele_1 & ele_2);
 
@@ -183,10 +183,10 @@ void HHMLSys_EventSaver::Sample3lSelection() {
 
     auto brem_election_1 = (ntup.lep_truthParentPdgId_1 == (int) ntup.lep_ID_1 && ntup.lep_truthParentType_1 == 2);
     auto brem_election_2 = (ntup.lep_truthParentPdgId_2 == (int) ntup.lep_ID_2 && ntup.lep_truthParentType_2 == 2);
-    auto prompt_e_1 = (abs(ntup.lep_ID_1) == 11 && ntup.lep_truthOrigin_1 == 5 && brem_election_1);
-    auto prompt_e_2 = (abs(ntup.lep_ID_2) == 11 && ntup.lep_truthOrigin_2 == 5 && brem_election_2);
-    auto prompt_m_1 = (abs(ntup.lep_ID_1) == 13 && ntup.lep_truthOrigin_1 == 0);
-    auto prompt_m_2 = (abs(ntup.lep_ID_2) == 13 && ntup.lep_truthOrigin_2 == 0);
+    auto prompt_e_1 = (abs((int) ntup.lep_ID_1) == 11 && ntup.lep_truthOrigin_1 == 5 && brem_election_1);
+    auto prompt_e_2 = (abs((int) ntup.lep_ID_2) == 11 && ntup.lep_truthOrigin_2 == 5 && brem_election_2);
+    auto prompt_m_1 = (abs((int) ntup.lep_ID_1) == 13 && ntup.lep_truthOrigin_1 == 0);
+    auto prompt_m_2 = (abs((int) ntup.lep_ID_2) == 13 && ntup.lep_truthOrigin_2 == 0);
 
     auto prompt_1 = (ntup.lep_isPrompt_1 || prompt_m_1 || prompt_e_1);
     auto prompt_2 = (ntup.lep_isPrompt_2 || prompt_m_2 || prompt_e_2);
