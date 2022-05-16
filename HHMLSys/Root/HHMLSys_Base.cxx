@@ -34,6 +34,7 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
 
   //2l
   Config(m_do_2lSR  , "do_2lSR" , rEnv);
+  Config(m_do_2lCR  , "do_2lCR" , rEnv);
   Config(m_do_2lMVA , "do_2lMVA", rEnv);
 
   Config(m_2l_1_BDTxmlFile, "2l_1_BDTxmlFile", rEnv);
