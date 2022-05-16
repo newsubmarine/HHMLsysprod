@@ -77,14 +77,32 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   bool is1Lep2Tau{false};
   bool is2Lep2Tau{false};
 
-  
-
   //
-  //CR event selection
+  //Def. of each CRs and samples for 3 Lepton
   //
+  void CR3lSelection();
+  void Sample3lSelection();
+  bool SR3Lep{false};
+  /* Regions
+   * 0: Material Conversion
+   * 1: HF e
+   * 2: HF m
+   * 3: WZ
+   */
+  int CR3Lep{-1};
 
-  void CR2lSelection();
-  
+  /* Samples
+   * -1: Prompt
+   * 0: QMisID
+   * 1: ExtConv
+   * 2: IntConv
+   * 3: HF_e
+   * 4: HF_m
+   * 5: LF_e
+   * 6: LF_m
+   */
+  int Sample3Lep{-2};
+
   //
   //Template Fit region
   //

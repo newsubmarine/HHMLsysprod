@@ -310,7 +310,9 @@ StatusCode HHMLSys_MVA::BookMVA_3l(const string& xmlFile) {
   reader_3l->AddVariable("lep_Pt_2" , &BDTG_lep_Pt_2);              
   reader_3l->AddVariable("lep_E_0"  , &BDTG_lep_E_0);               
   reader_3l->AddVariable("lep_E_1"  , &BDTG_lep_E_1);               
-  reader_3l->AddVariable("lep_E_2"  , &BDTG_lep_E_2);               
+  reader_3l->AddVariable("lep_E_2"  , &BDTG_lep_E_2);
+  reader_3l->AddVariable("HT"       , &BDTG_HT);
+  reader_3l->AddVariable("HT_lep"   , &BDTG_HT_lep);
   reader_3l->AddVariable("best_Z_Mll"  , &BDTG_best_Z_Mll);         
                                                                  
   reader_3l->AddSpectator("EvtNum", &BDTG_EventNo);              
@@ -523,6 +525,9 @@ float HHMLSys_MVA::EvaluateMVA_3l(const HHMLSys_Ntuple& ntup) {
   BDTG_lep_E_2      = ntup.lep_E_2/1000.;
   BDTG_best_Z_Mll   = ntup.best_Z_Mll/1000.;
   BDTG_MET          = ntup.met_met/1000.;
+  BDTG_HT           = ntup.HT/1000.;
+  BDTG_HT_lep       = ntup.HT_lep/1000.;
+
 
   BDTG_weight = reader_3l->EvaluateMVA("BDT_hh3l");
   return BDTG_weight;

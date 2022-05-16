@@ -116,24 +116,25 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   //
   m_treeVec = std::make_unique<std::vector<std::string>>();
 
-  if(!m_isData) {
-    TFile* rootFile = TFile::Open(samplePath.c_str(), "READ");
-    TIter nextkey( rootFile->GetListOfKeys() );
-    TKey *key;
-    while( (key = (TKey*)nextkey()) ) {
-      TObject *obj = key->ReadObj();
-      if( obj->IsA()->InheritsFrom( TTree::Class())) {
-	TTree* tree_data = (TTree*)obj;
-	m_treeVec->push_back(tree_data->GetName());
-      }
-    }
-    rootFile->Close();
-    delete rootFile;
+//  if(!m_isData) {
+  if(false) {
+          TFile* rootFile = TFile::Open(samplePath.c_str(), "READ");
+          TIter nextkey( rootFile->GetListOfKeys() );
+          TKey *key;
+          while( (key = (TKey*)nextkey()) ) {
+              TObject *obj = key->ReadObj();
+              if( obj->IsA()->InheritsFrom( TTree::Class())) {
+                  TTree* tree_data = (TTree*)obj;
+                  m_treeVec->push_back(tree_data->GetName());
+              }
+          }
+          rootFile->Close();
+          delete rootFile;
   }
   else {
     m_treeVec->push_back("nominal");
   }
-
+  std::cout<<m_treeVec->size()<<std::endl;
   //
   // MVA Classification or Evaluation
   //

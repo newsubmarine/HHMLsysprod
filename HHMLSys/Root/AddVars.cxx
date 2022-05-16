@@ -102,6 +102,7 @@ void HHMLSys_EventSaver::AddVars() {
   ntup.DRlep1lep2   = 99.;
   ntup.DRlep2CloseJ = 99.;
   ntup.SFOFZVeto = true;
+  ntup.SFOFLowMassVeto = true;
 
   //4l
   ntup.DR4leps    = 99.;
@@ -177,9 +178,18 @@ void HHMLSys_EventSaver::AddVars() {
     Float_t ZMass_l01 = fabs(ntup.Mll01/GeV - ZMass/GeV);
     Float_t ZMass_l02 = fabs(ntup.Mll02/GeV - ZMass/GeV);
 
-      if( ntup.FlavorCat == 2 or ntup.FlavorCat == 7 ) ntup.SFOFZVeto = (ZMass_l01 >= 10) and (ntup.Mll01/GeV >= 12.);
-      if( ntup.FlavorCat == 3 or ntup.FlavorCat == 6 ) ntup.SFOFZVeto = (ZMass_l02 >= 10) and (ntup.Mll02/GeV >= 12.);
-      if( ntup.FlavorCat == 1 or ntup.FlavorCat == 8 ) ntup.SFOFZVeto = ((ZMass_l01 >= 10) and (ZMass_l02 >= 10)) and (ntup.Mll01/GeV >= 12.) and (ntup.Mll02/GeV >= 12.);
+      if( ntup.FlavorCat == 2 or ntup.FlavorCat == 7 ) {
+          ntup.SFOFZVeto = (ZMass_l01 >= 10);
+          ntup.SFOFLowMassVeto = (ntup.Mll01/GeV >= 12.);
+      }
+      if( ntup.FlavorCat == 3 or ntup.FlavorCat == 6 ) {
+          ntup.SFOFZVeto = (ZMass_l02 >= 10);
+          ntup.SFOFLowMassVeto = (ntup.Mll02/GeV >= 12.);
+      }
+      if( ntup.FlavorCat == 1 or ntup.FlavorCat == 8 ) {
+          ntup.SFOFZVeto = ((ZMass_l01 >= 10) and (ZMass_l02 >= 10));
+          ntup.SFOFLowMassVeto = (ntup.Mll01/GeV >= 12.) and (ntup.Mll02/GeV >= 12.);
+      }
   }
 
   //
