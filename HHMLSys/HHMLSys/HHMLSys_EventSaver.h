@@ -67,7 +67,9 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   //
   //Booleans of each SR
   //
-  bool is2Lep{false};
+
+  bool is2Lep_CR{false};
+  bool is2Lep_SR{false};
   bool is3Lep{false};
   bool is4Lep{false};
   bool is4Lepbb{false};
@@ -101,6 +103,15 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
    */
   int Sample3Lep{-2};
 
+  //
+  //Template Fit region
+  //
+
+  bool is2LQED{false};
+  bool is2LConv{false};
+  bool is2LDRll011bmeee{false};
+  bool is2LHTlepemmm{false};
+  bool is2LHTlep2bmeee{false};
   //
   //MC weights per event per channel
   //

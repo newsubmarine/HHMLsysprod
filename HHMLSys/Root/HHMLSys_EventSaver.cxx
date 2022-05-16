@@ -121,6 +121,8 @@ void HHMLSys_EventSaver::FillTree(TTree* outTree) {
   //2l selection
   if(m_do_2lSR) SR2lSelection();
 
+  if(m_do_2lCR) CR2lSelection();
+  
   //3l selection
   if(m_do_3lSR) SR3lSelection();
 
@@ -139,7 +141,7 @@ void HHMLSys_EventSaver::FillTree(TTree* outTree) {
   //2l+2tau selection
   if(m_do_2l2tauSR) SR2l2TauSelection();
   
-  if( is2Lep or is3Lep or is4Lep or is4Lepbb or is2Lep1Tau or is1Lep2Tau or is2Lep2Tau ) outTree->Fill();
+  if( is2Lep_CR or is2Lep_SR or is3Lep or is4Lep or is4Lepbb or is2Lep1Tau or is1Lep2Tau or is2Lep2Tau ) outTree->Fill();
 }
 
 //-----------------------------------------------------------------------
