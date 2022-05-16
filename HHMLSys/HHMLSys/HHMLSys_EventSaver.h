@@ -55,6 +55,7 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   //
   //0tau channels: 2l, 3l, 4l, 4lbb
   void SR2lSelection();
+  void CR2lSelection();
   void SR3lSelection();
   void SR4lSelection();
   void SR4lbbSelection();
