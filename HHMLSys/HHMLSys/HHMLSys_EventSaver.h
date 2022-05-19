@@ -103,6 +103,7 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
    */
   int Sample3Lep{-2};
 
+  void CR2lSelection();
   //
   //Template Fit region
   //
