@@ -145,8 +145,8 @@ void HHMLSys_EventSaver::CR3lSelection() {
                            (ntup.nTaus_OR_Pt25_RNN == 0) &&
                            AuthorCut && ChargeIDBDT && l0 && l1 && l2 &&
                            TriLepPtCuts(10, 15, 15) &&
-                           JetCut(2) &&
-                           ntup.nJets_OR_DL1r_77 >= 2 &&
+                           JetCut(1) &&
+                           ntup.nJets_OR_DL1r_77 >= 1 &&
                            ZVeto("3l") &&
                            ntup.SFOFZVeto && ntup.SFOFLowMassVeto;
 
