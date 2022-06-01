@@ -18,6 +18,7 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("RunNumber"    , &ntup.runNumber);
   outTree->Branch("RunYear"      , &ntup.RunYear);
   outTree->Branch("weight_pileup", &ntup.weight_pileup);
+  outTree->Branch("mcChannelNumber", &ntup.mcChannelNumber);
 
   //MC weights of each channel
   outTree->Branch("scale"        , &m_scale); //Sum of weighted events
@@ -30,8 +31,8 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("weight_2l2tau", &weight_2l2tau);
 
   //Booleans of each singal regions
-  outTree->Branch("is2Lep_CR"  , &is2Lep_CR);
   outTree->Branch("is2Lep_SR"  , &is2Lep_SR);
+  outTree->Branch("is2Lep_CR"  , &is2Lep_CR);
   outTree->Branch("is3Lep"     , &is3Lep);
   outTree->Branch("is4Lep"     , &is4Lep);
   outTree->Branch("is4Lepbb"   , &is4Lepbb);

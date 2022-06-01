@@ -36,7 +36,10 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   Config(m_do_2lSR  , "do_2lSR" , rEnv);
   Config(m_do_2lCR  , "do_2lCR" , rEnv);
   Config(m_do_2lMVA , "do_2lMVA", rEnv);
-
+  if(m_do_2lCR && !m_do_2lSR){
+    ATH_MSG_FATAL("m_do_2lSR is not on !");
+    return StatusCode::FAILURE;
+  }
   Config(m_2l_1_BDTxmlFile, "2l_1_BDTxmlFile", rEnv);
   Config(m_2l_2_BDTxmlFile, "2l_2_BDTxmlFile", rEnv);
 
@@ -116,8 +119,7 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   //
   m_treeVec = std::make_unique<std::vector<std::string>>();
 
-//  if(!m_isData) {
-  if(false) {
+  if(!m_isData) {
           TFile* rootFile = TFile::Open(samplePath.c_str(), "READ");
           TIter nextkey( rootFile->GetListOfKeys() );
           TKey *key;

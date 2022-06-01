@@ -32,7 +32,7 @@ void HHMLSys_EventSaver::CR2lSelection() {
   if( !JetCut(2) ) return; // At least 2 jets
   if( BJetVeto() ) return; // At least 1 bjets 
   
-  //is2Lep = true;
+  is2Lep_CR = true;
 
   // Currently remain the events and do TF at config level
 

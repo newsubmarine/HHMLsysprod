@@ -58,8 +58,9 @@ StatusCode HHMLSys_EventSaver::executeEventLoop(unsigned int max_evnt) {
   //Loop over all TTree's.
   for(itr = m_treeVec->begin(); itr != m_treeVec->end(); ++itr) {
     
+    //if(*itr != "nominal") continue;
     if(*itr == "AnalysisTracking" or *itr == "particleLevel" or *itr == "truth" or *itr == "sumWeights") continue;
-    
+
     ATH_MSG_INFO("Reading TTree " << *itr);
 
     //Read the TTree
@@ -121,7 +122,7 @@ void HHMLSys_EventSaver::FillTree(TTree* outTree) {
   //2l selection
   if(m_do_2lSR) SR2lSelection();
 
-  if(m_do_2lCR) CR2lSelection();
+  //if(m_do_2lCR) CR2lSelection();
   
   //3l selection
   if(m_do_3lSR) SR3lSelection();
@@ -141,7 +142,7 @@ void HHMLSys_EventSaver::FillTree(TTree* outTree) {
   //2l+2tau selection
   if(m_do_2l2tauSR) SR2l2TauSelection();
   
-  if( is2Lep_CR or is2Lep_SR or is3Lep or is4Lep or is4Lepbb or is2Lep1Tau or is1Lep2Tau or is2Lep2Tau ) outTree->Fill();
+  if( is2Lep_SR or is2Lep_CR or is3Lep or is4Lep or is4Lepbb or is2Lep1Tau or is1Lep2Tau or is2Lep2Tau ) outTree->Fill();
 }
 
 //-----------------------------------------------------------------------

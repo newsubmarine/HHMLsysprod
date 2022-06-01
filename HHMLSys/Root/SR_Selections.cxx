@@ -9,6 +9,8 @@
 void HHMLSys_EventSaver::SR2lSelection() {
 
   weight_2l = 1.0;
+  is2Lep_SR = false;
+  is2Lep_CR = false;
 
   BDTOutput_2l_1     = -99;
   BDTOutput_2l_2     = -99;
@@ -24,13 +26,24 @@ void HHMLSys_EventSaver::SR2lSelection() {
   if( !isSSPair() ) return;
   if( !(ntup.nTaus_OR_Pt25_RNN == 0) ) return;
   //if( !METCut(10) ) return;
-  if( !Mll01Cut(12) ) return;
   //if( !ZVeto("2l") ) return;
   if( !JetCut(2) ) return;
-  if( !BJetVeto() ) return;
   
-  is2Lep_SR = true;
+  if( m_do_2lCR ){
 
+      if( BJetVeto() ){
+          if( !Mll01Cut(12) ) return;   
+          is2Lep_SR = true;
+      }
+      else is2Lep_CR = true;
+  }
+  else {
+
+      if( !BJetVeto()  ) return;
+      if( !Mll01Cut(12)) return;
+      is2Lep_SR = true;
+  }
+  
   if(!m_isData) weight_2l = getMCweight("2l");
 
   //Get 2l BDT
