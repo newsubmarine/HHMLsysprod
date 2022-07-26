@@ -138,7 +138,7 @@ void HHMLSys_EventSaver::SR2l1TauSelection() {
   if( !ntup.dilep_type ) return;
   if( !(ntup.GlobalTrigDecision > 0) ) return;
   if( !Tight2LepCuts("2l1tau") ) return;
-  if( !LepTrigMatch("SLTorDLT_Loose") ) return;
+  if( !LepTrigMatch("SLTorDLT_Tight") ) return;
   if( !DiLepPtCuts(20, 20) ) return;
   if( !isSSPair() ) return;
   if( !(ntup.nTaus_OR_Pt25_RNN == 1) ) return;
