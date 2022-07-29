@@ -4,11 +4,11 @@
     <Info name="TMVA Release" value="4.2.1 [262657]"/>
     <Info name="ROOT Release" value="6.20/00 [398336]"/>
     <Info name="Creator" value="zhangyulei"/>
-    <Info name="Date" value="Tue Sep 21 21:42:30 2021"/>
+    <Info name="Date" value="Wed May 18 00:03:05 2022"/>
     <Info name="Host" value="Linux lcgapp-centos7-x86-64-31.cern.ch-docker 3.10.0-1062.9.1.el7.x86_64 #1 SMP Fri Dec 6 15:49:49 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux"/>
     <Info name="Dir" value="/lustre/collider/zhangyulei/ATLAS/hhml/workspace/Multi_Variate_Analysis"/>
-    <Info name="Training events" value="694830"/>
-    <Info name="TrainingTime" value="2.86102295e-06"/>
+    <Info name="Training events" value="881986"/>
+    <Info name="TrainingTime" value="4.05311584e-06"/>
     <Info name="AnalysisType" value="Classification"/>
   </GeneralInfo>
   <Options>
@@ -20,34 +20,27 @@
     <Option name="IgnoreNegWeightsInTraining" modified="No">False</Option>
     <Option name="EncapsulatedMethodName" modified="Yes">BDTG</Option>
     <Option name="EncapsulatedMethodTypeName" modified="Yes">BDT</Option>
-    <Option name="NumFolds" modified="Yes">8</Option>
+    <Option name="NumFolds" modified="Yes">10</Option>
     <Option name="OutputEnsembling" modified="Yes">None</Option>
-    <Option name="SplitExpr" modified="Yes">int(fabs([EvtNum]))%int([NumFolds])</Option>
+    <Option name="SplitExpr" modified="Yes">long(fabs([EvtNum]))%long([NumFolds])</Option>
   </Options>
-  <Variables NVar="20">
+  <Variables NVar="13">
     <Variable VarIndex="0" Expression="FlavorCategory" Label="FlavorCategory" Title="FlavorCategory" Unit="" Internal="FlavorCategory" Type="F" Min="1.00000000e+00" Max="8.00000000e+00"/>
     <Variable VarIndex="1" Expression="nJets" Label="nJets" Title="nJets" Unit="" Internal="nJets" Type="F" Min="1.00000000e+00" Max="1.20000000e+01"/>
-    <Variable VarIndex="2" Expression="dR_l1l2" Label="dR_l1l2" Title="dR_l1l2" Unit="" Internal="dR_l1l2" Type="F" Min="4.65241726e-04" Max="5.03746939e+00"/>
-    <Variable VarIndex="3" Expression="dR_l2l3" Label="dR_l2l3" Title="dR_l2l3" Unit="" Internal="dR_l2l3" Type="F" Min="8.07711505e-04" Max="5.86049175e+00"/>
-    <Variable VarIndex="4" Expression="dR_l3j" Label="dR_l3j" Title="dR_l3j" Unit="" Internal="dR_l3j" Type="F" Min="9.54862591e-03" Max="5.29951715e+00"/>
-    <Variable VarIndex="5" Expression="m_l1l2" Label="m_l1l2" Title="m_l1l2" Unit="" Internal="m_l1l2" Type="F" Min="-1.80649489e-01" Max="3.63314478e+03"/>
-    <Variable VarIndex="6" Expression="m_l2l3" Label="m_l2l3" Title="m_l2l3" Unit="" Internal="m_l2l3" Type="F" Min="-3.56377095e-01" Max="9.59795605e+03"/>
+    <Variable VarIndex="2" Expression="dR_l1l2" Label="dR_l1l2" Title="dR_l1l2" Unit="" Internal="dR_l1l2" Type="F" Min="2.07845215e-02" Max="5.03746939e+00"/>
+    <Variable VarIndex="3" Expression="dR_l2l3" Label="dR_l2l3" Title="dR_l2l3" Unit="" Internal="dR_l2l3" Type="F" Min="4.41394484e-04" Max="5.86758041e+00"/>
+    <Variable VarIndex="4" Expression="dR_l3j" Label="dR_l3j" Title="dR_l3j" Unit="" Internal="dR_l3j" Type="F" Min="9.54862591e-03" Max="5.30726480e+00"/>
+    <Variable VarIndex="5" Expression="m_l1l2" Label="m_l1l2" Title="m_l1l2" Unit="" Internal="m_l1l2" Type="F" Min="3.97181296e+00" Max="3.63314478e+03"/>
+    <Variable VarIndex="6" Expression="m_l2l3" Label="m_l2l3" Title="m_l2l3" Unit="" Internal="m_l2l3" Type="F" Min="-7.30426982e-02" Max="9.59795605e+03"/>
     <Variable VarIndex="7" Expression="m_l1l3" Label="m_l1l3" Title="m_l1l3" Unit="" Internal="m_l1l3" Type="F" Min="6.70721245e+00" Max="5.36872607e+03"/>
-    <Variable VarIndex="8" Expression="m_l3jj" Label="m_l3jj" Title="m_l3jj" Unit="" Internal="m_l3jj" Type="F" Min="9.13279247e+00" Max="5.72259424e+03"/>
-    <Variable VarIndex="9" Expression="m_llljj" Label="m_llljj" Title="m_llljj" Unit="" Internal="m_llljj" Type="F" Min="2.06789799e+01" Max="5.82111377e+03"/>
-    <Variable VarIndex="10" Expression="m_lll" Label="m_lll" Title="m_lll" Unit="" Internal="m_lll" Type="F" Min="1.48832140e+01" Max="9.61938965e+03"/>
-    <Variable VarIndex="11" Expression="MET_ET" Label="MET_ET" Title="MET_ET" Unit="" Internal="MET_ET" Type="F" Min="3.98467854e-02" Max="4.67737617e+04"/>
-    <Variable VarIndex="12" Expression="leadJetPt" Label="leadJetPt" Title="leadJetPt" Unit="" Internal="leadJetPt" Type="F" Min="2.50000343e+01" Max="2.93899414e+03"/>
-    <Variable VarIndex="13" Expression="leadJetE" Label="leadJetE" Title="leadJetE" Unit="" Internal="leadJetE" Type="F" Min="2.51434326e+01" Max="5.23230762e+03"/>
-    <Variable VarIndex="14" Expression="lep_Pt_0" Label="lep_Pt_0" Title="lep_Pt_0" Unit="" Internal="lep_Pt_0" Type="F" Min="1.00000362e+01" Max="4.70081406e+04"/>
-    <Variable VarIndex="15" Expression="lep_Pt_1" Label="lep_Pt_1" Title="lep_Pt_1" Unit="" Internal="lep_Pt_1" Type="F" Min="1.50002460e+01" Max="2.03649121e+04"/>
-    <Variable VarIndex="16" Expression="lep_Pt_2" Label="lep_Pt_2" Title="lep_Pt_2" Unit="" Internal="lep_Pt_2" Type="F" Min="1.50000019e+01" Max="3.58536060e+03"/>
-    <Variable VarIndex="17" Expression="lep_E_0" Label="lep_E_0" Title="lep_E_0" Unit="" Internal="lep_E_0" Type="F" Min="1.00017633e+01" Max="1.81051297e+05"/>
-    <Variable VarIndex="18" Expression="lep_E_1" Label="lep_E_1" Title="lep_E_1" Unit="" Internal="lep_E_1" Type="F" Min="1.50078630e+01" Max="4.27830898e+04"/>
-    <Variable VarIndex="19" Expression="lep_E_2" Label="lep_E_2" Title="lep_E_2" Unit="" Internal="lep_E_2" Type="F" Min="1.50050325e+01" Max="9.75399023e+03"/>
+    <Variable VarIndex="8" Expression="m_llljj" Label="m_llljj" Title="m_llljj" Unit="" Internal="m_llljj" Type="F" Min="2.05772896e+01" Max="6.34409912e+03"/>
+    <Variable VarIndex="9" Expression="m_lll" Label="m_lll" Title="m_lll" Unit="" Internal="m_lll" Type="F" Min="1.59437094e+01" Max="9.61938965e+03"/>
+    <Variable VarIndex="10" Expression="MET_ET" Label="MET_ET" Title="MET_ET" Unit="" Internal="MET_ET" Type="F" Min="3.29764448e-02" Max="4.67737617e+04"/>
+    <Variable VarIndex="11" Expression="HT" Label="HT" Title="HT" Unit="" Internal="HT" Type="F" Min="6.97460251e+01" Max="4.79910000e+04"/>
+    <Variable VarIndex="12" Expression="best_Z_Mll" Label="best_Z_Mll" Title="best_Z_Mll" Unit="" Internal="best_Z_Mll" Type="F" Min="0.00000000e+00" Max="5.36872559e+03"/>
   </Variables>
   <Spectators NSpec="1">
-    <Spectator SpecIndex="0" Expression="EvtNum" Label="EvtNum" Title="EvtNum" Unit="" Internal="EvtNum" Type="F" Min="1.00000000e+00" Max="1.41368500e+06"/>
+    <Spectator SpecIndex="0" Expression="EvtNum" Label="EvtNum" Title="EvtNum" Unit="" Internal="EvtNum" Type="F" Min="2.00000000e+00" Max="9.89724560e+07"/>
   </Spectators>
   <Classes NClass="2">
     <Class Name="Signal" Index="0"/>
@@ -55,5 +48,5 @@
   </Classes>
   <Transformations NTransformations="0"/>
   <MVAPdfs/>
-  <Weights JobName="TMVACrossValidation" SplitExpr="int(fabs([EvtNum]))%int([NumFolds])" NumFolds="8" EncapsulatedMethodName="BDTG" EncapsulatedMethodTypeName="BDT" OutputEnsembling="None"/>
+  <Weights JobName="TMVACrossValidation" SplitExpr="long(fabs([EvtNum]))%long([NumFolds])" NumFolds="10" EncapsulatedMethodName="BDTG" EncapsulatedMethodTypeName="BDT" OutputEnsembling="None"/>
 </MethodSetup>

@@ -34,8 +34,12 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
 
   //2l
   Config(m_do_2lSR  , "do_2lSR" , rEnv);
+  Config(m_do_2lCR  , "do_2lCR" , rEnv);
   Config(m_do_2lMVA , "do_2lMVA", rEnv);
-
+  if(m_do_2lCR && !m_do_2lSR){
+    ATH_MSG_FATAL("m_do_2lSR is not on !");
+    return StatusCode::FAILURE;
+  }
   Config(m_2l_1_BDTxmlFile, "2l_1_BDTxmlFile", rEnv);
   Config(m_2l_2_BDTxmlFile, "2l_2_BDTxmlFile", rEnv);
 
@@ -116,23 +120,23 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   m_treeVec = std::make_unique<std::vector<std::string>>();
 
   if(!m_isData) {
-    TFile* rootFile = TFile::Open(samplePath.c_str(), "READ");
-    TIter nextkey( rootFile->GetListOfKeys() );
-    TKey *key;
-    while( (key = (TKey*)nextkey()) ) {
-      TObject *obj = key->ReadObj();
-      if( obj->IsA()->InheritsFrom( TTree::Class())) {
-	TTree* tree_data = (TTree*)obj;
-	m_treeVec->push_back(tree_data->GetName());
-      }
-    }
-    rootFile->Close();
-    delete rootFile;
+          TFile* rootFile = TFile::Open(samplePath.c_str(), "READ");
+          TIter nextkey( rootFile->GetListOfKeys() );
+          TKey *key;
+          while( (key = (TKey*)nextkey()) ) {
+              TObject *obj = key->ReadObj();
+              if( obj->IsA()->InheritsFrom( TTree::Class())) {
+                  TTree* tree_data = (TTree*)obj;
+                  m_treeVec->push_back(tree_data->GetName());
+              }
+          }
+          rootFile->Close();
+          delete rootFile;
   }
   else {
     m_treeVec->push_back("nominal");
   }
-
+  std::cout<<m_treeVec->size()<<std::endl;
   //
   // MVA Classification or Evaluation
   //

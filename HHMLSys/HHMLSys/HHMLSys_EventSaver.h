@@ -55,6 +55,7 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   //
   //0tau channels: 2l, 3l, 4l, 4lbb
   void SR2lSelection();
+  void CR2lSelection();
   void SR3lSelection();
   void SR4lSelection();
   void SR4lbbSelection();
@@ -67,14 +68,51 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   //
   //Booleans of each SR
   //
-  bool is2Lep;
-  bool is3Lep;
-  bool is4Lep;
-  bool is4Lepbb;
-  bool is2Lep1Tau;
-  bool is1Lep2Tau;
-  bool is2Lep2Tau;
-  
+
+  bool is2Lep_CR{false};
+  bool is2Lep_SR{false};
+  bool is3Lep{false};
+  bool is4Lep{false};
+  bool is4Lepbb{false};
+  bool is2Lep1Tau{false};
+  bool is1Lep2Tau{false};
+  bool is2Lep2Tau{false};
+
+  //
+  //Def. of each CRs and samples for 3 Lepton
+  //
+  void CR3lSelection();
+  void Sample3lSelection();
+  bool SR3Lep{false};
+  /* Regions
+   * 0: Material Conversion
+   * 1: HF e
+   * 2: HF m
+   * 3: WZ
+   */
+  int CR3Lep{-1};
+
+  /* Samples
+   * -1: Prompt
+   * 0: QMisID
+   * 1: ExtConv
+   * 2: IntConv
+   * 3: HF_e
+   * 4: HF_m
+   * 5: LF_e
+   * 6: LF_m
+   */
+  int Sample3Lep{-2};
+
+  //
+  //Template Fit region
+  //
+
+  bool is2LQED{false};
+  bool is2LConv{false};
+  bool is2LDRll011bmeee{false};
+  bool is2LHTlepemmm{false};
+  bool is2LHTlep2bmeee{false};
   //
   //MC weights per event per channel
   //

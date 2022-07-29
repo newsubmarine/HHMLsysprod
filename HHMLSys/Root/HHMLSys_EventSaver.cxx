@@ -58,8 +58,9 @@ StatusCode HHMLSys_EventSaver::executeEventLoop(unsigned int max_evnt) {
   //Loop over all TTree's.
   for(itr = m_treeVec->begin(); itr != m_treeVec->end(); ++itr) {
     
+    if(*itr != "nominal") continue;
     if(*itr == "AnalysisTracking" or *itr == "particleLevel" or *itr == "truth" or *itr == "sumWeights") continue;
-    
+
     ATH_MSG_INFO("Reading TTree " << *itr);
 
     //Read the TTree
@@ -121,6 +122,8 @@ void HHMLSys_EventSaver::FillTree(TTree* outTree) {
   //2l selection
   if(m_do_2lSR) SR2lSelection();
 
+  if(m_do_2lCR) CR2lSelection();
+  
   //3l selection
   if(m_do_3lSR) SR3lSelection();
 
@@ -139,7 +142,7 @@ void HHMLSys_EventSaver::FillTree(TTree* outTree) {
   //2l+2tau selection
   if(m_do_2l2tauSR) SR2l2TauSelection();
   
-  if( is2Lep or is3Lep or is4Lep or is4Lepbb or is2Lep1Tau or is1Lep2Tau or is2Lep2Tau ) outTree->Fill();
+  if( is2Lep_SR or is2Lep_CR or is3Lep or is4Lep or is4Lepbb or is2Lep1Tau or is1Lep2Tau or is2Lep2Tau ) outTree->Fill();
 }
 
 //-----------------------------------------------------------------------
@@ -156,10 +159,23 @@ double HHMLSys_EventSaver::getMCweight(const string& channel) {
   }
   else if(channel == "3l") {
     event_weight *= ntup.custTrigSF_LooseID_FCLooseIso_SLTorDLT;
-    event_weight *= ( ((abs(ntup.lep_ID_0) == 11) ? ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_0 : 1) * ((abs(ntup.lep_ID_1) == 11) ? ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_1 : 1) * ((abs(ntup.lep_ID_2) == 11) ? ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_2 : 1) );
-    event_weight *= ( (abs(ntup.lep_ID_0) == 11) ? (ntup.lep_SF_El_Reco_AT_0 * ntup.lep_SF_El_ID_LooseAndBLayerLH_AT_0 * ntup.lep_SF_El_PLVLoose_0) : (ntup.lep_SF_Mu_TTVA_AT_0 * ntup.lep_SF_Mu_ID_Loose_AT_0 * ntup.lep_SF_Mu_PLVLoose_0) );
-    event_weight *= ( (abs(ntup.lep_ID_1) == 11) ? (ntup.lep_SF_El_Reco_AT_1 * ntup.lep_SF_El_ID_TightLH_AT_1 * ntup.lep_SF_El_PLVTight_1) : (ntup.lep_SF_Mu_TTVA_AT_1 * ntup.lep_SF_Mu_ID_Tight_1 * ntup.lep_SF_Mu_PLVTight_1) );
-    event_weight *= ( (abs(ntup.lep_ID_2) == 11) ? (ntup.lep_SF_El_Reco_AT_2 * ntup.lep_SF_El_ID_TightLH_AT_2 * ntup.lep_SF_El_PLVTight_2) : (ntup.lep_SF_Mu_TTVA_AT_2 * ntup.lep_SF_Mu_ID_Tight_2 * ntup.lep_SF_Mu_PLVTight_2) );
+//    event_weight *= ( ((abs(ntup.lep_ID_0) == 11) ? ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_0 : 1) * ((abs(ntup.lep_ID_1) == 11) ? ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_1 : 1) * ((abs(ntup.lep_ID_2) == 11) ? ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_2 : 1) );
+//    event_weight *= ( (abs(ntup.lep_ID_0) == 11) ? (ntup.lep_SF_El_Reco_AT_0 * ntup.lep_SF_El_ID_LooseAndBLayerLH_AT_0 * ntup.lep_SF_El_PLVLoose_0) : (ntup.lep_SF_Mu_TTVA_AT_0 * ntup.lep_SF_Mu_ID_Loose_AT_0 * ntup.lep_SF_Mu_PLVLoose_0) );
+//    event_weight *= ( (abs(ntup.lep_ID_1) == 11) ? (ntup.lep_SF_El_Reco_AT_1 * ntup.lep_SF_El_ID_TightLH_AT_1 * ntup.lep_SF_El_PLVTight_1) : (ntup.lep_SF_Mu_TTVA_AT_1 * ntup.lep_SF_Mu_ID_Medium_AT_1 * ntup.lep_SF_Mu_PLVTight_1) );
+//    event_weight *= ( (abs(ntup.lep_ID_2) == 11) ? (ntup.lep_SF_El_Reco_AT_2 * ntup.lep_SF_El_ID_TightLH_AT_2 * ntup.lep_SF_El_PLVTight_2) : (ntup.lep_SF_Mu_TTVA_AT_2 * ntup.lep_SF_Mu_ID_Medium_AT_2 * ntup.lep_SF_Mu_PLVTight_2) );
+//
+    event_weight *=
+            ntup.lep_SF_El_Reco_AT_0 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_0 *
+            ntup.lep_SF_El_ID_LooseAndBLayerLH_AT_0 * ntup.lep_SF_El_PLVLoose_0 *
+            ntup.lep_SF_Mu_ID_Loose_AT_0 * ntup.lep_SF_Mu_TTVA_AT_0 * ntup.lep_SF_Mu_PLVLoose_0 *
+
+            ntup.lep_SF_El_Reco_AT_1 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_1 *
+            ntup.lep_SF_El_ID_TightLH_AT_1 * ntup.lep_SF_El_PLVTight_1 *
+            ntup.lep_SF_Mu_ID_Medium_AT_1 * ntup.lep_SF_Mu_TTVA_AT_1 * ntup.lep_SF_Mu_PLVTight_1 *
+
+            ntup.lep_SF_El_Reco_AT_2 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_2 *
+            ntup.lep_SF_El_ID_TightLH_AT_2 * ntup.lep_SF_El_PLVTight_2 *
+            ntup.lep_SF_Mu_ID_Medium_AT_2 * ntup.lep_SF_Mu_TTVA_AT_2 * ntup.lep_SF_Mu_PLVTight_2;
   }
   else if(channel == "4l") {
     event_weight *= ntup.lepSFObjLoose;

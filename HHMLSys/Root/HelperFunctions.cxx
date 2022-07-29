@@ -79,8 +79,8 @@ bool HHMLSys_EventSaver::Tight3LepCuts() {
   if( !ntup.trilep_type ) return false;
   
   bool l0 = ((abs(ntup.lep_ID_0) == 11) ? ntup.lep_isLooseLH_0 : ntup.lep_isLoose_0) and ntup.lep_plvWP_Loose_0;
-  bool l1 = ((abs(ntup.lep_ID_1) == 11) ? ntup.lep_isTightLH_1 : ntup.lep_isTight_1) and ntup.lep_plvWP_Tight_1;
-  bool l2 = ((abs(ntup.lep_ID_2) == 11) ? ntup.lep_isTightLH_2 : ntup.lep_isTight_2) and ntup.lep_plvWP_Tight_2;
+  bool l1 = ((abs(ntup.lep_ID_1) == 11) ? ntup.lep_isTightLH_1 : ntup.lep_isMedium_1) and ntup.lep_plvWP_Tight_1;
+  bool l2 = ((abs(ntup.lep_ID_2) == 11) ? ntup.lep_isTightLH_2 : ntup.lep_isMedium_2) and ntup.lep_plvWP_Tight_2;
   
   bool AuthorCut = ( ((abs(ntup.lep_ID_0) == 11 and ntup.lep_ambiguityType_0 == 0) or abs(ntup.lep_ID_0) == 13) and ((abs(ntup.lep_ID_1) == 11 and ntup.lep_ambiguityType_1 == 0) or abs(ntup.lep_ID_1) == 13) and ((abs(ntup.lep_ID_2) == 11 and ntup.lep_ambiguityType_2 == 0) or abs(ntup.lep_ID_2) == 13) );
   bool ChargeIDBDT = ( ((abs(ntup.lep_ID_0) == 11) ? ntup.lep_chargeIDBDTLoose_0 : 1) and ((abs(ntup.lep_ID_1) == 11) ? ntup.lep_chargeIDBDTLoose_1 : 1) and ((abs(ntup.lep_ID_2) == 11) ? ntup.lep_chargeIDBDTLoose_2 : 1) );
