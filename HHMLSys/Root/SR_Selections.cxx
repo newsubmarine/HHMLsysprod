@@ -28,22 +28,10 @@ void HHMLSys_EventSaver::SR2lSelection() {
   //if( !METCut(10) ) return;
   //if( !ZVeto("2l") ) return;
   if( !JetCut(2) ) return;
-  
-  if( m_do_2lCR ){
-
-      if( BJetVeto() ){
-          if( !Mll01Cut(12) ) return;   
-          is2Lep_SR = true;
-      }
-      else is2Lep_CR = true;
-  }
-  else {
-
-      if( !BJetVeto()  ) return;
-      if( !Mll01Cut(12)) return;
-      is2Lep_SR = true;
-  }
-  
+  if( !BJetVeto()  ) return;
+  if( !Mll01Cut(12)) return;
+  is2Lep_SR = true;
+ 
   if(!m_isData) weight_2l = getMCweight("2l");
 
   //Get 2l BDT

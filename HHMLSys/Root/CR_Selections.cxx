@@ -34,7 +34,7 @@ void HHMLSys_EventSaver::CR2lSelection() {
   
   is2Lep_CR = true;
 
-  // Currently remain the events and do TF at config level
+  // Currently keep the events and do TF at config level
 
   //bool XXX_TTBAR_PROMPT = ((ntup.lep_isPrompt_0||((abs(ntup.lep_ID_0)==13&&ntup.lep_truthOrigin_0==0)||(abs(ntup.lep_ID_0)==11&&ntup.lep_truthOrigin_0==5&& (ntup.lep_truthParentPdgId_0==ntup.lep_ID_0) &&ntup.lep_truthParentType_0==2)))&&(ntup.lep_isPrompt_1||((abs(ntup.lep_ID_1)==13&&ntup.lep_truthOrigin_1==0)||(abs(ntup.lep_ID_1)==11&&ntup.lep_truthOrigin_1==5&&(ntup.lep_truthParentPdgId_1==ntup.lep_ID_1)&&ntup.lep_truthParentType_1==2)))); 
 
