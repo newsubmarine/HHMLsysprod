@@ -12,7 +12,8 @@ void HHMLSys_EventSaver::CR2lSelection() {
 
   is2Lep_CR = false;
 
-  BDTOutput_2l     = -99;
+  BDTOutput_2l_1     = -99;
+  BDTOutput_2l_2     = -99;
   BDTOutput_2l_VV    = -99;
   BDTOutput_2l_tt    = -99;
   BDTOutput_2l_Vjets = -99;
@@ -45,5 +46,5 @@ void HHMLSys_EventSaver::CR2lSelection() {
   if(!m_isData) weight_2l = getMCweight("2l");
 
   //Get 2l BDT
-  if(m_do_2lMVA) mva.EvaluateMVA_2l(ntup, BDTOutput_2l, BDTOutput_2l_VV, BDTOutput_2l_tt, BDTOutput_2l_Vjets);
+  if(m_do_2lMVA) mva.EvaluateMVA_2l(ntup, BDTOutput_2l_1, BDTOutput_2l_2, BDTOutput_2l_VV, BDTOutput_2l_tt, BDTOutput_2l_Vjets);
 }
