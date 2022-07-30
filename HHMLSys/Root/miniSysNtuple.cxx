@@ -46,7 +46,8 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("Sample3Lep"     , &Sample3Lep);
 
   //BDT outputs of each channel
-  outTree->Branch("BDTOutput_2l"       , &BDTOutput_2l);
+  outTree->Branch("BDTOutput_2l_1"     , &BDTOutput_2l_1);
+  outTree->Branch("BDTOutput_2l_2"     , &BDTOutput_2l_2);
   outTree->Branch("BDTOutput_2l_VV"    , &BDTOutput_2l_VV);
   outTree->Branch("BDTOutput_2l_tt"    , &BDTOutput_2l_tt);
   outTree->Branch("BDTOutput_2l_Vjets" , &BDTOutput_2l_Vjets);
