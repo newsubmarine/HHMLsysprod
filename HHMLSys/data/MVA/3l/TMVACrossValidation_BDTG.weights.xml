@@ -4,11 +4,11 @@
     <Info name="TMVA Release" value="4.2.1 [262657]"/>
     <Info name="ROOT Release" value="6.20/00 [398336]"/>
     <Info name="Creator" value="zhangyulei"/>
-    <Info name="Date" value="Wed May 18 00:03:05 2022"/>
+    <Info name="Date" value="Sat Jul 30 21:46:37 2022"/>
     <Info name="Host" value="Linux lcgapp-centos7-x86-64-31.cern.ch-docker 3.10.0-1062.9.1.el7.x86_64 #1 SMP Fri Dec 6 15:49:49 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux"/>
     <Info name="Dir" value="/lustre/collider/zhangyulei/ATLAS/hhml/workspace/Multi_Variate_Analysis"/>
     <Info name="Training events" value="881986"/>
-    <Info name="TrainingTime" value="4.05311584e-06"/>
+    <Info name="TrainingTime" value="3.09944153e-06"/>
     <Info name="AnalysisType" value="Classification"/>
   </GeneralInfo>
   <Options>
