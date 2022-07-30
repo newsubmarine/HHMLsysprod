@@ -132,8 +132,7 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   //
   //BDT output
   //
-  Float_t BDTOutput_2l_1;
-  Float_t BDTOutput_2l_2;
+  Float_t BDTOutput_2l;
   Float_t BDTOutput_2l_VV;
   Float_t BDTOutput_2l_tt;
   Float_t BDTOutput_2l_Vjets;

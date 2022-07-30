@@ -89,8 +89,7 @@ class HHMLSys_Base: public asg::AsgMessaging {
   bool m_do_2lSR  = false;
   bool m_do_2lCR  = false;
   bool m_do_2lMVA = false;
-  std::string m_2l_1_BDTxmlFile     = "";
-  std::string m_2l_2_BDTxmlFile     = "";
+  std::string m_2l_BDTxmlFile     = "";
   std::string m_2l_VV_BDTxmlFile    = "";
   std::string m_2l_tt_BDTxmlFile    = "";
   std::string m_2l_Vjets_BDTxmlFile = "";

@@ -44,8 +44,7 @@ class HHMLSys_MVA: public asg::AsgMessaging
 
   HHMLSys_MVA(const std::string& name = "HHMLSys_MVA");
   ~HHMLSys_MVA() {
-    if(reader_2l_1)     delete reader_2l_1;
-    if(reader_2l_2)     delete reader_2l_2;
+    if(reader_2l)       delete reader_2l;
     if(reader_2l_VV)    delete reader_2l_VV;
     if(reader_2l_tt)    delete reader_2l_tt;
     if(reader_2l_Vjets) delete reader_2l_Vjets;
@@ -59,11 +58,11 @@ class HHMLSys_MVA: public asg::AsgMessaging
   HHMLSys_Ntuple ntup;
   
   //Non-tau channels
-  StatusCode BookMVA_2l(const std::string& xmlFile1, const std::string& xmlFile2, const std::string& xmlFile_VV, const std::string& xmlFile_tt, const std::string& xmlFile_Vjets);
+  StatusCode BookMVA_2l(const std::string& xmlFile, const std::string& xmlFile_VV, const std::string& xmlFile_tt, const std::string& xmlFile_Vjets);
   StatusCode BookMVA_3l(const std::string& xmlFile);
   StatusCode BookMVA_4lbb(const std::string& xmlFile);
 
-  void  EvaluateMVA_2l(const HHMLSys_Ntuple& ntup, float& BDTG_weight_2l_1, float& BDTG_weight_2l_2, float& BDTG_weight_2l_VV, float& BDTG_weight_2l_tt, float& BDTG_weight_2l_Vjets);
+  void  EvaluateMVA_2l(const HHMLSys_Ntuple& ntup, float& BDTG_weight_2l, float& BDTG_weight_2l_VV, float& BDTG_weight_2l_tt, float& BDTG_weight_2l_Vjets);
   float EvaluateMVA_3l(const HHMLSys_Ntuple& ntup);
   float EvaluateMVA_4lbb(const HHMLSys_Ntuple& ntup);
 
@@ -78,8 +77,7 @@ class HHMLSys_MVA: public asg::AsgMessaging
   
  private:
 
-  TMVA::Reader *reader_2l_1     = nullptr;
-  TMVA::Reader *reader_2l_2     = nullptr;
+  TMVA::Reader *reader_2l       = nullptr;
   TMVA::Reader *reader_2l_VV    = nullptr;
   TMVA::Reader *reader_2l_tt    = nullptr;
   TMVA::Reader *reader_2l_Vjets = nullptr;
@@ -106,6 +104,7 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_MLep0Jet;
   Float_t BDTG_HT;
   Float_t BDTG_MET;
+  Float_t BDTG_Ptll01;
   Float_t BDTG_tau_pt_0;
   Float_t BDTG_tau_pt_1;
   Float_t BDTG_Mll01;
