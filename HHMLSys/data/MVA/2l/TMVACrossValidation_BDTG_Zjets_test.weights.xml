@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<MethodSetup Method="CrossValidation::BDTG_Zjets_test">
+  <GeneralInfo>
+    <Info name="TMVA Release" value="4.2.1 [262657]"/>
+    <Info name="ROOT Release" value="6.20/02 [398338]"/>
+    <Info name="Creator" value="xinst"/>
+    <Info name="Date" value="Mon Jul 18 09:58:20 2022"/>
+    <Info name="Host" value="Linux lcgapp-centos7-x86-64-31.cern.ch-docker 3.10.0-1062.9.1.el7.x86_64 #1 SMP Fri Dec 6 15:49:49 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux"/>
+    <Info name="Dir" value="/publicfs/atlas/atlasnew/higgs/hgg/xinst/HHML/work/v4/BDT/hhml_tmva"/>
+    <Info name="Training events" value="121251"/>
+    <Info name="TrainingTime" value="3.81469727e-06"/>
+    <Info name="AnalysisType" value="Classification"/>
+  </GeneralInfo>
+  <Options>
+    <Option name="V" modified="No">False</Option>
+    <Option name="VerbosityLevel" modified="No">Default</Option>
+    <Option name="VarTransform" modified="No">None</Option>
+    <Option name="H" modified="No">False</Option>
+    <Option name="CreateMVAPdfs" modified="No">False</Option>
+    <Option name="IgnoreNegWeightsInTraining" modified="No">False</Option>
+    <Option name="EncapsulatedMethodName" modified="Yes">BDTG_Zjets_test</Option>
+    <Option name="EncapsulatedMethodTypeName" modified="Yes">BDT</Option>
+    <Option name="NumFolds" modified="Yes">2</Option>
+    <Option name="OutputEnsembling" modified="Yes">None</Option>
+    <Option name="SplitExpr" modified="Yes">int([Event_No])%int([NumFolds])</Option>
+  </Options>
+  <Variables NVar="9">
+    <Variable VarIndex="0" Expression="dilep_type" Label="dilep_type" Title="dilep_type" Unit="" Internal="dilep_type" Type="F" Min="1.00000000e+00" Max="3.00000000e+00"/>
+    <Variable VarIndex="1" Expression="Mll01" Label="Mll01" Title="Mll01" Unit="" Internal="Mll01" Type="F" Min="1.20475723e+04" Max="3.09998600e+06"/>
+    <Variable VarIndex="2" Expression="met_met" Label="met_met" Title="met_met" Unit="" Internal="met_met" Type="F" Min="1.58000107e+02" Max="2.86458560e+08"/>
+    <Variable VarIndex="3" Expression="Ptll01" Label="Ptll01" Title="Ptll01" Unit="" Internal="Ptll01" Type="F" Min="2.09563202e+02" Max="2.87801472e+08"/>
+    <Variable VarIndex="4" Expression="mindR_l2j" Label="mindR_l2j" Title="mindR_l2j" Unit="" Internal="mindR_l2j" Type="F" Min="3.85691375e-01" Max="5.09326458e+00"/>
+    <Variable VarIndex="5" Expression="mindR_l1j" Label="mindR_l1j" Title="mindR_l1j" Unit="" Internal="mindR_l1j" Type="F" Min="3.87600601e-01" Max="5.30660105e+00"/>
+    <Variable VarIndex="6" Expression="nJets_OR" Label="nJets_OR" Title="nJets_OR" Unit="" Internal="nJets_OR" Type="F" Min="2.00000000e+00" Max="1.30000000e+01"/>
+    <Variable VarIndex="7" Expression="max_eta" Label="max_eta" Title="max_eta" Unit="" Internal="max_eta" Type="F" Min="5.56729734e-03" Max="2.49990177e+00"/>
+    <Variable VarIndex="8" Expression="DeltaR_min_lep_jet" Label="DeltaR_min_lep_jet" Title="DeltaR_min_lep_jet" Unit="" Internal="DeltaR_min_lep_jet" Type="F" Min="3.85691375e-01" Max="4.87214041e+00"/>
+  </Variables>
+  <Spectators NSpec="1">
+    <Spectator SpecIndex="0" Expression="Event_No" Label="Event_No" Title="I" Unit="" Internal="Event_No" Type="F" Min="1.00000000e+00" Max="7.52580000e+04"/>
+  </Spectators>
+  <Classes NClass="2">
+    <Class Name="Signal" Index="0"/>
+    <Class Name="Background" Index="1"/>
+  </Classes>
+  <Transformations NTransformations="0"/>
+  <MVAPdfs/>
+  <Weights JobName="TMVACrossValidation" SplitExpr="int([Event_No])%int([NumFolds])" NumFolds="2" EncapsulatedMethodName="BDTG_Zjets_test" EncapsulatedMethodTypeName="BDT" OutputEnsembling="None"/>
+</MethodSetup>
