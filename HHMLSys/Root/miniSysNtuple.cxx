@@ -46,8 +46,7 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("Sample3Lep"     , &Sample3Lep);
 
   //BDT outputs of each channel
-  outTree->Branch("BDTOutput_2l_1"     , &BDTOutput_2l_1);
-  outTree->Branch("BDTOutput_2l_2"     , &BDTOutput_2l_2);
+  outTree->Branch("BDTOutput_2l"       , &BDTOutput_2l);
   outTree->Branch("BDTOutput_2l_VV"    , &BDTOutput_2l_VV);
   outTree->Branch("BDTOutput_2l_tt"    , &BDTOutput_2l_tt);
   outTree->Branch("BDTOutput_2l_Vjets" , &BDTOutput_2l_Vjets);
@@ -152,14 +151,17 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("lep_Pt_0"      , &ntup.lep_Pt_0);
   outTree->Branch("lep_E_0"       , &ntup.lep_E_0);
   outTree->Branch("lep_Eta_0"     , &ntup.lep_Eta_0);
+  outTree->Branch("lep_EtaBE2_0"  , &ntup.lep_EtaBE2_0);
   outTree->Branch("lep_ID_1"      , &ntup.lep_ID_1);
   outTree->Branch("lep_Pt_1"      , &ntup.lep_Pt_1);
   outTree->Branch("lep_E_1"       , &ntup.lep_E_1);
   outTree->Branch("lep_Eta_1"     , &ntup.lep_Eta_1);
+  outTree->Branch("lep_EtaBE2_1"  , &ntup.lep_EtaBE2_1);
   outTree->Branch("lep_ID_2"      , &ntup.lep_ID_2);
   outTree->Branch("lep_Pt_2"      , &ntup.lep_Pt_2);
   outTree->Branch("lep_E_2"       , &ntup.lep_E_2);
   outTree->Branch("lep_Eta_2"     , &ntup.lep_Eta_2);
+  outTree->Branch("lep_EtaBE2_2"  , &ntup.lep_EtaBE2_2);
   outTree->Branch("lep_ID_3"      , &ntup.lep_ID_3);
   outTree->Branch("lep_Pt_3"      , &ntup.lep_Pt_3);
   outTree->Branch("lep_E_3"       , &ntup.lep_E_3);

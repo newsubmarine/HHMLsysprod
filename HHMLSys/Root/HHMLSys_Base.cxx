@@ -40,8 +40,7 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
     ATH_MSG_FATAL("m_do_2lSR is not on !");
     return StatusCode::FAILURE;
   }
-  Config(m_2l_1_BDTxmlFile, "2l_1_BDTxmlFile", rEnv);
-  Config(m_2l_2_BDTxmlFile, "2l_2_BDTxmlFile", rEnv);
+  Config(m_2l_BDTxmlFile      , "2l_BDTxmlFile", rEnv);
 
   Config(m_2l_VV_BDTxmlFile   , "2l_VV_BDTxmlFile"   , rEnv);
   Config(m_2l_tt_BDTxmlFile   , "2l_tt_BDTxmlFile"   , rEnv);
@@ -142,7 +141,7 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   //
 
   //Book MVA's
-  if(m_do_2lMVA)     sc = mva.BookMVA_2l(m_2l_1_BDTxmlFile, m_2l_2_BDTxmlFile, m_2l_VV_BDTxmlFile, m_2l_tt_BDTxmlFile, m_2l_Vjets_BDTxmlFile);
+  if(m_do_2lMVA)     sc = mva.BookMVA_2l(m_2l_BDTxmlFile, m_2l_VV_BDTxmlFile, m_2l_tt_BDTxmlFile, m_2l_Vjets_BDTxmlFile);
   if(m_do_3lMVA)     sc = mva.BookMVA_3l(m_3l_BDTxmlFile);
   if(m_do_4lbbMVA)   sc = mva.BookMVA_4lbb(m_4lbb_BDTxmlFile);
   if(m_do_2l1tauMVA) sc = mva.BookMVA_2l1tau(m_2l1tau_BDTGxmlFile);
