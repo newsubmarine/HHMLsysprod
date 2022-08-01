@@ -58,7 +58,18 @@ StatusCode HHMLSys_EventSaver::executeEventLoop(unsigned int max_evnt) {
   //Loop over all TTree's.
   for(itr = m_treeVec->begin(); itr != m_treeVec->end(); ++itr) {
     
-    if(*itr != "nominal") continue;
+  /*
+    if(m_nominal){
+      if(*itr != "nominal") continue;
+    }
+    else{
+      ATH_MSG_INFO("Runing selected trees:");
+      for(const std::string &str : m_inputTrees){
+        cout << str << endl;
+        if(*itr != str) continue;
+      }
+    }
+    */
     if(*itr == "AnalysisTracking" or *itr == "particleLevel" or *itr == "truth" or *itr == "sumWeights") continue;
 
     ATH_MSG_INFO("Reading TTree " << *itr);

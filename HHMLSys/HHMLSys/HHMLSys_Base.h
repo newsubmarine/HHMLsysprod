@@ -14,6 +14,7 @@
 //C++
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <vector>
 #include <cmath>
@@ -84,7 +85,8 @@ class HHMLSys_Base: public asg::AsgMessaging {
 
   //SR's flags (to be set to true/false in the config file)
   bool m_isData = false;
-
+  std::string m_treeNames = "";
+  //std::vector<std::string> m_inputTrees;
   //2l
   bool m_do_2lSR  = false;
   bool m_do_2lCR  = false;
@@ -150,6 +152,9 @@ class HHMLSys_Base: public asg::AsgMessaging {
   //Get sumWeight Tree entries and fill the histogram (in case later use for normalization)
   void SumWeights(const std::string& SamplePath);
   
+  //Convert strings to vector from config file
+  void InterpString(const std::string &s, std::vector<std::string> &f);
+
 };
 
 #endif
