@@ -455,11 +455,12 @@ void HHMLSys_MVA::EvaluateMVA_2l(const HHMLSys_Ntuple& ntup, float& BDTG_weight_
   BDTG_Vjets = BDTG_weight_2l_Vjets;
 
   BDTG_weight_2l = reader_2l->EvaluateMVA("BDTG_All");
-  
+/* 
 cout << " BDTG_tt " << BDTG_tt << endl; 
 cout << " BDTG_VV " << BDTG_VV << endl; 
 cout << " BDTG_Vjets " << BDTG_Vjets << endl;
 cout << " BDTG_2l " << BDTG_weight_2l << endl; 
+*/
 }
 
 //-----------------------------------------------------------------------------------

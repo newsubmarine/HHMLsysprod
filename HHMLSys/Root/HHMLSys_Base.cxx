@@ -1,5 +1,4 @@
 #include "HHMLSys/HHMLSys_Base.h"
-
 //---------------------------------------------------------------------
 HHMLSys_Base::HHMLSys_Base(const std::string& name) :
   asg::AsgMessaging(name)
@@ -30,16 +29,15 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
     ATH_MSG_INFO("Reading config file " << configFile);
   }
 
-  Config(m_isData, "isData", rEnv);
+  Config(m_isData , "isData"   , rEnv);
+  Config(m_treeNames,    "treeNames", rEnv);
 
+  //InterpString(m_treeNames, m_inputTrees );
   //2l
   Config(m_do_2lSR  , "do_2lSR" , rEnv);
   Config(m_do_2lCR  , "do_2lCR" , rEnv);
   Config(m_do_2lMVA , "do_2lMVA", rEnv);
-  if(m_do_2lCR && !m_do_2lSR){
-    ATH_MSG_FATAL("m_do_2lSR is not on !");
-    return StatusCode::FAILURE;
-  }
+  
   Config(m_2l_BDTxmlFile      , "2l_BDTxmlFile", rEnv);
 
   Config(m_2l_VV_BDTxmlFile   , "2l_VV_BDTxmlFile"   , rEnv);
@@ -119,18 +117,26 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   m_treeVec = std::make_unique<std::vector<std::string>>();
 
   if(!m_isData) {
-          TFile* rootFile = TFile::Open(samplePath.c_str(), "READ");
-          TIter nextkey( rootFile->GetListOfKeys() );
-          TKey *key;
-          while( (key = (TKey*)nextkey()) ) {
-              TObject *obj = key->ReadObj();
-              if( obj->IsA()->InheritsFrom( TTree::Class())) {
-                  TTree* tree_data = (TTree*)obj;
-                  m_treeVec->push_back(tree_data->GetName());
-              }
+          
+          if(!m_treeNames.empty()){
+            ATH_MSG_INFO("Reading Trees from config " << m_treeNames);
+            InterpString(m_treeNames, *m_treeVec);
           }
-          rootFile->Close();
-          delete rootFile;
+          else{
+            TFile* rootFile = TFile::Open(samplePath.c_str(), "READ");
+            TIter nextkey( rootFile->GetListOfKeys() );
+            TKey *key;
+            while( (key = (TKey*)nextkey()) ) {
+                TObject *obj = key->ReadObj();
+                if( obj->IsA()->InheritsFrom( TTree::Class())) {
+                    TTree* tree_data = (TTree*)obj;
+                    m_treeVec->push_back(tree_data->GetName());
+                }
+            }
+            rootFile->Close();
+            delete rootFile;
+            delete key;
+          }
   }
   else {
     m_treeVec->push_back("nominal");
@@ -233,3 +239,13 @@ void HHMLSys_Base::SumWeights(const std::string &SamplePath) {
 
   m_scale = sum_weight;
 }
+//--------------------------------------------------------------
+void HHMLSys_Base::InterpString(const std::string &trees, std::vector<std::string> &f){
+
+  std::istringstream input(trees);
+  std::string temp;
+
+  while(getline(input, temp, ',')){
+    f.push_back(temp);
+    }
+  }
