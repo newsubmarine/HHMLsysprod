@@ -79,6 +79,9 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("lep_Mtrktrk_atPV_CO_1"   , &ntup.lep_Mtrktrk_atPV_CO_1);
   outTree->Branch("lep_RadiusCO_1"          , &ntup.lep_RadiusCO_1);
   outTree->Branch("lep_RadiusCO_1"          , &ntup.lep_RadiusCO_1);
+  outTree->Branch("tau_truthOrigin_0", &ntup.tau_truthOrigin_0);
+  outTree->Branch("tau_truthType_0", &ntup.tau_truthType_0);
+  outTree->Branch("tau_truthJetFlavour_0", &ntup.tau_truthJetFlavour_0);
 
 
 
