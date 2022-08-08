@@ -102,7 +102,7 @@ class HHMLSys_MVA: public asg::AsgMessaging
   Float_t BDTG_MLep0Jet;
   Float_t BDTG_SumPtLep0Jet;
   Float_t BDTG_MET;
-  Float_t BDTG_lead_JetPt;
+  Float_t BDTG_lead_jetPt;
   Float_t BDTG_Mll01;
   Float_t BDTG_lep_flavor;
   Float_t BDTG_Mlep1tau0;
