@@ -76,7 +76,8 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   Config(m_do_2l2tauSR,  "do_2l2tauSR" , rEnv);
   Config(m_do_2l2tauMVA, "do_2l2tauMVA", rEnv);
 
-  Config(m_2l2tau_BDTGxmlFile, "2l2tau_BDTGxmlFile", rEnv);
+  Config(m_2l2tau_BDTGEvenxmlFile, "2l2tau_BDTGEvenxmlFile", rEnv);
+  Config(m_2l2tau_BDTGOddxmlFile , "2l2tau_BDTGOddxmlFile" , rEnv);
   
   //Control regions
   Config(m_do_1l2tauCR, "do_1l2tauCR", rEnv);
@@ -151,8 +152,8 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
   if(m_do_3lMVA)     sc = mva.BookMVA_3l(m_3l_BDTxmlFile);
   if(m_do_4lbbMVA)   sc = mva.BookMVA_4lbb(m_4lbb_BDTxmlFile);
   if(m_do_2l1tauMVA) sc = mva.BookMVA_2l1tau(m_2l1tau_BDTGxmlFile);
-  if(m_do_2l2tauMVA) sc = mva.BookMVA_2l2tau(m_2l2tau_BDTGxmlFile);
   if(m_do_1l2tauMVA) sc = mva.BookMVA_1l2tau(m_1l2tau_BDTGEvenxmlFile, m_1l2tau_BDTGOddxmlFile);
+  if(m_do_2l2tauMVA) sc = mva.BookMVA_2l2tau(m_2l2tau_BDTGEvenxmlFile, m_2l2tau_BDTGOddxmlFile);
 
   //
   //Create the output root file

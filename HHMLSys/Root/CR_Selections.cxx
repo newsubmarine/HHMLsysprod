@@ -49,3 +49,62 @@ void HHMLSys_EventSaver::CR2lSelection() {
   //Get 2l BDT
   if(m_do_2lMVA) mva.EvaluateMVA_2l(ntup, BDTOutput_2l, BDTOutput_2l_VV, BDTOutput_2l_tt, BDTOutput_2l_Vjets);
 }
+
+//1L/2L + 2Taus channels
+//---------------------------------------------------------------------------------
+void HHMLSys_EventSaver::CRSS1l2TauSelection() {
+
+  weight_1l2tauCRSS = 1.0;
+
+  is1Lep2TauCRSS = false;
+
+  BDTOutput_1l2tau = -99;
+
+  if( ntup.onelep_type == 0 ) return;
+  if( !(ntup.GlobalTrigDecision > 0) ) return;
+  if( !Tight1LepCuts() ) return;
+  if( !LepTrigMatch("SLT") ) return;
+  if( !(ntup.nTaus_OR_Pt25_RNN == 2) ) return;
+  if( !DiTauCuts("Med") ) return;
+  if( !SSTauPair() ) return;
+  if( !JetCut(2) ) return;
+  if( !BJetVeto() ) return;
+  if( ntup.DRtau0tau1 > 2 ) return;
+
+  is1Lep2TauCRSS = true;
+
+  if(!m_isData) weight_1l2tauCRSS = getMCweight("1l2tau");
+
+  //Get 1l+2tau BDT
+  if(m_do_1l2tauMVA) BDTOutput_1l2tau = mva.EvaluateMVA_1l2tau(ntup);
+}
+
+//---------------------------------------------------------------------------------
+void HHMLSys_EventSaver::CRSS2l2TauSelection() {
+
+  weight_2l2tauCRSS = 1.0;
+
+  is2Lep2TauCRSS = false;
+
+  BDTOutput_2l2tau = -99;
+
+  if( !ntup.dilep_type ) return;
+  if( !(ntup.GlobalTrigDecision > 0) ) return;
+  if( !Tight2LepCuts("2l2tau") ) return;
+  if( !isOSPair() ) return;
+  if( !LepTrigMatch("SLTorDLT_Loose") ) return;
+  if( !(ntup.nTaus_OR_Pt25_RNN == 2) ) return;
+  if( !DiTauCuts(("Med")) ) return;
+  if( !SSTauPair() ) return;
+  if( !ZVeto("2l2tau") ) return;
+  if( !JetCut(0) ) return;
+  if( !BJetVeto() ) return;
+  if( ntup.DRtau0tau1 > 2 ) return;
+
+  is2Lep2TauCRSS = true;
+
+  if(!m_isData) weight_2l2tauCRSS = getMCweight("2l2tau");
+
+  //Get 2l2tau BDT
+  if(m_do_2l2tauMVA) BDTOutput_2l2tau = mva.EvaluateMVA_2l2tau(ntup);
+}

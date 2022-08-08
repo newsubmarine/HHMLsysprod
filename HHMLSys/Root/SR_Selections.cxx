@@ -383,14 +383,14 @@ void HHMLSys_EventSaver::SR2l2TauSelection() {
   if( !DiTauCuts(("Med")) ) return;
   if( !OSTauPair() ) return;
   if( !ZVeto("2l2tau") ) return;
-  if( !JetCut(1) ) return;
+  if( !JetCut(0) ) return;
   if( !BJetVeto() ) return;
   if( ntup.DRtau0tau1 > 2 ) return;
 
   is2Lep2Tau = true;
 
-  weight_2l2tau = getMCweight("2l2tau");
+  if(!m_isData) weight_2l2tau = getMCweight("2l2tau");
 
   //Get 2l2tau BDT
-  if(!m_isData) if(m_do_2l2tauMVA) BDTOutput_2l2tau = mva.EvaluateMVA_2l2tau(ntup);
+  if(m_do_2l2tauMVA) BDTOutput_2l2tau = mva.EvaluateMVA_2l2tau(ntup);
 }

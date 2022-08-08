@@ -46,7 +46,9 @@ class HHMLSys_Ntuple {
   Float_t Mlep0tau0;
   Float_t Mlep0tau1;
   Float_t Mtau0tau1;
+  Float_t Mlep1tau0;
   Float_t MLep0Jet;
+  Float_t Mlep0tau0tau1;
   Float_t Mlep1tau0tau1;
   Float_t DRtau0tau1;
   Float_t DRlep0Lj;
@@ -58,6 +60,7 @@ class HHMLSys_Ntuple {
   Float_t minDR_LJ_1;
   Float_t DR_min_LepJet;
   Float_t SumPttau0tau1;
+  Float_t SumPtLep0Jet;
   Int_t   lep_flavor;
   Float_t Mtw;
 
