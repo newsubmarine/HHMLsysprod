@@ -19,7 +19,6 @@ Cloning the repository
 Login to lxplus and start with a new directory.
 
 ```bash
-
 setupATLAS
 mkdir YourFancyDir
 cd YourFancyDir
