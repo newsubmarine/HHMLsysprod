@@ -58,7 +58,7 @@ void HHMLSys_EventSaver::CRSS1l2TauSelection() {
 
   is1Lep2TauCRSS = false;
 
-  BDTOutput_1l2tau = -99;
+  BDTOutput_1l2tauCRSS = -99;
 
   if( ntup.onelep_type == 0 ) return;
   if( !(ntup.GlobalTrigDecision > 0) ) return;
@@ -76,7 +76,7 @@ void HHMLSys_EventSaver::CRSS1l2TauSelection() {
   if(!m_isData) weight_1l2tauCRSS = getMCweight("1l2tau");
 
   //Get 1l+2tau BDT
-  if(m_do_1l2tauMVA) BDTOutput_1l2tau = mva.EvaluateMVA_1l2tau(ntup);
+  if(m_do_1l2tauMVA) BDTOutput_1l2tauCRSS = mva.EvaluateMVA_1l2tau(ntup);
 }
 
 //---------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ void HHMLSys_EventSaver::CRSS2l2TauSelection() {
 
   is2Lep2TauCRSS = false;
 
-  BDTOutput_2l2tau = -99;
+  BDTOutput_2l2tauCRSS = -99;
 
   if( !ntup.dilep_type ) return;
   if( !(ntup.GlobalTrigDecision > 0) ) return;
@@ -106,5 +106,5 @@ void HHMLSys_EventSaver::CRSS2l2TauSelection() {
   if(!m_isData) weight_2l2tauCRSS = getMCweight("2l2tau");
 
   //Get 2l2tau BDT
-  if(m_do_2l2tauMVA) BDTOutput_2l2tau = mva.EvaluateMVA_2l2tau(ntup);
+  if(m_do_2l2tauMVA) BDTOutput_2l2tauCRSS = mva.EvaluateMVA_2l2tau(ntup);
 }

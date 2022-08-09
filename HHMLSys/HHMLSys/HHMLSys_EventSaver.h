@@ -152,6 +152,9 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   Float_t BDTOutput_2l1tau;
   Float_t BDTOutput_1l2tau;
   Float_t BDTOutput_2l2tau;
+  
+  Float_t BDTOutput_1l2tauCRSS;
+  Float_t BDTOutput_2l2tauCRSS;
 
   //
   // Helper Functions

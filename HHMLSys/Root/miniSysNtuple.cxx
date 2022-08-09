@@ -34,7 +34,7 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("weight_1l2tauCRSS", &weight_1l2tauCRSS);
   outTree->Branch("weight_2l2tauCRSS", &weight_2l2tauCRSS);
 
-  //Booleans of each singal regions
+  //Booleans of each signal regions
   outTree->Branch("is2Lep_SR"  , &is2Lep_SR);
   outTree->Branch("is2Lep_CR"  , &is2Lep_CR);
   outTree->Branch("is3Lep"     , &is3Lep);
@@ -62,7 +62,7 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("BDTOutput_2l1tau"   , &BDTOutput_2l1tau);
   outTree->Branch("BDTOutput_1l2tau"   , &BDTOutput_1l2tau);
   outTree->Branch("BDTOutput_2l2tau"   , &BDTOutput_2l2tau);
-
+ 
   outTree->Branch("lep_truthOrigin_0"       , &ntup.lep_truthOrigin_0);
   outTree->Branch("lep_truthParentOrigin_0" , &ntup.lep_truthParentOrigin_0);
   outTree->Branch("lep_truthParentPdgId_0"  , &ntup.lep_truthParentPdgId_0);
@@ -86,8 +86,6 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("lep_Mtrktrk_atPV_CO_1"   , &ntup.lep_Mtrktrk_atPV_CO_1);
   outTree->Branch("lep_RadiusCO_1"          , &ntup.lep_RadiusCO_1);
   outTree->Branch("lep_RadiusCO_1"          , &ntup.lep_RadiusCO_1);
-
-
 
 
   //BDT input variables + some kinematic vars.
