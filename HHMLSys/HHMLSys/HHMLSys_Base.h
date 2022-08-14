@@ -84,6 +84,7 @@ class HHMLSys_Base: public asg::AsgMessaging {
   Int_t m_dsid = 0;
 
   //SR's flags (to be set to true/false in the config file)
+  bool m_doNominal = false;
   bool m_isData = false;
   std::string m_treeNames = "";
   //std::vector<std::string> m_inputTrees;
@@ -111,6 +112,7 @@ class HHMLSys_Base: public asg::AsgMessaging {
 
   //2l+1tau
   bool m_do_2l1tauSR = false;
+  bool m_do_fakeTauSFCR = false;
   bool m_do_2l1tauMVA = false;
   std::string m_2l1tau_BDTGxmlFile = "";
 

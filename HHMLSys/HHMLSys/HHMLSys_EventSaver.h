@@ -62,6 +62,7 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
 
   //Tau channles: 2l+1tau, 1l+2tau, 2l+2tau
   void SR2l1TauSelection();
+  void CRFakeTauSFSelection();
   void SR1l2TauSelection();
   void SR2l2TauSelection();
 
@@ -75,6 +76,7 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   bool is4Lep{false};
   bool is4Lepbb{false};
   bool is2Lep1Tau{false};
+  bool isCRFakeTauSF{false};
   bool is1Lep2Tau{false};
   bool is2Lep2Tau{false};
 
@@ -121,6 +123,7 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   Double_t weight_4l     = -99999;
   Double_t weight_4lbb   = -99999;
   Double_t weight_2l1tau = -99999;
+  Double_t weight_2lLL1tau = -99999;
   Double_t weight_1l2tau = -99999;
   Double_t weight_2l2tau = -99999;
 
@@ -149,6 +152,9 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   float DeltaPhi(float Phi1, float Phi2);
   float DeltaR(float DEta, float DPhi);
   float getRMS(const std::vector<float>& values);
+
+  //Loose di-lepton selection cuts
+  bool Loose2LepCuts(const std::string& channel);
 
   //Tight single lepton selection cuts
   bool Tight1LepCuts();

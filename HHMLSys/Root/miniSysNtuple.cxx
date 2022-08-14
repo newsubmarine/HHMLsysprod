@@ -27,6 +27,7 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("weight_4l"    , &weight_4l);
   outTree->Branch("weight_4lbb"  , &weight_4lbb);
   outTree->Branch("weight_2l1tau", &weight_2l1tau);
+  outTree->Branch("weight_2lLL1tau", &weight_2lLL1tau);
   outTree->Branch("weight_1l2tau", &weight_1l2tau);
   outTree->Branch("weight_2l2tau", &weight_2l2tau);
 
@@ -37,6 +38,7 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("is4Lep"     , &is4Lep);
   outTree->Branch("is4Lepbb"   , &is4Lepbb);
   outTree->Branch("is2Lep1Tau" , &is2Lep1Tau);
+  outTree->Branch("isCRFakeTauSF" , &isCRFakeTauSF);
   outTree->Branch("is1Lep2Tau" , &is1Lep2Tau);
   outTree->Branch("is2Lep2Tau" , &is2Lep2Tau);
 

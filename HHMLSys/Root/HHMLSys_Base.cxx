@@ -29,6 +29,7 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
     ATH_MSG_INFO("Reading config file " << configFile);
   }
 
+  Config(m_doNominal , "nominal_only"   , rEnv);
   Config(m_isData , "isData"   , rEnv);
   Config(m_treeNames,    "treeNames", rEnv);
 
@@ -61,6 +62,7 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
 
   //2l+1tau
   Config(m_do_2l1tauSR,  "do_2l1tauSR" , rEnv);
+  Config(m_do_fakeTauSFCR,  "do_fakeTauSFCR" , rEnv);
   Config(m_do_2l1tauMVA, "do_2l1tauMVA", rEnv);
 
   Config(m_2l1tau_BDTGxmlFile, "2l1tau_BDTGxmlFile", rEnv);

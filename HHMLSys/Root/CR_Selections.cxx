@@ -49,3 +49,31 @@ void HHMLSys_EventSaver::CR2lSelection() {
   //Get 2l BDT
   if(m_do_2lMVA) mva.EvaluateMVA_2l(ntup, BDTOutput_2l, BDTOutput_2l_VV, BDTOutput_2l_tt, BDTOutput_2l_Vjets);
 }
+
+// 2l1tau fake tau scale factor CR
+void HHMLSys_EventSaver::CRFakeTauSFSelection() {
+
+  weight_2lLL1tau = 1.0;
+
+  isCRFakeTauSF = false;
+
+  if( !ntup.dilep_type ) return;
+  if( !(ntup.GlobalTrigDecision > 0) ) return;
+  if( !Loose2LepCuts("2l1tau") ) return;
+  if( !LepTrigMatch("SLTorDLT_Loose") ) return;
+  if( !DiLepPtCuts(20, 20) ) return;
+  if( !isOSPair() ) return;
+  if( !(ntup.nTaus_OR_Pt25_RNN == 1) ) return;
+  if( !OneTauCuts("Med") ) return;
+//  if( !isTauOSToLep() ) return;
+  if( !OneTauPtCut(25) ) return;
+  //if( !ZVeto("2lep") ) return;
+  if( !JetCut(2) ) return;
+  if( !BJetCut(1) ) return;
+  if( !(abs(ntup.Mll01 - 91.2e3) > 10e3)) return;
+  if( !(ntup.Mll01 > 12e3) ) return;
+
+  isCRFakeTauSF = true;
+
+  if(!m_isData) weight_2lLL1tau = getMCweight("2lLL1tau");
+}
