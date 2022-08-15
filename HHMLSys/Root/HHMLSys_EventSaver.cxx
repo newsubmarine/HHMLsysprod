@@ -203,8 +203,8 @@ double HHMLSys_EventSaver::getMCweight(const string& channel) {
     event_weight *= ntup.lep_SF_El_Reco_AT_0 * ntup.lep_SF_El_Reco_AT_1 *ntup.lep_SF_El_ID_TightLH_AT_0 * ntup.lep_SF_El_ID_TightLH_AT_1*ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_0 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_1 * ntup.lep_SF_Mu_TTVA_AT_0 * ntup.lep_SF_Mu_TTVA_AT_1 *ntup.lep_SF_Mu_ID_Medium_AT_0 *ntup.lep_SF_Mu_ID_Medium_AT_1 * (abs(ntup.lep_ID_0) == 11 ? ntup.lep_SF_El_PLVTight_0: ntup.lep_SF_Mu_PLVTight_0) * (abs(ntup.lep_ID_1) == 11 ? ntup.lep_SF_El_PLVTight_1: ntup.lep_SF_Mu_PLVTight_1);
   }
   else if(channel == "2lLL1tau") {
-    event_weight *= ntup.custTrigSF_LooseID_FCLooseIso_SLTorDLT * ntup.tauSFRNNMedium_TAU_SF_NOMINAL;
-    event_weight *= ntup.lep_SF_El_Reco_AT_0 * ntup.lep_SF_El_Reco_AT_1 *ntup.lep_SF_El_ID_LooseLH_AT_0 * ntup.lep_SF_El_ID_LooseLH_AT_1*ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_0 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_1 * ntup.lep_SF_Mu_TTVA_AT_0 * ntup.lep_SF_Mu_TTVA_AT_1 *ntup.lep_SF_Mu_ID_Medium_AT_0 *ntup.lep_SF_Mu_ID_Medium_AT_1 * (abs(ntup.lep_ID_0) == 11 ? ntup.lep_SF_El_PLVLoose_0: ntup.lep_SF_Mu_PLVLoose_0) * (abs(ntup.lep_ID_1) == 11 ? ntup.lep_SF_El_PLVLoose_1: ntup.lep_SF_Mu_PLVLoose_1);
+    //event_weight *= ntup.custTrigSF_LooseID_FCLooseIso_SLTorDLT * ntup.tauSFRNNMedium_TAU_SF_NOMINAL;
+    //event_weight *= ntup.lep_SF_El_Reco_AT_0 * ntup.lep_SF_El_Reco_AT_1 *ntup.lep_SF_El_ID_LooseLH_AT_0 * ntup.lep_SF_El_ID_LooseLH_AT_1*ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_0 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_1 * ntup.lep_SF_Mu_TTVA_AT_0 * ntup.lep_SF_Mu_TTVA_AT_1 *ntup.lep_SF_Mu_ID_Medium_AT_0 *ntup.lep_SF_Mu_ID_Medium_AT_1 * (abs(ntup.lep_ID_0) == 11 ? ntup.lep_SF_El_PLVLoose_0: ntup.lep_SF_Mu_PLVLoose_0) * (abs(ntup.lep_ID_1) == 11 ? ntup.lep_SF_El_PLVLoose_1: ntup.lep_SF_Mu_PLVLoose_1);
   }
   else if(channel == "1l2tau") {
     event_weight *= ntup.lepSFObjLoose * ntup.custTrigSF_LooseID_FCLooseIso_SLT * ntup.tauSFRNNMedium_TAU_SF_NOMINAL;

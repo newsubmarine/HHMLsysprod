@@ -59,8 +59,8 @@ void HHMLSys_EventSaver::CRFakeTauSFSelection() {
 
   if( !ntup.dilep_type ) return;
   if( !(ntup.GlobalTrigDecision > 0) ) return;
-  if( !Loose2LepCuts("2l1tau") ) return;
-  if( !LepTrigMatch("SLTorDLT_Loose") ) return;
+  if( !Tight2LepCuts("2l1tau") ) return;
+  if( !LepTrigMatch("SLTorDLT_Tight") ) return;
   if( !DiLepPtCuts(20, 20) ) return;
   if( !isOSPair() ) return;
   if( !(ntup.nTaus_OR_Pt25_RNN == 1) ) return;
@@ -69,11 +69,10 @@ void HHMLSys_EventSaver::CRFakeTauSFSelection() {
   if( !OneTauPtCut(25) ) return;
   //if( !ZVeto("2lep") ) return;
   if( !JetCut(2) ) return;
-  if( !BJetCut(1) ) return;
-  if( !(abs(ntup.Mll01 - 91.2e3) > 10e3)) return;
-  if( !(ntup.Mll01 > 12e3) ) return;
+//  if( !BJetVeto() ) return;
+  if( !Mll01SFCut(12) ) return;
 
   isCRFakeTauSF = true;
 
-  if(!m_isData) weight_2lLL1tau = getMCweight("2lLL1tau");
+  if(!m_isData) weight_2lLL1tau = getMCweight("2l1tau");
 }
