@@ -58,7 +58,6 @@ StatusCode HHMLSys_EventSaver::executeEventLoop(unsigned int max_evnt) {
   //Loop over all TTree's.
   for(itr = m_treeVec->begin(); itr != m_treeVec->end(); ++itr) {
 
-    if (m_doNominal) if (*itr != "nominal") continue;
   /*
     if(m_nominal){
       if(*itr != "nominal") continue;

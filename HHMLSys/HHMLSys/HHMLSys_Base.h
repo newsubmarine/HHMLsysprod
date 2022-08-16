@@ -88,7 +88,6 @@ class HHMLSys_Base: public asg::AsgMessaging {
   Int_t m_dsid = 0;
 
   //SR's flags (to be set to true/false in the config file)
-  bool m_doNominal = false;
   bool m_isData = false;
   std::string m_treeNames = "";
   //std::vector<std::string> m_inputTrees;

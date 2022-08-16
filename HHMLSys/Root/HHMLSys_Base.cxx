@@ -29,7 +29,6 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
     ATH_MSG_INFO("Reading config file " << configFile);
   }
 
-  Config(m_doNominal , "nominal_only"   , rEnv);
   Config(m_isData , "isData"   , rEnv);
   Config(m_treeNames,    "treeNames", rEnv);
 
