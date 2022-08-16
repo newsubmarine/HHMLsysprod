@@ -65,6 +65,9 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   void CRFakeTauSFSelection();
   void SR1l2TauSelection();
   void SR2l2TauSelection();
+  //CR's
+  void CRSS1l2TauSelection();
+  void CRSS2l2TauSelection();
 
   //
   //Booleans of each SR
@@ -79,6 +82,10 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   bool isCRFakeTauSF{false};
   bool is1Lep2Tau{false};
   bool is2Lep2Tau{false};
+
+  //Booleans of each CR
+  bool is1Lep2TauCRSS{false};
+  bool is2Lep2TauCRSS{false};
 
   //
   //Def. of each CRs and samples for 3 Lepton
@@ -134,6 +141,10 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   Double_t tauSF_fakeTau_numerator_up_2l1tau = 1.;
   Double_t tauSF_fakeTau_numerator_dn_2l1tau = 1.;
 
+  //CR's
+  Double_t weight_1l2tauCRSS = -99999;
+  Double_t weight_2l2tauCRSS = -99999;
+
   //
   //Compute new variables
   //
@@ -151,6 +162,9 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   Float_t BDTOutput_2l1tau;
   Float_t BDTOutput_1l2tau;
   Float_t BDTOutput_2l2tau;
+  
+  Float_t BDTOutput_1l2tauCRSS;
+  Float_t BDTOutput_2l2tauCRSS;
 
   //
   // Helper Functions

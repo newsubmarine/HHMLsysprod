@@ -152,11 +152,17 @@ void HHMLSys_EventSaver::FillTree(TTree* outTree) {
 
   //1l+2tau selection
   if(m_do_1l2tauSR) SR1l2TauSelection();
-  
+  if(m_do_1l2tauCR) CRSS1l2TauSelection();
+
   //2l+2tau selection
   if(m_do_2l2tauSR) SR2l2TauSelection();
-  
-  if( is2Lep_SR or is2Lep_CR or is3Lep or is4Lep or is4Lepbb or is2Lep1Tau or isCRFakeTauSF or is1Lep2Tau or is2Lep2Tau ) outTree->Fill();
+  if(m_do_2l2tauCR) CRSS2l2TauSelection();
+
+  if( is2Lep_SR or is2Lep_CR or is3Lep or is4Lep or is4Lepbb or is2Lep1Tau or isCRFakeTauSF or is1Lep2Tau or is2Lep2Tau or is1Lep2TauCRSS or is2Lep2TauCRSS ) {
+    if(is1Lep2TauCRSS) BDTOutput_1l2tau = BDTOutput_1l2tauCRSS;
+    if(is2Lep2TauCRSS) BDTOutput_2l2tau = BDTOutput_2l2tauCRSS;
+    outTree->Fill();
+  }
 }
 
 //-----------------------------------------------------------------------
@@ -206,10 +212,13 @@ double HHMLSys_EventSaver::getMCweight(const string& channel) {
     //event_weight *= ntup.lep_SF_El_Reco_AT_0 * ntup.lep_SF_El_Reco_AT_1 *ntup.lep_SF_El_ID_LooseLH_AT_0 * ntup.lep_SF_El_ID_LooseLH_AT_1*ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_0 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_1 * ntup.lep_SF_Mu_TTVA_AT_0 * ntup.lep_SF_Mu_TTVA_AT_1 *ntup.lep_SF_Mu_ID_Medium_AT_0 *ntup.lep_SF_Mu_ID_Medium_AT_1 * (abs(ntup.lep_ID_0) == 11 ? ntup.lep_SF_El_PLVLoose_0: ntup.lep_SF_Mu_PLVLoose_0) * (abs(ntup.lep_ID_1) == 11 ? ntup.lep_SF_El_PLVLoose_1: ntup.lep_SF_Mu_PLVLoose_1);
   }
   else if(channel == "1l2tau") {
-    event_weight *= ntup.lepSFObjLoose * ntup.custTrigSF_LooseID_FCLooseIso_SLT * ntup.tauSFRNNMedium_TAU_SF_NOMINAL;
+    event_weight *= ( (abs(ntup.lep_ID_0) == 11) ? (ntup.lep_SF_El_Reco_AT_0 * ntup.lep_SF_El_ID_LooseAndBLayerLH_AT_0 * ntup.lep_SF_El_PLVLoose_0 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_0) : (ntup.lep_SF_Mu_TTVA_AT_0 * ntup.lep_SF_Mu_ID_Loose_AT_0 * ntup.lep_SF_Mu_PLVLoose_0) );
+    event_weight *= ntup.custTrigSF_LooseID_FCLooseIso_SLT * ntup.tauSFRNNMedium_TAU_SF_NOMINAL;
   }
   else if(channel == "2l2tau") {
-    event_weight *= ntup.lepSFObjLoose * ntup.custTrigSF_LooseID_FCLooseIso_SLTorDLT * ntup.tauSFRNNMedium_TAU_SF_NOMINAL;
+    event_weight *= ( (abs(ntup.lep_ID_0) == 11) ? (ntup.lep_SF_El_Reco_AT_0 * ntup.lep_SF_El_ID_LooseAndBLayerLH_AT_0 * ntup.lep_SF_El_PLVLoose_0 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_0) : (ntup.lep_SF_Mu_TTVA_AT_0 * ntup.lep_SF_Mu_ID_Loose_AT_0 * ntup.lep_SF_Mu_PLVLoose_0) );
+    event_weight *= ( (abs(ntup.lep_ID_1) == 11) ? (ntup.lep_SF_El_Reco_AT_1 * ntup.lep_SF_El_ID_LooseAndBLayerLH_AT_1 * ntup.lep_SF_El_PLVLoose_1 * ntup.lep_SF_El_ChargeMisID_LooseAndBLayerLH_FCLoose_AT_1) : (ntup.lep_SF_Mu_TTVA_AT_1 * ntup.lep_SF_Mu_ID_Loose_AT_1 * ntup.lep_SF_Mu_PLVLoose_1) );
+    event_weight *= ntup.custTrigSF_LooseID_FCLooseIso_SLTorDLT * ntup.tauSFRNNMedium_TAU_SF_NOMINAL;
   }
 
   //Divided by total weighted events (normalization)

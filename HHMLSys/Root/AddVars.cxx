@@ -45,6 +45,7 @@ void HHMLSys_EventSaver::AddVars() {
   ntup.Mtau0tau1      = -999.;
   ntup.Mlep0tau0      = -999.;
   ntup.Mlep0tau1      = -999.;
+  ntup.Mlep1tau0      = -999.;
   ntup.MLep0Jet       = -999.;
   ntup.Mlep1tau0tau1  = -999.;
   ntup.DRtau0tau1     = 99.;
@@ -56,8 +57,10 @@ void HHMLSys_EventSaver::AddVars() {
   ntup.minDR_LJ_0     = 99.;
   ntup.minDR_LJ_1     = 99.;
   ntup.SumPttau0tau1  = -999.;
+  ntup.SumPtLep0Jet   = -999.;
   ntup.MaxEtalep01    = -999;
   ntup.DEtalep01      = -999;
+  ntup.Mlep0tau0tau1  = -999.;
 
   //2lSS+1tau
   ntup.DRlep0lep1               = 99.;
@@ -330,7 +333,9 @@ void HHMLSys_EventSaver::AddVars() {
   //
   ntup.Mlep0tau0 = (leps[0] + taus[0]).M();
   ntup.Mlep0tau1 = (leps[0] + taus[1]).M();
+  ntup.Mlep1tau0 = (leps[1] + taus[0]).M();
   ntup.Mtau0tau1 = (taus[0] + taus[1]).M();
+  ntup.Mlep0tau0tau1 = (leps[0] + taus[0] + taus[1]).M();
   ntup.Mlep1tau0tau1 = (leps[1] + taus[0] + taus[1]).M();
   
   ntup.Mlep0Lj  = (TLV_Leps[0] + TLV_Jets[0]).M(); //2l1tau
@@ -447,7 +452,8 @@ void HHMLSys_EventSaver::AddVars() {
   jet = TLorentzVector();
   if(index_l0j != -1) {
     jet.SetPtEtaPhiE(ntup.jet_pt->at(index_l0j), ntup.jet_eta->at(index_l0j), ntup.jet_phi->at(index_l0j), ntup.jet_e->at(index_l0j));
-    ntup.MLep0Jet = (leps[0] + jet).M(); //2l //1l+2tau
+    ntup.MLep0Jet     = (leps[0] + jet).M(); //2l //1l+2tau
+    ntup.SumPtLep0Jet = (leps[0] + jet).Pt();
   }
   jet = TLorentzVector();
   if(index_l1j != -1) {

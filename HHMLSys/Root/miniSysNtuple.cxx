@@ -31,7 +31,11 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("weight_1l2tau", &weight_1l2tau);
   outTree->Branch("weight_2l2tau", &weight_2l2tau);
 
-  //Booleans of each singal regions
+  //CR's
+  outTree->Branch("weight_1l2tauCRSS", &weight_1l2tauCRSS);
+  outTree->Branch("weight_2l2tauCRSS", &weight_2l2tauCRSS);
+
+  //Booleans of each signal regions
   outTree->Branch("is2Lep_SR"  , &is2Lep_SR);
   outTree->Branch("is2Lep_CR"  , &is2Lep_CR);
   outTree->Branch("is3Lep"     , &is3Lep);
@@ -42,10 +46,13 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("is1Lep2Tau" , &is1Lep2Tau);
   outTree->Branch("is2Lep2Tau" , &is2Lep2Tau);
 
-  //CRs of 3l
+  //CRs
   outTree->Branch("SR3Lep"     , &SR3Lep);
   outTree->Branch("CR3Lep"     , &CR3Lep);
-  outTree->Branch("Sample3Lep"     , &Sample3Lep);
+  outTree->Branch("Sample3Lep" , &Sample3Lep);
+
+  outTree->Branch("is1Lep2TauCRSS" , &is1Lep2TauCRSS);
+  outTree->Branch("is2Lep2TauCRSS" , &is2Lep2TauCRSS);
 
   //BDT outputs of each channel
   outTree->Branch("BDTOutput_2l"       , &BDTOutput_2l);
@@ -93,13 +100,12 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("tau_truthJetFlavour_0", &ntup.tau_truthJetFlavour_0);
 
 
-
-
   //BDT input variables + some kinematic vars.
   outTree->Branch("MAll"           , &ntup.MAll);
   outTree->Branch("MetAll"         , &ntup.MetAll);
   outTree->Branch("Mlep0tau0"      , &ntup.Mlep0tau0);
   outTree->Branch("Mlep0tau1"      , &ntup.Mlep0tau1);
+  outTree->Branch("Mlep1tau0"      , &ntup.Mlep1tau0);
   outTree->Branch("MLep0Jet"       , &ntup.MLep0Jet);
   outTree->Branch("MLep1Jet"       , &ntup.MLep1Jet);
   outTree->Branch("MLep0MET"       , &ntup.MLep0MET);
@@ -109,6 +115,7 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("Mlep1Lj"        , &ntup.Mlep1Lj);
   outTree->Branch("Mlep0SLj"       , &ntup.Mlep0SLj);
   outTree->Branch("Mlep01LjSLj"    , &ntup.Mlep01LjSLj);
+  outTree->Branch("Mlep0tau0tau1"  , &ntup.Mlep0tau0tau1);
   outTree->Branch("Mlep1tau0tau1"  , &ntup.Mlep1tau0tau1);
   outTree->Branch("Mlep0lep1"      , &ntup.Mlep0lep1);
   outTree->Branch("Mlep0lep2"      , &ntup.Mlep0lep2);
@@ -135,6 +142,7 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("farDRlep0Jet"   , &ntup.farDRlep0Jet);
   outTree->Branch("minDRLepTau0"   , &ntup.minDRLepTau0);
   outTree->Branch("SumPttau0tau1"  , &ntup.SumPttau0tau1); 
+  outTree->Branch("SumPtLep0Jet"   , &ntup.SumPtLep0Jet);
   outTree->Branch("MaxEtalep01"    , &ntup.MaxEtalep01);
   outTree->Branch("DEtalep01"      , &ntup.DEtalep01);
   outTree->Branch("AbsDEtalep01"   , &ntup.AbsDEtalep01);

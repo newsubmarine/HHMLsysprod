@@ -130,7 +130,8 @@ class HHMLSys_Base: public asg::AsgMessaging {
   //2l+2tau
   bool m_do_2l2tauSR  = false;
   bool m_do_2l2tauMVA = false;
-  std::string m_2l2tau_BDTGxmlFile  = "";
+  std::string m_2l2tau_BDTGOddxmlFile  = "";
+  std::string m_2l2tau_BDTGEvenxmlFile = "";
 
   //Flags for Control regions
   bool m_do_1l2tauCR = false;
