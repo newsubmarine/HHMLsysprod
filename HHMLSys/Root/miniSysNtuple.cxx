@@ -58,6 +58,13 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("BDTOutput_1l2tau"   , &BDTOutput_1l2tau);
   outTree->Branch("BDTOutput_2l2tau"   , &BDTOutput_2l2tau);
 
+  // analysis scale factors
+  outTree->Branch("tauSF_fakeTau_nom_2l1tau", &tauSF_fakeTau_nom_2l1tau);
+  outTree->Branch("tauSF_fakeTau_compostion_up_2l1tau", &tauSF_fakeTau_compostion_up_2l1tau);
+  outTree->Branch("tauSF_fakeTau_compostion_dn_2l1tau", &tauSF_fakeTau_compostion_dn_2l1tau);
+  outTree->Branch("tauSF_fakeTau_numerator_up_2l1tau", &tauSF_fakeTau_numerator_up_2l1tau);
+  outTree->Branch("tauSF_fakeTau_numerator_dn_2l1tau", &tauSF_fakeTau_numerator_dn_2l1tau);
+
   outTree->Branch("lep_truthOrigin_0"       , &ntup.lep_truthOrigin_0);
   outTree->Branch("lep_truthParentOrigin_0" , &ntup.lep_truthParentOrigin_0);
   outTree->Branch("lep_truthParentPdgId_0"  , &ntup.lep_truthParentPdgId_0);

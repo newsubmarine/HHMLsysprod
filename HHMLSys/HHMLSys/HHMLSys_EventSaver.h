@@ -127,6 +127,13 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   Double_t weight_1l2tau = -99999;
   Double_t weight_2l2tau = -99999;
 
+  // analysis scale factors
+  Double_t tauSF_fakeTau_nom_2l1tau = 1.;
+  Double_t tauSF_fakeTau_compostion_up_2l1tau = 1.;
+  Double_t tauSF_fakeTau_compostion_dn_2l1tau = 1.;
+  Double_t tauSF_fakeTau_numerator_up_2l1tau = 1.;
+  Double_t tauSF_fakeTau_numerator_dn_2l1tau = 1.;
+
   //
   //Compute new variables
   //
