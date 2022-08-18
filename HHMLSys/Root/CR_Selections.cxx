@@ -76,6 +76,18 @@ void HHMLSys_EventSaver::CRFakeTauSFSelection() {
   isCRFakeTauSF = true;
 
   if(!m_isData) weight_2lLL1tau = getMCweight("2l1tau");
+  if(!m_isData && m_do_2l1tauFakeTauSF){
+    tauSF_fakeTau_nom_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "nom");
+    tauSF_fakeTau_compostion_up_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "compostion_up");
+    tauSF_fakeTau_compostion_dn_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "compostion_dn");
+    tauSF_fakeTau_numerator_up_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "numerator_up");
+    tauSF_fakeTau_numerator_dn_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "numerator_dn");
+    //if (!(ntup.tau_truthType_0 > 0 && ntup.tau_truthType_0<=12)){
+    //  std::cout<<"tau ntrk: "<<ntup.tau_numTrack_0<<std::endl;
+    //  std::cout<<"tau pt: "<<ntup.tau_pt_0<<std::endl;
+    //  std::cout<<"tau nom SF: "<<tauSF_fakeTau_nom_2l1tau<<std::endl;
+    //}
+  }
 }
 
 //1L/2L + 2Taus channels
