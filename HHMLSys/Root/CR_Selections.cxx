@@ -78,8 +78,8 @@ void HHMLSys_EventSaver::CRFakeTauSFSelection() {
   if(!m_isData) weight_2lLL1tau = getMCweight("2l1tau");
   if(!m_isData && m_do_2l1tauFakeTauSF){
     tauSF_fakeTau_nom_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "nom");
-    tauSF_fakeTau_compostion_up_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "compostion_up");
-    tauSF_fakeTau_compostion_dn_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "compostion_dn");
+    tauSF_fakeTau_compostion_up_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "composition_up");
+    tauSF_fakeTau_compostion_dn_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "composition_dn");
     tauSF_fakeTau_numerator_up_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "numerator_up");
     tauSF_fakeTau_numerator_dn_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "numerator_dn");
     //if (!(ntup.tau_truthType_0 > 0 && ntup.tau_truthType_0<=12)){
