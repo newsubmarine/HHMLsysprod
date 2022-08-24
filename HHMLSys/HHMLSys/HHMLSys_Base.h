@@ -115,6 +115,7 @@ class HHMLSys_Base: public asg::AsgMessaging {
 
   //2l+1tau
   bool m_do_2l1tauSR = false;
+  bool m_do_2l1tauCRWZ = false;
   bool m_do_fakeTauSFCR = false;
   bool m_do_2l1tauMVA = false;
   bool m_do_2l1tauFakeTauSF = false;

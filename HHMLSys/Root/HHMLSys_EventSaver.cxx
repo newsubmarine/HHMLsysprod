@@ -146,6 +146,7 @@ void HHMLSys_EventSaver::FillTree(TTree* outTree) {
 
   //2l+1tau selection
   if(m_do_2l1tauSR) SR2l1TauSelection();
+  if(m_do_2l1tauCRWZ) CRWZ2l1TauSelection();
 
   //fake tau SF CRselection
   if(m_do_fakeTauSFCR) CRFakeTauSFSelection();
@@ -158,7 +159,7 @@ void HHMLSys_EventSaver::FillTree(TTree* outTree) {
   if(m_do_2l2tauSR) SR2l2TauSelection();
   if(m_do_2l2tauCR) CRSS2l2TauSelection();
 
-  if( is2Lep_SR or is2Lep_CR or is3Lep or is4Lep or is4Lepbb or is2Lep1Tau or isCRFakeTauSF or is1Lep2Tau or is2Lep2Tau or is1Lep2TauCRSS or is2Lep2TauCRSS ) {
+  if( is2Lep_SR or is2Lep_CR or is3Lep or is4Lep or is4Lepbb or is2Lep1Tau or isCRWZ2Lep1Tau or isCRFakeTauSF or is1Lep2Tau or is2Lep2Tau or is1Lep2TauCRSS or is2Lep2TauCRSS ) {
     if(is1Lep2TauCRSS) BDTOutput_1l2tau = BDTOutput_1l2tauCRSS;
     if(is2Lep2TauCRSS) BDTOutput_2l2tau = BDTOutput_2l2tauCRSS;
     outTree->Fill();

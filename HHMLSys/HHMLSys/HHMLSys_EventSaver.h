@@ -62,6 +62,7 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
 
   //Tau channles: 2l+1tau, 1l+2tau, 2l+2tau
   void SR2l1TauSelection();
+  void CRWZ2l1TauSelection();
   void CRFakeTauSFSelection();
   void SR1l2TauSelection();
   void SR2l2TauSelection();
@@ -79,6 +80,7 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   bool is4Lep{false};
   bool is4Lepbb{false};
   bool is2Lep1Tau{false};
+  bool isCRWZ2Lep1Tau{false};
   bool isCRFakeTauSF{false};
   bool is1Lep2Tau{false};
   bool is2Lep2Tau{false};

@@ -61,6 +61,7 @@ StatusCode HHMLSys_Base::initialize(const TString& configFile, const std::string
 
   //2l+1tau
   Config(m_do_2l1tauSR,  "do_2l1tauSR" , rEnv);
+  Config(m_do_2l1tauCRWZ,  "do_2l1tauCRWZ" , rEnv);
   Config(m_do_fakeTauSFCR,  "do_fakeTauSFCR" , rEnv);
   Config(m_do_2l1tauMVA, "do_2l1tauMVA", rEnv);
   Config(m_do_2l1tauFakeTauSF,  "do_2l1tauFakeTauSF" , rEnv);
