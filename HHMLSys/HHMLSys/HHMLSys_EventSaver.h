@@ -132,6 +132,7 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   Double_t weight_4l     = -99999;
   Double_t weight_4lbb   = -99999;
   Double_t weight_2l1tau = -99999;
+  Double_t weight_2l1tauCRWZ = -99999;
   Double_t weight_2lLL1tau = -99999;
   Double_t weight_1l2tau = -99999;
   Double_t weight_2l2tau = -99999;
@@ -162,6 +163,7 @@ class HHMLSys_EventSaver: public HHMLSys_Base {
   Float_t BDTOutput_3l;
   Float_t BDTOutput_4lbb;
   Float_t BDTOutput_2l1tau;
+  Float_t BDTOutput_2l1tauCRWZ;
   Float_t BDTOutput_1l2tau;
   Float_t BDTOutput_2l2tau;
   

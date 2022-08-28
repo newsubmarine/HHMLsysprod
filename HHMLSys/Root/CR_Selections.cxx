@@ -54,11 +54,11 @@ void HHMLSys_EventSaver::CR2lSelection() {
 //---------------------------------------------------------------------
 void HHMLSys_EventSaver::CRWZ2l1TauSelection() {
 
-  weight_2l1tau = 1.0;
+  weight_2l1tauCRWZ = 1.0;
 
   isCRWZ2Lep1Tau = false;
 
-  BDTOutput_2l1tau = -99;
+  BDTOutput_2l1tauCRWZ = -99;
 
   if( !ntup.dilep_type ) return;
   if( !(ntup.GlobalTrigDecision > 0) ) return;
@@ -76,9 +76,9 @@ void HHMLSys_EventSaver::CRWZ2l1TauSelection() {
 
   isCRWZ2Lep1Tau = true;
 
-  if(!m_isData) weight_2l1tau = getMCweight("2l1tau");
+  if(!m_isData) weight_2l1tauCRWZ = getMCweight("2l1tau");
 
-  if(m_do_2l1tauMVA) BDTOutput_2l1tau = mva.EvaluateMVA_2l1tau(ntup);
+  if(m_do_2l1tauMVA) BDTOutput_2l1tauCRWZ = mva.EvaluateMVA_2l1tau(ntup);
 }
 
 // 2l1tau fake tau scale factor CR
