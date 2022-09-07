@@ -50,6 +50,77 @@ void HHMLSys_EventSaver::CR2lSelection() {
   if(m_do_2lMVA) mva.EvaluateMVA_2l(ntup, BDTOutput_2l, BDTOutput_2l_VV, BDTOutput_2l_tt, BDTOutput_2l_Vjets);
 }
 
+// 2l1tau WZ CR
+//---------------------------------------------------------------------
+void HHMLSys_EventSaver::CRWZ2l1TauSelection() {
+
+  weight_2l1tauCRWZ = 1.0;
+
+  isCRWZ2Lep1Tau = false;
+
+  BDTOutput_2l1tauCRWZ = -99;
+
+  if( !ntup.dilep_type ) return;
+  if( !(ntup.GlobalTrigDecision > 0) ) return;
+  if( !Tight2LepCuts("2l1tau") ) return;
+  if( !LepTrigMatch("SLTorDLT_Tight") ) return;
+  if( !DiLepPtCuts(20, 20) ) return;
+  if( !isSSPair() ) return;
+  if( !(ntup.nTaus_OR_Pt25_RNN == 1) ) return;
+  if( !OneTauCuts("Med") ) return;
+  if( !isTauOSToLep() ) return;
+  if( !OneTauPtCut(25) ) return;
+  //if( !ZVeto("2lep") ) return;
+  if( JetCut(2) ) return;
+  if( !BJetVeto() ) return;
+
+  isCRWZ2Lep1Tau = true;
+
+  if(!m_isData) weight_2l1tauCRWZ = getMCweight("2l1tau");
+
+  if(m_do_2l1tauMVA) BDTOutput_2l1tauCRWZ = mva.EvaluateMVA_2l1tau(ntup);
+}
+
+// 2l1tau fake tau scale factor CR
+//---------------------------------------------------------------------
+void HHMLSys_EventSaver::CRFakeTauSFSelection() {
+
+  weight_2lLL1tau = 1.0;
+
+  isCRFakeTauSF = false;
+
+  if( !ntup.dilep_type ) return;
+  if( !(ntup.GlobalTrigDecision > 0) ) return;
+  if( !Tight2LepCuts("2l1tau") ) return;
+  if( !LepTrigMatch("SLTorDLT_Tight") ) return;
+  if( !DiLepPtCuts(20, 20) ) return;
+  if( !isOSPair() ) return;
+  if( !(ntup.nTaus_OR_Pt25_RNN == 1) ) return;
+  if( !OneTauCuts("Med") ) return;
+//  if( !isTauOSToLep() ) return;
+  if( !OneTauPtCut(25) ) return;
+  //if( !ZVeto("2lep") ) return;
+  if( !JetCut(2) ) return;
+//  if( !BJetVeto() ) return;
+  if( !Mll01SFCut(12) ) return;
+
+  isCRFakeTauSF = true;
+
+  if(!m_isData) weight_2lLL1tau = getMCweight("2l1tau");
+  if(!m_isData && m_do_2l1tauFakeTauSF){
+    tauSF_fakeTau_nom_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "nom");
+    tauSF_fakeTau_compostion_up_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "composition_up");
+    tauSF_fakeTau_compostion_dn_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "composition_dn");
+    tauSF_fakeTau_numerator_up_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "numerator_up");
+    tauSF_fakeTau_numerator_dn_2l1tau = sfcalc.ApplyFakeTauSF_2l1tau(ntup, "numerator_dn");
+    //if (!(ntup.tau_truthType_0 > 0 && ntup.tau_truthType_0<=12)){
+    //  std::cout<<"tau ntrk: "<<ntup.tau_numTrack_0<<std::endl;
+    //  std::cout<<"tau pt: "<<ntup.tau_pt_0<<std::endl;
+    //  std::cout<<"tau nom SF: "<<tauSF_fakeTau_nom_2l1tau<<std::endl;
+    //}
+  }
+}
+
 //1L/2L + 2Taus channels
 //---------------------------------------------------------------------------------
 void HHMLSys_EventSaver::CRSS1l2TauSelection() {

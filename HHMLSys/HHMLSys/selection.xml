@@ -6,6 +6,7 @@
   <class name="HHMLSys_Base" />
   <class name="HHMLSys_Ntuple" />
   <class name="HHMLSys_MVA" />
+  <class name="ScaleFactors" />
   <class name="HHMLSys_EventSaver" />
    
 </lcgdict>

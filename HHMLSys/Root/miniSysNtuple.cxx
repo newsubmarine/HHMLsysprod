@@ -27,6 +27,8 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("weight_4l"    , &weight_4l);
   outTree->Branch("weight_4lbb"  , &weight_4lbb);
   outTree->Branch("weight_2l1tau", &weight_2l1tau);
+  outTree->Branch("weight_2l1tauCRWZ", &weight_2l1tauCRWZ);
+  outTree->Branch("weight_2lLL1tau", &weight_2lLL1tau);
   outTree->Branch("weight_1l2tau", &weight_1l2tau);
   outTree->Branch("weight_2l2tau", &weight_2l2tau);
 
@@ -41,6 +43,8 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("is4Lep"     , &is4Lep);
   outTree->Branch("is4Lepbb"   , &is4Lepbb);
   outTree->Branch("is2Lep1Tau" , &is2Lep1Tau);
+  outTree->Branch("isCRWZ2Lep1Tau" , &isCRWZ2Lep1Tau);
+  outTree->Branch("isCRFakeTauSF" , &isCRFakeTauSF);
   outTree->Branch("is1Lep2Tau" , &is1Lep2Tau);
   outTree->Branch("is2Lep2Tau" , &is2Lep2Tau);
 
@@ -60,9 +64,17 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("BDTOutput_3l"       , &BDTOutput_3l);
   outTree->Branch("BDTOutput_4lbb"     , &BDTOutput_4lbb);
   outTree->Branch("BDTOutput_2l1tau"   , &BDTOutput_2l1tau);
+  outTree->Branch("BDTOutput_2l1tauCRWZ"   , &BDTOutput_2l1tauCRWZ);
   outTree->Branch("BDTOutput_1l2tau"   , &BDTOutput_1l2tau);
   outTree->Branch("BDTOutput_2l2tau"   , &BDTOutput_2l2tau);
- 
+
+  // analysis scale factors
+  outTree->Branch("tauSF_fakeTau_nom_2l1tau", &tauSF_fakeTau_nom_2l1tau);
+  outTree->Branch("tauSF_fakeTau_compostion_up_2l1tau", &tauSF_fakeTau_compostion_up_2l1tau);
+  outTree->Branch("tauSF_fakeTau_compostion_dn_2l1tau", &tauSF_fakeTau_compostion_dn_2l1tau);
+  outTree->Branch("tauSF_fakeTau_numerator_up_2l1tau", &tauSF_fakeTau_numerator_up_2l1tau);
+  outTree->Branch("tauSF_fakeTau_numerator_dn_2l1tau", &tauSF_fakeTau_numerator_dn_2l1tau);
+
   outTree->Branch("lep_truthOrigin_0"       , &ntup.lep_truthOrigin_0);
   outTree->Branch("lep_truthParentOrigin_0" , &ntup.lep_truthParentOrigin_0);
   outTree->Branch("lep_truthParentPdgId_0"  , &ntup.lep_truthParentPdgId_0);
@@ -86,6 +98,9 @@ void HHMLSys_EventSaver::SetOutTree(TTree* outTree, bool setNom) {
   outTree->Branch("lep_Mtrktrk_atPV_CO_1"   , &ntup.lep_Mtrktrk_atPV_CO_1);
   outTree->Branch("lep_RadiusCO_1"          , &ntup.lep_RadiusCO_1);
   outTree->Branch("lep_RadiusCO_1"          , &ntup.lep_RadiusCO_1);
+  outTree->Branch("tau_truthOrigin_0", &ntup.tau_truthOrigin_0);
+  outTree->Branch("tau_truthType_0", &ntup.tau_truthType_0);
+  outTree->Branch("tau_truthJetFlavour_0", &ntup.tau_truthJetFlavour_0);
 
 
   //BDT input variables + some kinematic vars.

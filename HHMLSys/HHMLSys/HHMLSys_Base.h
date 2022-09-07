@@ -38,6 +38,7 @@
 //Local include(s)
 #include "HHMLSys/HHMLSys_Ntuple.h"
 #include "HHMLSys/HHMLSys_MVA.h"
+#include "HHMLSys/ScaleFactors.h"
 
 class HHMLSys_Base: public asg::AsgMessaging {
   
@@ -60,6 +61,9 @@ class HHMLSys_Base: public asg::AsgMessaging {
 
   //HHMLSys_MVA class
   HHMLSys_MVA mva;
+
+  //ScaleFactors class
+  ScaleFactors sfcalc;
 
  protected:
   
@@ -111,8 +115,12 @@ class HHMLSys_Base: public asg::AsgMessaging {
 
   //2l+1tau
   bool m_do_2l1tauSR = false;
+  bool m_do_2l1tauCRWZ = false;
+  bool m_do_fakeTauSFCR = false;
   bool m_do_2l1tauMVA = false;
+  bool m_do_2l1tauFakeTauSF = false;
   std::string m_2l1tau_BDTGxmlFile = "";
+  std::string m_2l1tau_fakeTauSFFile = "";
 
   //1l+2tau
   bool m_do_1l2tauSR  = false;
